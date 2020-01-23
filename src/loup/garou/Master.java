@@ -39,6 +39,7 @@ public class Master {
 
         Integer j = 0;
         Long nbLoup_Garou = Math.round(0.3333333333333333 * nbJoueur);
+        System.out.println(nbLoup_Garou);
         for (j = 0; j < nbLoup_Garou; j++) {
             int n = r.nextInt(tabJoueur.size());
             System.out.println(n);
