@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,11 +50,15 @@ public class Serveur implements Runnable {
         Thread envoie = new Thread(new Runnable() {
             public void run() {
                 while (true) {
+                    
                     try {
+                        Thread.sleep(100);
                         out.writeObject(obj);
                         out.flush();
                     } catch (IOException e) {
 
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
                     //msg = sc.nextLine();
