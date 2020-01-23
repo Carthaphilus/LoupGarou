@@ -3,9 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/Loup%20garou/src/loup/garou/Serveur.java</file>
-            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/Loup%20garou/src/loup/garou/AffichageIp.java</file>
-            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/Loup%20garou/src/loup/garou/chooseServer.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Client.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/ClientProcessor.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Trucable.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Joueur.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Master.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/chooseServer.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Accueil.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/ClientConnexion.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/FirstMain.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Serveur.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/Message.java</file>
+            <file>file:/C:/Users/jrobert.cda/Documents/NetBeansProjects/LoupGarou/src/loup/garou/AffichageIp.java</file>
         </group>
     </open-files>
 </project-private>

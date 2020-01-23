@@ -22,11 +22,9 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
      */
     public AffichageIp() {
         initComponents();
-        InetAddress ip = Serveur.getIp();
-        labelIp1.setText("IP :" + ip.getHostAddress());
         connexion = new Serveur(this);
         master = new Master();
-        connexion.run();
+        connexion.open();
         //connexion.Recevoir();
     }
 
@@ -187,5 +185,10 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         }
         System.out.print(txtNbJoueur);
         labelNbjoueur.setText(txtNbJoueur);
+    }
+
+    @Override
+    public String getinputName() {
+        return "";
     }
 }

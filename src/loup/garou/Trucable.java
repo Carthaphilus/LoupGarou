@@ -11,5 +11,5 @@ package loup.garou;
  */
 interface Trucable {
     void etat(Object m);
- 
+    String getinputName();
 }
