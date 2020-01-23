@@ -85,7 +85,7 @@ public class Serveur implements Runnable {
                 try {
                     //tant que le client est connecté
                     Object obj = in.readObject();
-                    in.close();
+                    out.close();
                     callback.etat(obj);
 //                    clientSocket.close();
 //                    serveurSocket.close();

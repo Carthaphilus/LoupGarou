@@ -6,6 +6,7 @@
 package loup.garou;
 
 import java.net.InetAddress;
+import java.util.List;
 
 /**
  *
@@ -15,14 +16,14 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
     Master master;
-    
+
     /**
      * Creates new form Accueil
      */
     public AffichageIp() {
         initComponents();
         InetAddress ip = Serveur.getIp();
-        labelIp1.setText("IP :"+ip.getHostAddress());
+        labelIp1.setText("IP :" + ip.getHostAddress());
         connexion = new Serveur(this);
         master = new Master();
         connexion.run();
@@ -124,8 +125,11 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
-        if(master.getNbJoueur().equals(1)){
-            
+        if (master.getNbJoueur().equals(1)) {
+            master.initGame();
+            for (Joueur unJoueur : master.getTabJoueur()) {
+                System.out.println(unJoueur.getNom() + " " + unJoueur.getRole().getNom());
+            }
         }
     }//GEN-LAST:event_bt_StartActionPerformed
 
@@ -176,9 +180,9 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     @Override
     public void etat(Object unNom) {
         master.ajouterJoueur(unNom);
-        String txtNbJoueur = "Nombre de joueur :"+master.getNbJoueur()+", ";
-        for(Joueur unJoueur : master.getTabJoueur()){
-            txtNbJoueur += unJoueur.getNom()+", ";
+        String txtNbJoueur = "Nombre de joueur :" + master.getNbJoueur() + ", ";
+        for (Joueur unJoueur : master.getTabJoueur()) {
+            txtNbJoueur += unJoueur.getNom() + ", ";
             System.out.print(txtNbJoueur);
         }
         System.out.print(txtNbJoueur);
