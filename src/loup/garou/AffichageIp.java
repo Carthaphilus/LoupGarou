@@ -27,7 +27,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         connexion = new Serveur(this);
         master = new Master();
         connexion.run();
-        connexion.Recevoir();
+        //connexion.Recevoir();
     }
 
     /**

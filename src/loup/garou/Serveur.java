@@ -108,6 +108,7 @@ public class Serveur implements Runnable {
             clientSocket = serveurSocket.accept();
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
+            Recevoir();
             Envoie(message);
         } catch (Exception e) {
             e.printStackTrace();
