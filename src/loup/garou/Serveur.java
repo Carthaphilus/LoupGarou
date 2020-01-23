@@ -49,22 +49,15 @@ public class Serveur implements Runnable {
     public void Envoie(Object obj) {
         Thread envoie = new Thread(new Runnable() {
             public void run() {
-                while (true) {
                     
                     try {
-                        Thread.sleep(100);
                         out.writeObject(obj);
                         out.flush();
                     } catch (IOException e) {
-
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                     //msg = sc.nextLine();
                     //out.println(msg);
                     //out.flush();
-                }
             }
         });
         envoie.start();
@@ -91,7 +84,7 @@ public class Serveur implements Runnable {
                 try {
                     //tant que le client est connecté
                     Object obj = in.readObject();
-                    in.close();
+                    //in.close();
                     callback.etat(obj);
 //                    clientSocket.close();
 //                    serveurSocket.close();
