@@ -41,6 +41,7 @@ public class Master {
         Long nbLoup_Garou = Math.round(0.3333333333333333 * nbJoueur);
         for (j = 0; j < nbLoup_Garou; j++) {
             int n = r.nextInt(tabJoueur.size());
+            System.out.println(n);
             Loup_Garou unLoup = new Loup_Garou();
             tabJoueur.get(n).setRole(unLoup);
             roleAttribuer.add(tabJoueur.get(n));
