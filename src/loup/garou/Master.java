@@ -19,10 +19,16 @@ public class Master {
     private Integer nbJoueur;
     private Integer tour;
 
+    public Master() {
+        this.nbJoueur = 0;
+        this.tour=0;
+    }
+
     public void ajouterJoueur(Object unNom) {
         Joueur Joueur = new Joueur();
         Joueur.setNom((String) unNom);
         tabJoueur.add(Joueur);
+        this.nbJoueur++;
 
     }
 

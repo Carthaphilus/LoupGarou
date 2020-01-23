@@ -15,14 +15,12 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
     Master master;
-    Integer nbJoueur;
     
     /**
      * Creates new form Accueil
      */
     public AffichageIp() {
         initComponents();
-        nbJoueur = 0;
         InetAddress ip = Serveur.getIp();
         labelIp1.setText("IP :"+ip.getHostAddress());
         connexion = new Serveur(this);
@@ -66,6 +64,11 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         labelNbjoueur.setText("0");
 
         bt_Start.setText("Start");
+        bt_Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_StartActionPerformed(evt);
+            }
+        });
 
         labelIp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelIp1.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,6 +121,12 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
+        if(master.getNbJoueur().equals(1)){
+            
+        }
+    }//GEN-LAST:event_bt_StartActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,7 +174,10 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     @Override
     public void etat(Object unNom) {
         master.ajouterJoueur(unNom);
-        nbJoueur++;
-        labelNbjoueur.setText(""+nbJoueur);
+        String txtNbJoueur = "Nombre de joueur :"+master.getNbJoueur()+"/n";
+        for(Joueur unJoueur : master.getTabJoueur()){
+            txtNbJoueur += unJoueur.getNom()+"/n";
+        }
+        labelNbjoueur.setText(txtNbJoueur);
     }
 }
