@@ -102,7 +102,6 @@ public class MasterGame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 
         JPanelContainer.setBackground(new java.awt.Color(227, 203, 143));
-        JPanelContainer.setMaximumSize(new java.awt.Dimension(32767, 32767));
         JPanelContainer.setLayout(new java.awt.CardLayout());
 
         jButton1.setText("Etape suivantes");
