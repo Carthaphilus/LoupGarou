@@ -48,6 +48,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         setTitle("Loup Garou");
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 
@@ -131,6 +132,9 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
                 System.out.println(unJoueur.getNom() + " " + unJoueur.getRole().getNom());
             }
             labelIp1.setText("La partie peut commencer");
+            this.setVisible(false);
+            MasterGame FrameMaster = new MasterGame();
+            FrameMaster.setVisible(true);
         }
         labelIp1.setText("Trois joueur minimum nécessaire");
     }//GEN-LAST:event_bt_StartActionPerformed
