@@ -27,10 +27,12 @@ public class MasterGame extends javax.swing.JFrame {
     Integer action;
     ListJoueur listeJoueur;
 
-    public MasterGame() {
+    public MasterGame(Master master) {
         initComponents();
         
-        listeJoueur = new ListJoueur();
+        List<Joueur> Joueurs = master.getTabJoueur();
+        
+        listeJoueur = new ListJoueur(Joueurs);
 
         IconFontSwing.register(FontAwesome.getIconFont());
         Icon iconUser = IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.BLACK);
@@ -100,7 +102,6 @@ public class MasterGame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(300, 600));
-        setPreferredSize(new java.awt.Dimension(500, 531));
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 
@@ -245,11 +246,11 @@ public class MasterGame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MasterGame().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new MasterGame().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -13,11 +13,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author fullc
  */
-public class ListJoueurClass extends AbstractTableModel {
+public class TabJoueurClass extends AbstractTableModel {
 
     private List<Joueur> tabJoueur = new ArrayList<Joueur>();
-    String[] col = new String[]{"Nom", "Role", "Statut"};
+    String[] col = new String[]{"Nom du joueur", "Role", "Statut"};
 
+    public TabJoueurClass
+        (List Joueurs){
+        tabJoueur = Joueurs;
+    }
+    
     @Override
     public int getRowCount() {
         return tabJoueur.size();
@@ -27,6 +32,11 @@ public class ListJoueurClass extends AbstractTableModel {
     public int getColumnCount() {
         return col.length;
     }
+    
+    @Override
+    public String getColumnName(int columnIndex) {
+        return col[columnIndex];
+    }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -34,7 +44,7 @@ public class ListJoueurClass extends AbstractTableModel {
             case 0:
                 return tabJoueur.get(rowIndex).getNom();
             case 1:
-                return tabJoueur.get(rowIndex).getRole();
+                return tabJoueur.get(rowIndex).getRole().getNom();
             case 2:
                 return "statut";
             default:
