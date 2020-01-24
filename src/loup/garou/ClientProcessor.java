@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,7 +60,7 @@ public class ClientProcessor implements Runnable{
                   toSend = "Communication terminée"; 
                   closeConnexion = true;
                   break;
-               default : 
+               case "DEFAULT" : 
                   toSend = "Commande inconnu !";                     
                   break;
             }
@@ -75,8 +74,8 @@ public class ClientProcessor implements Runnable{
             
             if(closeConnexion){
                System.err.println("COMMANDE CLOSE DETECTEE ! ");
-               out = null;
-               in = null;
+               out.close();
+               in.close();
                sock.close();
                break;
             }

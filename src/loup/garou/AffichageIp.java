@@ -181,9 +181,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         String txtNbJoueur = "Nombre de joueur :" + master.getNbJoueur() + ", ";
         for (Joueur unJoueur : master.getTabJoueur()) {
             txtNbJoueur += unJoueur.getNom() + ", ";
-            System.out.print(txtNbJoueur);
         }
-        System.out.print(txtNbJoueur);
         labelNbjoueur.setText(txtNbJoueur);
     }
 

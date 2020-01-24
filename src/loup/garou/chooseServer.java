@@ -52,7 +52,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         jLabel1.setToolTipText("");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        ipServeur.setText("10.1.14.26");
+        ipServeur.setText("127.0.0.1");
 
         jButton1.setText("Connexion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,11 +118,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        for (int i = 0; i < 5; i++) {
-            Thread ti = new Thread(new ClientConnexion("10.1.14.26", 6000, this));
-            ti.start();
-            ti.run();
-        }
+            ClientConnexion connexion = new ClientConnexion(ipServeur.getText(), 6000, this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

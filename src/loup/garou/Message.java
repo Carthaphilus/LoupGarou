@@ -37,6 +37,13 @@ public class Message implements Serializable{
     public void setContent(Object content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" + "etape=" + etape + ", content=" + (String)content + '}';
+    }
+    
+    
     
     
     

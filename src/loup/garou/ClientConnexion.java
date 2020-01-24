@@ -10,26 +10,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClientConnexion implements Runnable {
 
+    private Thread t;
     private Socket connexion = null;
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
     private Trucable callback = null;
 
     //Notre liste de commandes. Le serveur nous répondra différemment selon la commande utilisée.
-    private String[] listCommands = {"NAME"};
+    private String[] listCommands = {"NAME", "DEFAULT"};
     private static int count = 0;
-    private static Integer firstMessage = 1;
+    private Integer firstMessage;
     private String name = "Client-";
 
     public ClientConnexion(String host, int port, Trucable callback) {
         name += ++count;
+        this.firstMessage = 1;
         this.callback = callback;
         try {
             connexion = new Socket(host, port);
@@ -38,6 +38,8 @@ public class ClientConnexion implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        t = new Thread(this);
+        t.start();
     }
 
     public void run() {
@@ -53,17 +55,18 @@ public class ClientConnexion implements Runnable {
 
                 out = new ObjectOutputStream(connexion.getOutputStream());
                 in = new ObjectInputStream(connexion.getInputStream());
+                
                 //On envoie la commande au serveur
-
                 Message commande = getCommand();
-                out.writeObject(commande);
-                //TOUJOURS UTILISER flush() POUR ENVOYER RÉELLEMENT DES INFOS AU SERVEUR
-                out.flush();
-
-                System.out.println("Commande " + commande + " envoyée au serveur");
+                if (commande != null) {
+                    out.writeObject(commande);
+                    //TOUJOURS UTILISER flush() POUR ENVOYER RÉELLEMENT DES INFOS AU SERVEUR
+                    out.flush();
+                    System.out.println(this.name + ": commande " + commande + " envoyée au serveur");
+                }
 
                 //On attend la réponse
-                String response = (String)in.readObject();
+                String response = (String) in.readObject();
                 System.out.println("\t * " + name + " : Réponse reçue " + response);
 
             } catch (IOException e1) {
@@ -91,12 +94,18 @@ public class ClientConnexion implements Runnable {
     //Méthode qui permet d'envoyer des commandeS de façon aléatoire
     private Message getCommand() {
         Message msg = new Message();
-        if(firstMessage.equals(1)){
+        if (this.firstMessage.equals(1)) {
             msg.setEtape(listCommands[0]);
             msg.setContent(callback.getinputName());
-            this.firstMessage=0;
+            this.firstMessage = 0;
+            return msg;
         }
+        msg = null;
         return msg;
+    }
+
+    public static void newClientConnexion(String host, int port, Trucable callback) {
+        ClientConnexion connexion = new ClientConnexion(host, port, callback);
     }
 
     //Méthode pour lire les réponses du serveur
