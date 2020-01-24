@@ -133,7 +133,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
             }
             labelIp1.setText("La partie peut commencer");
             this.setVisible(false);
-            MasterGame FrameMaster = new MasterGame();
+            MasterGame FrameMaster = new MasterGame(master);
             FrameMaster.setVisible(true);
         }
         labelIp1.setText("Trois joueur minimum nécessaire");
