@@ -42,6 +42,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         setTitle("Loup Garou");
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 

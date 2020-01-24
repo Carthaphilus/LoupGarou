@@ -25,9 +25,12 @@ public class MasterGame extends javax.swing.JFrame {
      */
     List<JPanel> arrayJpanel;
     Integer action;
+    ListJoueur listeJoueur;
 
     public MasterGame() {
         initComponents();
+        
+        listeJoueur = new ListJoueur();
 
         IconFontSwing.register(FontAwesome.getIconFont());
         Icon iconUser = IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.BLACK);
@@ -204,7 +207,11 @@ public class MasterGame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
-        
+        if(listeJoueur.isVisible() == true){
+            listeJoueur.setVisible(false);
+        }else{
+            listeJoueur.setVisible(true);
+        }
     }//GEN-LAST:event_btListUserActionPerformed
 
     /**
