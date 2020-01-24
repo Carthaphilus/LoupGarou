@@ -22,6 +22,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
      */
     public AffichageIp() {
         initComponents();
+        labelIp1.setText("En attente de joueur");
         connexion = new Serveur(this);
         master = new Master();
         connexion.open();
@@ -71,6 +72,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
 
         labelIp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelIp1.setForeground(new java.awt.Color(255, 255, 255));
+        labelIp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelIp1.setText("IP");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -123,12 +125,14 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
-        if (master.getNbJoueur()>=2) {
+        if (master.getNbJoueur()>=3) {
             master.initGame();
             for (Joueur unJoueur : master.getTabJoueur()) {
                 System.out.println(unJoueur.getNom() + " " + unJoueur.getRole().getNom());
             }
+            labelIp1.setText("La partie peut commencer");
         }
+        labelIp1.setText("Trois joueur minimum nécessaire");
     }//GEN-LAST:event_bt_StartActionPerformed
 
     /**

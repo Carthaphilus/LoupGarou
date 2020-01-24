@@ -28,8 +28,8 @@ public class ClientConnexion implements Runnable {
     private String name = "Client-";
 
     public ClientConnexion(String host, int port, Trucable callback) {
-        count++;
-        name += count;
+        count = count +1;
+        this.name = this.name+count;
         this.firstMessage = 1;
         this.callback = callback;
         try {
