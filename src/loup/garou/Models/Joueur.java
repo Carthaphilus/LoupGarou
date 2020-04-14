@@ -1,4 +1,4 @@
-package loup.garou;
+package loup.garou.Models;
 
 public class Joueur {
 

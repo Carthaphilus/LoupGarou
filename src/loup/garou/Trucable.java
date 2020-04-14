@@ -9,7 +9,7 @@ package loup.garou;
  *
  * @author FullCodex
  */
-interface Trucable {
+public interface Trucable {
     void etat(Object m);
     String getinputName();
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loup.garou;
+package loup.garou.Vues;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -13,6 +13,8 @@ import javax.swing.Icon;
 import javax.swing.JPanel;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
+import loup.garou.Models.Joueur;
+import loup.garou.Models.Master;
 
 /**
  *
@@ -102,7 +104,6 @@ public class MasterGame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(300, 600));
-        setPreferredSize(new java.awt.Dimension(500, 600));
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 

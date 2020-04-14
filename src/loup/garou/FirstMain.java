@@ -1,5 +1,10 @@
 package loup.garou;
 
+import loup.garou.Models.Voyante;
+import loup.garou.Models.Sorciere;
+import loup.garou.Models.Joueur;
+import loup.garou.Models.Villageois;
+import loup.garou.Models.Loup_Garou;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

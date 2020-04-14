@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loup.garou;
+package loup.garou.Vues;
 
 import java.net.InetAddress;
 import java.util.List;
+import loup.garou.Models.Joueur;
+import loup.garou.Models.TabJoueurClass;
  
 /**
  *

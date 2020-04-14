@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loup.garou;
+package loup.garou.Vues;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
+import loup.garou.Models.Joueur;
 
 /**
  *
@@ -161,7 +162,7 @@ public class VoteJoueur extends javax.swing.JFrame {
                 int i = 0;
                 for (i = 0; i < 4; i++) {
                     Joueur unJoueur = new Joueur();
-                    unJoueur.setNom("Bob");
+                    unJoueur.setNom("Bob"+i);
                     tabJoueur.add(unJoueur);
                 }
 
