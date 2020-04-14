@@ -14,91 +14,101 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import loup.garou.Trucable;
 
-public class ClientProcessor implements Runnable{
+public class ClientProcessor implements Runnable {
 
-   private Socket sock;
-   private ObjectOutputStream out = null;
-   private ObjectInputStream in = null;
-   private Trucable callback;
-   
-   public ClientProcessor(Socket pSock, Trucable callback){
-      sock = pSock;
-      this.callback=callback;
-   }
-   
-   //Le traitement lancé dans un thread séparé
-   public void run(){
-      System.err.println("Lancement du traitement de la connexion cliente");
+    private Socket sock;
+    private ObjectOutputStream out = null;
+    private ObjectInputStream in = null;
+    private Trucable callback;
 
-      boolean closeConnexion = false;
-      //tant que la connexion est active, on traite les demandes
-      while(!sock.isClosed()){
-         
-         try {
-            
-            //Ici, nous n'utilisons pas les mêmes objets que précédemment
-            //Je vous expliquerai pourquoi ensuite
-            out = new ObjectOutputStream(sock.getOutputStream());
-            in = new ObjectInputStream(sock.getInputStream());
-            
-            //On attend la demande du client            
-            Message response = (Message)in.readObject();
-            //On traite la demande du client en fonction de la commande envoyée
-            String toSend = "";
-            
-            switch(response.getEtape()){
-               case "NAME":
-                  callback.etat(response.getContent());
-                  toSend = "OK";
-                  break;
-               case "DATE":
-                  toSend = "";
-                  break;
-               case "HOUR":
-                  toSend = "";
-                  break;
-               case "CLOSE":
-                  toSend = "Communication terminée"; 
-                  closeConnexion = true;
-                  break;
-               case "DEFAULT" : 
-                  toSend = "Commande inconnu !";                     
-                  break;
+    public ClientProcessor(Socket pSock, Trucable callback) {
+        sock = pSock;
+        this.callback = callback;
+    }
+
+    //Le traitement lancé dans un thread séparé
+    public void run() {
+        System.err.println("Lancement du traitement de la connexion cliente");
+
+        boolean closeConnexion = false;
+        //tant que la connexion est active, on traite les demandes
+        while (!sock.isClosed()) {
+
+            try {
+
+                //Ici, nous n'utilisons pas les mêmes objets que précédemment
+                //Je vous expliquerai pourquoi ensuite
+                out = new ObjectOutputStream(sock.getOutputStream());
+                in = new ObjectInputStream(sock.getInputStream());
+
+                //On attend la demande du client            
+                Message response = (Message) in.readObject();
+                //On traite la demande du client en fonction de la commande envoyée
+                String toSend = "";
+
+                switch (response.getEtape()) {
+                    case "NAME":
+                        Serveur.setClientInList((String) response.getContent(), this);
+                        callback.etat(response.getContent());
+                        toSend = "OK";
+                        break;
+                    case "DATE":
+                        toSend = "";
+                        break;
+                    case "HOUR":
+                        toSend = "";
+                        break;
+                    case "CLOSE":
+                        toSend = "Communication terminée";
+                        closeConnexion = true;
+                        break;
+                    case "DEFAULT":
+                        toSend = "Commande inconnu !";
+                        break;
+                }
+
+                //On envoie la réponse au client
+                write(toSend);
+                //Il FAUT IMPERATIVEMENT UTILISER flush()
+                //Sinon les données ne seront pas transmises au client
+                //et il attendra indéfiniment
+                
+
+                if (closeConnexion) {
+                    System.err.println("COMMANDE CLOSE DETECTEE ! ");
+                    out.close();
+                    in.close();
+                    sock.close();
+                    break;
+                }
+            } catch (SocketException e) {
+                System.err.println("LA CONNEXION A ETE INTERROMPUE ! ");
+                break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClientProcessor.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            //On envoie la réponse au client
-            out.writeObject(toSend);
-            //Il FAUT IMPERATIVEMENT UTILISER flush()
-            //Sinon les données ne seront pas transmises au client
-            //et il attendra indéfiniment
+        }
+    }
+
+    public void write(Object obj) {
+        try {
+            out.writeObject(obj);
             out.flush();
-            
-            if(closeConnexion){
-               System.err.println("COMMANDE CLOSE DETECTEE ! ");
-               out.close();
-               in.close();
-               sock.close();
-               break;
-            }
-         }catch(SocketException e){
-            System.err.println("LA CONNEXION A ETE INTERROMPUE ! ");
-            break;
-         } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-         } catch (ClassNotFoundException ex) {         
-              Logger.getLogger(ClientProcessor.class.getName()).log(Level.SEVERE, null, ex);
-          }         
-      }
-   }
-   
-   //La méthode que nous utilisons pour lire les réponses
-   private String read() throws IOException{      
-      String response = "";
-      int stream;
-      byte[] b = new byte[4096];
-      stream = in.read(b);
-      response = new String(b, 0, stream);
-      return response;
-   }
-   
+        }
+    }
+
+    //La méthode que nous utilisons pour lire les réponses
+    private String read() throws IOException {
+        String response = "";
+        int stream;
+        byte[] b = new byte[4096];
+        stream = in.read(b);
+        response = new String(b, 0, stream);
+        return response;
+    }
+
 }
