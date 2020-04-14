@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package loup.garou;
+package loup.garou.Vues;
 
 import java.io.IOException;
+import loup.garou.Models.ClientConnexion;
+import loup.garou.Models.Serveur;
+import loup.garou.Trucable;
 
 /**
  *
