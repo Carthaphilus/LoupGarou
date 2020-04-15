@@ -17,7 +17,7 @@ import loup.garou.Trucable;
 public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
-    
+
     /**
      * Creates new form Accueil
      */
@@ -122,7 +122,10 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            ClientConnexion connexion = new ClientConnexion(ipServeur.getText(), 6000, this);
+        Message FrameMessage = new Message("Connecter");
+        FrameMessage.setVisible(true);
+        this.removeAll();
+        ClientConnexion connexion = new ClientConnexion(ipServeur.getText(), 6000, this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -174,8 +177,8 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         jLabel2.setText((String) Message);
         System.out.println((String) Message);
     }
-    
-    public String getinputName(){
+
+    public String getinputName() {
         String msg = inputName.getText();
         return msg;
     }
