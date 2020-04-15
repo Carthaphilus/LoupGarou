@@ -38,8 +38,8 @@ public class MasterGame extends javax.swing.JFrame {
 
         IconFontSwing.register(FontAwesome.getIconFont());
         Icon iconUser = IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.BLACK);
-        
         btListUser.setIcon(iconUser);
+        
         arrayJpanel = new ArrayList();
         action = 0;
 
@@ -199,7 +199,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         switch (action) {
             case 1:
-                System.out.println("Vous etes sur la vue de la voyante");
+//                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
                 action = 0;

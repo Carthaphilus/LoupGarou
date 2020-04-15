@@ -6,6 +6,7 @@
 package loup.garou.Vues;
 
 import javax.swing.ImageIcon;
+import loup.garou.Models.Joueur;
 
 /**
  *
@@ -15,14 +16,15 @@ public class Client extends javax.swing.JFrame {
 
     /**
      * Creates new form Accueil
+     * @param unJoueur
      */
-    public Client() {
+    public Client(Joueur unJoueur) {
         initComponents();
         ImageIcon image = new ImageIcon("icon/loup.png");
         image.setImage(image.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
         jLabel2.setIcon(image);
         
-        jLabel3.setText("Description");
+        jLabel3.setText("Description :" + unJoueur.getRole().getDescription());
     }
 
     /**
@@ -127,11 +129,11 @@ public class Client extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Client().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Client().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

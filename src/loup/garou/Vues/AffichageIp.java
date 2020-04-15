@@ -132,9 +132,6 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
         if (master.getNbJoueur()>=3) {
             master.initGame();
-            for (Joueur unJoueur : master.getTabJoueur()) {
-                System.out.println(unJoueur.getNom() + " " + unJoueur.getRole().getNom());
-            }
             labelIp1.setText("La partie peut commencer");
             this.setVisible(false);
             MasterGame FrameMaster = new MasterGame(master);
