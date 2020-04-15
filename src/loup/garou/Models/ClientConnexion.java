@@ -69,9 +69,14 @@ public class ClientConnexion implements Runnable {
                 }
 
                 //On attend la réponse
-                Object response = (Object) in.readObject();
-                Message.response=response;
-                //System.out.println("\t * " + name + " : Réponse reçue " + response);
+                Message response = (Message) in.readObject();
+                if("String".equals(response.getEtape())){
+                    System.out.println("\t * " + name + " : Réponse reçue " + (String)response.getContent());
+                } else if ("Joueur".equals(response.getEtape())){
+                    Joueur unJoueur = (Joueur)response.getContent(); 
+                    System.out.println("\t * " + name + " : Réponse reçue " + unJoueur.toString());
+                }
+                
                 
                 
 
@@ -109,6 +114,8 @@ public class ClientConnexion implements Runnable {
         msg = null;
         return msg;
     }
+    
+    
 
     /*public static void newClientConnexion(String host, int port, Trucable callback) {
         ClientConnexion connexion = new ClientConnexion(host, port, callback);

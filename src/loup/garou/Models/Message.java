@@ -15,7 +15,6 @@ public class Message implements Serializable{
     
     private String etape;
     private Object content;
-    public static Object response;
 
     public Message() {;
     }

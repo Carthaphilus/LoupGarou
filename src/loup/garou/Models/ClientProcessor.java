@@ -20,6 +20,7 @@ public class ClientProcessor implements Runnable {
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
     private Trucable callback;
+    private String name;
 
     public ClientProcessor(Socket pSock, Trucable callback) {
         sock = pSock;
@@ -48,7 +49,8 @@ public class ClientProcessor implements Runnable {
 
                 switch (response.getEtape()) {
                     case "NAME":
-                        Serveur.setClientInList((String) response.getContent(), this);
+                        name = (String) response.getContent();
+                        Serveur.setClientInList(this);
                         callback.etat(response.getContent());
                         toSend = "OK";
                         break;
@@ -66,9 +68,11 @@ public class ClientProcessor implements Runnable {
                         toSend = "Commande inconnu !";
                         break;
                 }
-
+                Message unMsg = new Message();
+                unMsg.setEtape("String");
+                unMsg.setContent(toSend);
                 //On envoie la réponse au client
-                write(toSend);
+                write(unMsg);
                 //Il FAUT IMPERATIVEMENT UTILISER flush()
                 //Sinon les données ne seront pas transmises au client
                 //et il attendra indéfiniment
@@ -111,4 +115,7 @@ public class ClientProcessor implements Runnable {
         return response;
     }
 
+    public String getName() {
+        return name;
+    }
 }
