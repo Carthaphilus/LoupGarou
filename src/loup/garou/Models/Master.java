@@ -48,29 +48,22 @@ public class Master {
             tabJoueur.remove(n);
         }
 
-//        boolean nextStep = false;
             Sorciere uneSorciere = new Sorciere();
-//        while (nextStep == false) {
             int n = r.nextInt(tabJoueur.size());
             if (tabJoueur.get(n).getRole() instanceof Villageois) {
                 tabJoueur.get(n).setRole(uneSorciere);
                 roleAttribuer.add(tabJoueur.get(n));
                 tabJoueur.remove(n);
-//                nextStep = true;
             }
-//        }
 
-//        nextStep = false;
+
             Voyante uneVoyante = new Voyante();
-//        while (nextStep == false) {
             n = r.nextInt(tabJoueur.size());
             if (tabJoueur.get(n).getRole() instanceof Villageois) {
                 tabJoueur.get(n).setRole(uneVoyante);
                 roleAttribuer.add(tabJoueur.get(n));
                 tabJoueur.remove(n);
-//                nextStep = true;
             }
-//        }
         
         for (Joueur unJoueur : tabJoueur) {
             roleAttribuer.add(unJoueur);

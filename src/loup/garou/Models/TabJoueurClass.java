@@ -46,7 +46,7 @@ public class TabJoueurClass extends AbstractTableModel {
             case 1:
                 return tabJoueur.get(rowIndex).getRole().getNom();
             case 2:
-                if(tabJoueur.get(rowIndex).getTourMort() == null){
+                if(tabJoueur.get(rowIndex).getTourMort() == 0){
                     return "En vie";
                 }else{
                     return "Mort";
