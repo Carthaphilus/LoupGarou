@@ -7,6 +7,7 @@ package loup.garou.Vues;
 
 import java.io.IOException;
 import loup.garou.Models.ClientConnexion;
+import loup.garou.Models.Joueur;
 import loup.garou.Models.Serveur;
 import loup.garou.Trucable;
 
@@ -17,6 +18,7 @@ import loup.garou.Trucable;
 public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
+    public Joueur Joueur;
 
     /**
      * Creates new form Accueil
@@ -182,4 +184,5 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         String msg = inputName.getText();
         return msg;
     }
+    
 }
