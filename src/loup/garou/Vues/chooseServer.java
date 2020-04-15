@@ -8,6 +8,7 @@ package loup.garou.Vues;
 import java.io.IOException;
 import loup.garou.Models.ClientConnexion;
 import loup.garou.Models.Joueur;
+import loup.garou.Models.Role;
 import loup.garou.Models.Serveur;
 import loup.garou.Trucable;
 
@@ -189,7 +190,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     @Override
     public void setJoueur(Joueur unJoueur) {
         Joueur = unJoueur;
-        System.out.println(Joueur.getRole().getClass());
+        System.out.println("getClass : " + Joueur.getRole().getDescription());
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
