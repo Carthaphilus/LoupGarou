@@ -189,7 +189,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     @Override
     public void setJoueur(Joueur unJoueur) {
         Joueur = unJoueur;
-//        System.out.println(Joueur.getRole().getDescription());
+        System.out.println(Joueur.getRole().getClass());
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
