@@ -19,11 +19,13 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
     private Joueur Joueur;
+    private Message FrameMessage;
 
     /**
      * Creates new form Accueil
      */
     public chooseServer() {
+        Joueur = null;
         initComponents();
     }
 
@@ -124,7 +126,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Message FrameMessage = new Message("Connecter");
+        FrameMessage = new Message("Connecter");
         FrameMessage.setVisible(true);
         this.removeAll();
         ClientConnexion connexion = new ClientConnexion(inputName.getText(),ipServeur.getText(), 6000, this);
@@ -188,6 +190,13 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     @Override
     public void setJoueur(Joueur unJoueur) {
         Joueur = unJoueur;
+        System.out.println(Joueur.toString());
+        this.dispose();
+        //this.setVisible(false);
+        //FrameMessage.setVisible(false);
+        FrameMessage.dispose();
+        Client FrameClient = new Client();
+        FrameClient.setVisible(true);
     }
     
 }
