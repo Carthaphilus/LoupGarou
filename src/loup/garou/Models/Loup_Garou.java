@@ -1,6 +1,8 @@
 package loup.garou.Models;
 
-public class Loup_Garou extends Role {
+import java.io.Serializable;
+
+public class Loup_Garou extends Role implements Serializable{
 
     public Loup_Garou() {
         this.nom = "Loup-Garou";

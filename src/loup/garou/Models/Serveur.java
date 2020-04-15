@@ -10,9 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import loup.garou.Trucable;
 
 /**
@@ -25,11 +24,11 @@ public class Serveur {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Trucable callback;
-    private static Map<String, ClientProcessor> ListClient;
+    private static List<ClientProcessor> ListClient;
     private boolean isRunning = true;
 
     public Serveur(Trucable machin) {
-        ListClient = new LinkedHashMap<>();
+        ListClient = new ArrayList();
         this.callback = machin;
         try {
             server = new ServerSocket(6000);
@@ -86,21 +85,31 @@ public class Serveur {
         isRunning = false;
     }
     
-    public static void setClientInList(String name, ClientProcessor unClient){
-        ListClient.put(name, unClient);
+    public static void setClientInList(ClientProcessor unClient){
+        ListClient.add(unClient);
     }
     
     public static void sendMessageToAllClient(String msg){
-        String clef = null;
-        ClientProcessor Client = null;
-        Iterator i = ListClient.keySet().iterator();
-        while (i.hasNext())
-        {
-            clef = (String)i.next();
-            Client = (ClientProcessor)ListClient.get(clef);
-            Client.write(msg);
-        }
+        
+        ListClient.forEach((unClient) -> {
+            unClient.write(msg);
+        });
 
+    }
+    
+    public static void sendRoleToAllClient(List<Joueur> lesJoueurs){
+        for(Joueur unJoueur:lesJoueurs){
+            System.out.println("Joueur : " + unJoueur.getNom());
+            for(ClientProcessor unClient:ListClient){
+                System.out.println("Client : " + unClient.getName());
+                if(unJoueur.getNom().equals(unClient.getName())){
+                    Message unMsg = new Message();
+                    unMsg.setEtape("Joueur");
+                    unMsg.setContent(unJoueur);
+                    unClient.write(unMsg);
+                }
+            }
+        }
     }
 }
 

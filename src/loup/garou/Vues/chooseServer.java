@@ -125,7 +125,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         Message FrameMessage = new Message("Connecter");
         FrameMessage.setVisible(true);
         this.removeAll();
-        ClientConnexion connexion = new ClientConnexion(ipServeur.getText(), 6000, this);
+        ClientConnexion connexion = new ClientConnexion(inputName.getText(),ipServeur.getText(), 6000, this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

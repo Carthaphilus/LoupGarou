@@ -1,6 +1,8 @@
 package loup.garou.Models;
 
-public class Joueur {
+import java.io.Serializable;
+
+public class Joueur implements Serializable{
 
     private String nom;
     private Role role;
@@ -32,5 +34,10 @@ public class Joueur {
 
     public void setTourMort(int unTour) {
         this.tourMort = unTour;
+    }
+
+    @Override
+    public String toString() {
+        return "Joueur{" + "nom=" + nom + '}';
     }
 }
