@@ -18,7 +18,7 @@ import loup.garou.Trucable;
 public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
-    public Joueur Joueur;
+    private Joueur Joueur;
 
     /**
      * Creates new form Accueil
@@ -183,6 +183,11 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     public String getinputName() {
         String msg = inputName.getText();
         return msg;
+    }
+
+    @Override
+    public void setJoueur(Joueur unJoueur) {
+        Joueur = unJoueur;
     }
     
 }

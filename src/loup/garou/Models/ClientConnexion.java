@@ -13,6 +13,7 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import loup.garou.Trucable;
+import loup.garou.Vues.chooseServer;
 
 public class ClientConnexion implements Runnable {
 
@@ -73,7 +74,8 @@ public class ClientConnexion implements Runnable {
                 if("String".equals(response.getEtape())){
                     System.out.println("\t * " + name + " : Réponse reçue " + (String)response.getContent());
                 } else if ("Joueur".equals(response.getEtape())){
-                    Joueur unJoueur = (Joueur)response.getContent(); 
+                    Joueur unJoueur = (Joueur)response.getContent();
+                    callback.setJoueur(unJoueur);
                     System.out.println("\t * " + name + " : Réponse reçue " + unJoueur.toString());
                 }
                 

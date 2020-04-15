@@ -202,4 +202,9 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     public String getinputName() {
         return "";
     }
+
+    @Override
+    public void setJoueur(Joueur unJoueur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
