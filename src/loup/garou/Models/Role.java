@@ -1,6 +1,8 @@
 package loup.garou.Models;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable{
 
     protected String nom;
     protected String description;
