@@ -191,8 +191,6 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     public void setJoueur(Joueur unJoueur) {
         System.out.println("msg");
         Joueur = unJoueur;
-        System.out.println("getClass : " + Joueur.getRole().getClass());
-        System.out.println("getNom : " + Joueur.getRole().getNom());
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
