@@ -24,13 +24,14 @@ public class ClientConnexion implements Runnable {
 
     //Notre liste de commandes. Le serveur nous répondra différemment selon la commande utilisée.
     private String[] listCommands = {"NAME", "DEFAULT"};
-    private static int count = 0;
+    private static int count;
     private Integer firstMessage;
-    private String name = "Client-";
+    private String name;
 
-    public ClientConnexion(String host, int port, Trucable callback) {
-        count = count +1;
-        this.name = this.name+count;
+    public ClientConnexion(String name,String host, int port, Trucable callback) {
+        //ClientConnexion.count = ClientConnexion.count +1;
+        
+        this.name = name;
         this.firstMessage = 1;
         this.callback = callback;
         try {
@@ -68,8 +69,11 @@ public class ClientConnexion implements Runnable {
                 }
 
                 //On attend la réponse
-                String response = (String) in.readObject();
-                System.out.println("\t * " + name + " : Réponse reçue " + response);
+                Object response = (Object) in.readObject();
+                Message.response=response;
+                //System.out.println("\t * " + name + " : Réponse reçue " + response);
+                
+                
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -106,9 +110,9 @@ public class ClientConnexion implements Runnable {
         return msg;
     }
 
-    public static void newClientConnexion(String host, int port, Trucable callback) {
+    /*public static void newClientConnexion(String host, int port, Trucable callback) {
         ClientConnexion connexion = new ClientConnexion(host, port, callback);
-    }
+    }*/
 
     //Méthode pour lire les réponses du serveur
 //    private String read() throws IOException {

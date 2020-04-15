@@ -1,6 +1,8 @@
 package loup.garou.Models;
 
-public class Voyante extends Villageois {
+import java.io.Serializable;
+
+public class Voyante extends Villageois implements Serializable{
 
     public Voyante() {
         this.nom = "Voyante";

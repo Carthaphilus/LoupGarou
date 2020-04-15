@@ -12,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import loup.garou.Trucable;
 
@@ -97,10 +98,30 @@ public class Serveur {
         while (i.hasNext())
         {
             clef = (String)i.next();
+            System.out.println("Clef : "+clef);
             Client = (ClientProcessor)ListClient.get(clef);
             Client.write(msg);
         }
 
+    }
+    
+    public static void sendRoleToAllClient(List<Joueur> lesJoueurs){
+        String clef = null;
+        ClientProcessor Client = null;
+        Iterator i = ListClient.keySet().iterator();
+        for(Joueur unJoueur:lesJoueurs){
+            while (i.hasNext())
+            {
+                clef = (String)i.next();
+                System.out.println("Clef : "+clef);
+                if(unJoueur.getNom().equals(clef)){
+                    Client = (ClientProcessor)ListClient.get(clef);
+                    //String role = unJoueur.getRole().getNom();
+                    //System.out.println(unJoueur.getNom()+" : "+role);
+                    Client.write(unJoueur);
+                }
+            }
+        }
     }
 }
 

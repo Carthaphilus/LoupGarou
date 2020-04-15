@@ -1,6 +1,8 @@
 package loup.garou.Models;
 
-public class Sorciere extends Villageois {
+import java.io.Serializable;
+
+public class Sorciere extends Villageois implements Serializable{
 
     private boolean potionVie;
     private boolean potionMort;
