@@ -16,14 +16,15 @@ import loup.garou.Models.TabJoueurClass;
  */
 public class ListJoueur extends javax.swing.JFrame {
 
+    TabJoueurClass tabjoueur;
+    
     /**
      * Creates new form Accueil
      * @param tabPersonne
      */
     public ListJoueur(List<Joueur> Joueurs) {
         initComponents();
-        
-        TabJoueurClass tabjoueur = new TabJoueurClass(Joueurs);
+        tabjoueur = new TabJoueurClass(Joueurs);
         tabAffichageJoueur.setModel(tabjoueur);
     }
 
@@ -69,6 +70,11 @@ public class ListJoueur extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabAffichageJoueur);
 
         jButton1.setText("Tuer le joueur selectionné");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +120,13 @@ public class ListJoueur extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int rowSelected = tabAffichageJoueur.getSelectedRow();
+        Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
+        selectedJoueur.setTourMort(ERROR);
+        System.out.print(selectedJoueur.getNom());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
