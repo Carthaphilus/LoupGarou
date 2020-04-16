@@ -8,8 +8,9 @@ package loup.garou.Vues;
 import java.net.InetAddress;
 import java.util.List;
 import loup.garou.Models.Joueur;
+import loup.garou.Models.Serveur;
 import loup.garou.Models.TabJoueurClass;
- 
+
 /**
  *
  * @author FullCodex
@@ -18,9 +19,10 @@ public class ListJoueur extends javax.swing.JFrame {
 
     TabJoueurClass tabjoueur;
     Integer tour;
-    
+
     /**
      * Creates new form Accueil
+     *
      * @param Joueurs
      * @param unTour
      */
@@ -31,8 +33,8 @@ public class ListJoueur extends javax.swing.JFrame {
         tabjoueur = new TabJoueurClass(Joueurs, entete);
         tabAffichageJoueur.setModel(tabjoueur);
     }
-    
-    public void setTourList(int addTour){
+
+    public void setTourList(int addTour) {
         tour = addTour;
     }
 
@@ -136,7 +138,6 @@ public class ListJoueur extends javax.swing.JFrame {
         selectedJoueur.setTourMort(tour);
         this.dispose();
         this.setVisible(true);
-//        tabAffichageJoueur.removeNotify();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

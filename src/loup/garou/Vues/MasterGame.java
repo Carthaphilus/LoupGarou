@@ -31,7 +31,7 @@ public class MasterGame extends javax.swing.JFrame {
     ListJoueur listeJoueur;
     static List<Joueur> listeVoteJoueur;
     Integer tour = 1;
-    Master Master;
+    static Master Master;
 
     public MasterGame(Master master) {
         initComponents();
@@ -58,6 +58,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel1 = new JpanelCustom();
         JPanel1.getJlabelTitle().setText("Que la voyante se reveille.");
+        JPanel1.getJlabelImage("Voyante");
         JPanel1.getJlabelDes().setText("La voyante vas designer une personnes afin de scruter sa carte");
         JPanel1.getJlabelFin().setText("Que la voyante s'endort");
 
@@ -66,6 +67,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel2 = new JpanelCustom();
         JPanel2.getJlabelTitle().setText("Que les loups se reveillent");
+        JPanel2.getJlabelImage("Loup-Garou");
         JPanel2.getJlabelDes().setText("Les loups vont determiner un joueur à éliminer ");
         JPanel2.getJlabelFin().setText("Que les loups s'endorment");
 
@@ -75,6 +77,7 @@ public class MasterGame extends javax.swing.JFrame {
         JpanelCustom JPanel3 = new JpanelCustom();
         JPanel3.getJlabelTitle().setText("Que la sorcière se reveille.");
         JPanel3.getJlabelComplement().setText("Vas t-elle user de la potion de guérison et/ou d'empoisonnement ?");
+        JPanel3.getJlabelImage("Sorciere");
         JPanel3.getJlabelDes().setText("La sorcière vas pouvoir sauver et/ou condamner un joueur");
         JPanel3.getJlabelFin().setText("Que la sorcière s'endort");
 
@@ -178,11 +181,11 @@ public class MasterGame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JPanelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(JPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,7 +210,7 @@ public class MasterGame extends javax.swing.JFrame {
 //                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
-                sendListJoueurToAllClient(Master.getTabJoueur());
+                sendListJoueurToAllClient(Master.getTabJoueurLive());
                 tour++;
                 listeJoueur.setTourList(tour);
                 action = 0;
@@ -255,11 +258,11 @@ public class MasterGame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new MasterGame(new Master()).setVisible(true);
-//            }
-//        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MasterGame(new Master()).setVisible(true);
+            }
+        });
     }
     
     public static void setVoteJoueur(Joueur unJoueur){
