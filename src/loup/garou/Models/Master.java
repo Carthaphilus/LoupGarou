@@ -5,6 +5,7 @@
  */
 package loup.garou.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +14,7 @@ import java.util.Random;
  *
  * @author FullCodex
  */
-public class Master {
+public class Master implements Serializable{
 
     private List<Joueur> tabJoueur = new ArrayList<>();
     private List<Joueur> tabJoueurMort = new ArrayList<>();

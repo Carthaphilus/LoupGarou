@@ -84,23 +84,25 @@ public class Serveur {
     public void close() {
         isRunning = false;
     }
-    
-    public static void setClientInList(ClientProcessor unClient){
+
+    public static void setClientInList(ClientProcessor unClient) {
         ListClient.add(unClient);
     }
-    
-    public static void sendMessageToAllClient(String msg){
+
+    public static void sendMessageToAllClient(String msg) {
+        Message unMsg = new Message();
+        unMsg.setEtape("String");
+        unMsg.setContent(msg);
         
         ListClient.forEach((unClient) -> {
-            unClient.write(msg);
+            unClient.write(unMsg);
         });
-
     }
-    
-    public static void sendRoleToAllClient(List<Joueur> lesJoueurs){
-        for(Joueur unJoueur:lesJoueurs){
-            for(ClientProcessor unClient:ListClient){
-                if(unJoueur.getNom().equals(unClient.getName())){
+
+    public static void sendRoleToAllClient(List<Joueur> lesJoueurs) {
+        for (Joueur unJoueur : lesJoueurs) {
+            for (ClientProcessor unClient : ListClient) {
+                if (unJoueur.getNom().equals(unClient.getName())) {
                     Message unMsg = new Message();
                     unMsg.setEtape("Joueur");
                     unMsg.setContent(unJoueur);
@@ -109,9 +111,18 @@ public class Serveur {
             }
         }
     }
+    
+    public static void sendListJoueurToAllClient(List<Joueur> lesJoueur) {
+        Message unMsg = new Message();
+        unMsg.setEtape("ListJoueur");
+        unMsg.setContent(lesJoueur);
+        
+        ListClient.forEach((unClient) -> {
+            unClient.write(unMsg);
+        });
+    }
+
 }
-
-
 
 //
 //public void Envoie(Object obj) {

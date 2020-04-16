@@ -5,6 +5,7 @@
  */
 package loup.garou;
 
+import java.util.List;
 import loup.garou.Models.Joueur;
 
 /**
@@ -15,4 +16,5 @@ public interface Trucable {
     void etat(Object m);
     String getinputName();
     void setJoueur(Joueur unJoueur);
+    void VoteJoueur(List<Joueur> ListeJoueur);
 }

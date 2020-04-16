@@ -10,10 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import loup.garou.Trucable;
-import loup.garou.Vues.chooseServer;
 
 public class ClientConnexion implements Runnable {
 
@@ -29,9 +29,9 @@ public class ClientConnexion implements Runnable {
     private Integer firstMessage;
     private String name;
 
-    public ClientConnexion(String name,String host, int port, Trucable callback) {
+    public ClientConnexion(String name, String host, int port, Trucable callback) {
         //ClientConnexion.count = ClientConnexion.count +1;
-        
+
         this.name = name;
         this.firstMessage = 1;
         this.callback = callback;
@@ -59,7 +59,7 @@ public class ClientConnexion implements Runnable {
 
                 out = new ObjectOutputStream(connexion.getOutputStream());
                 in = new ObjectInputStream(connexion.getInputStream());
-                
+
                 //On envoie la commande au serveur
                 Message commande = getCommand();
                 if (commande != null) {
@@ -71,16 +71,18 @@ public class ClientConnexion implements Runnable {
 
                 //On attend la réponse
                 Message response = (Message) in.readObject();
-                if("String".equals(response.getEtape())){
-                    System.out.println("\t * " + name + " : Réponse reçue " + (String)response.getContent());
-                } else if ("Joueur".equals(response.getEtape())){
-                    Joueur unJoueur = (Joueur)response.getContent();
+
+                if ("String".equals(response.getEtape())) {
+                    System.out.println("\t * " + name + " : Réponse reçue " + (String) response.getContent());
+                } else if ("Joueur".equals(response.getEtape())) {
+                    Joueur unJoueur = (Joueur) response.getContent();
                     callback.setJoueur(unJoueur);
                     System.out.println("\t * " + name + " : Réponse reçue " + unJoueur.toString());
+                } else if ("ListJoueur".equals(response.getEtape())){
+                    List<Joueur> listeJoueur = (List<Joueur>) response.getContent();
+                    callback.VoteJoueur(listeJoueur);
+                    System.out.println("\t * " + name + " : Réponse reçue la liste de joueur ");
                 }
-                
-                
-                
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -116,13 +118,10 @@ public class ClientConnexion implements Runnable {
         msg = null;
         return msg;
     }
-    
-    
 
     /*public static void newClientConnexion(String host, int port, Trucable callback) {
         ClientConnexion connexion = new ClientConnexion(host, port, callback);
     }*/
-
     //Méthode pour lire les réponses du serveur
 //    private String read() throws IOException {
 //        String response = "";
