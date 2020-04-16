@@ -6,6 +6,7 @@
 package loup.garou.Vues;
 
 import java.io.IOException;
+import java.util.List;
 import loup.garou.Models.ClientConnexion;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Role;
@@ -128,9 +129,9 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FrameMessage = new Message("Connecter");
-        FrameMessage.setVisible(true);
         this.removeAll();
         ClientConnexion connexion = new ClientConnexion(inputName.getText(),ipServeur.getText(), 6000, this);
+        FrameMessage.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -189,7 +190,6 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     @Override
     public void setJoueur(Joueur unJoueur) {
-        System.out.println("msg");
         Joueur = unJoueur;
         this.dispose();
         //this.setVisible(false);
@@ -197,6 +197,12 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         FrameMessage.dispose();
         Client FrameClient = new Client(Joueur);
         FrameClient.setVisible(true);
+    }
+
+    @Override
+    public void VoteJoueur(List<Joueur> ListeJoueur) {
+        VoteJoueur FrameVoteJoueur= new VoteJoueur(ListeJoueur);
+        FrameVoteJoueur.setVisible(true);
     }
     
 }

@@ -5,6 +5,10 @@
  */
 package loup.garou.Vues;
 
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author FullCodex
@@ -109,9 +113,13 @@ public class Accueil extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-        AffichageIp master = new AffichageIp();
-        master.setVisible(true);
+        try {
+            this.setVisible(false);
+            AffichageIp master = new AffichageIp();
+            master.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

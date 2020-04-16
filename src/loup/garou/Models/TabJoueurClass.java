@@ -16,11 +16,11 @@ import javax.swing.table.AbstractTableModel;
 public class TabJoueurClass extends AbstractTableModel{
 
     private List<Joueur> tabJoueur = new ArrayList<Joueur>();
-    String[] col = new String[]{"Nom du joueur", "Role", "Statut"};
+    String[] col;
 
-    public TabJoueurClass
-        (List Joueurs){
+    public TabJoueurClass(List Joueurs, String[] entete){
         tabJoueur = Joueurs;
+        col = entete;
     }
     
     @Override

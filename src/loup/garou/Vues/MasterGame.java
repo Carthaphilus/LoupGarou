@@ -15,6 +15,8 @@ import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
+import static loup.garou.Models.Serveur.sendListJoueurToAllClient;
+import static loup.garou.Models.Serveur.sendMessageToAllClient;
 
 /**
  *
@@ -29,10 +31,12 @@ public class MasterGame extends javax.swing.JFrame {
     Integer action;
     ListJoueur listeJoueur;
     Integer tour = 1;
+    Master Master;
 
     public MasterGame(Master master) {
         initComponents();
         
+        Master = master;
         List<Joueur> Joueurs = master.getTabJoueur();
         
         listeJoueur = new ListJoueur(Joueurs, tour);
@@ -54,24 +58,24 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel1 = new JpanelCustom();
         JPanel1.getJlabelTitle().setText("Que la voyante se reveille.");
-        JPanel1.getJlabelDes().setText("La voyante vas designe une personnes afin de scruter sa carte");
+        JPanel1.getJlabelDes().setText("La voyante vas designer une personnes afin de scruter sa carte");
         JPanel1.getJlabelFin().setText("Que la voyante s'endort");
 
         arrayJpanel.add(JPanel1);
         JPanelContainer.add(JPanel1);
 
         JpanelCustom JPanel2 = new JpanelCustom();
-        JPanel2.getJlabelTitle().setText("Que les loups se reveil");
-        JPanel2.getJlabelDes().setText("Les loups vont determiné un joueur a éliminé ");
+        JPanel2.getJlabelTitle().setText("Que les loups se reveillent");
+        JPanel2.getJlabelDes().setText("Les loups vont determiner un joueur à éliminer ");
         JPanel2.getJlabelFin().setText("Que les loups s'endorment");
 
         arrayJpanel.add(JPanel2);
         JPanelContainer.add(JPanel2);
 
         JpanelCustom JPanel3 = new JpanelCustom();
-        JPanel3.getJlabelTitle().setText("Que la sorcière se reveille,");
-        JPanel3.getJlabelComplement().setText("vas t-elle user de la potion de guérison et/ou d'empoisonnement ?");
-        JPanel3.getJlabelDes().setText("La sorcière vas pouvoir sauver et/ou condamné un joueur");
+        JPanel3.getJlabelTitle().setText("Que la sorcière se reveille.");
+        JPanel3.getJlabelComplement().setText("Vas t-elle user de la potion de guérison et/ou d'empoisonnement ?");
+        JPanel3.getJlabelDes().setText("La sorcière vas pouvoir sauver et/ou condamner un joueur");
         JPanel3.getJlabelFin().setText("Que la sorcière s'endort");
 
         arrayJpanel.add(JPanel3);
@@ -79,7 +83,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel4 = new JpanelCustom();
         JPanel4.getJlabelTitle().setText("Le village se reveil");
-        JPanel4.getJlabelDes().setText("Le village vas eliminé une personne");
+        JPanel4.getJlabelDes().setText("Le village vas eliminer une personne");
 
         arrayJpanel.add(JPanel4);
         JPanelContainer.add(JPanel4);
@@ -107,6 +111,7 @@ public class MasterGame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(496, 529));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 
@@ -195,7 +200,6 @@ public class MasterGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
         action++;
 
         switch (action) {
@@ -203,13 +207,13 @@ public class MasterGame extends javax.swing.JFrame {
 //                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
+                sendListJoueurToAllClient(Master.getTabJoueur());
                 tour++;
                 listeJoueur.setTourList(tour);
                 action = 0;
                 break;
         }
-
-
+        ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
