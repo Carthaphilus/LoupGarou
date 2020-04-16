@@ -8,6 +8,7 @@ package loup.garou.Vues;
 import java.io.IOException;
 import loup.garou.Models.ClientConnexion;
 import loup.garou.Models.Joueur;
+import loup.garou.Models.Role;
 import loup.garou.Models.Serveur;
 import loup.garou.Trucable;
 
@@ -179,7 +180,6 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     public void etat(Object Message) {
         jLabel2.setText((String) Message);
-        System.out.println((String) Message);
     }
 
     public String getinputName() {
@@ -189,13 +189,13 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     @Override
     public void setJoueur(Joueur unJoueur) {
+        System.out.println("msg");
         Joueur = unJoueur;
-        System.out.println(Joueur.toString());
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
         FrameMessage.dispose();
-        Client FrameClient = new Client();
+        Client FrameClient = new Client(Joueur);
         FrameClient.setVisible(true);
     }
     

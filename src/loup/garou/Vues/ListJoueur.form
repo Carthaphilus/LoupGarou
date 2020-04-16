@@ -124,6 +124,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Tuer le joueur selectionn&#xe9;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

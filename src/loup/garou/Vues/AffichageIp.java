@@ -44,9 +44,10 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        labelNbjoueur = new javax.swing.JLabel();
         bt_Start = new javax.swing.JButton();
         labelIp1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtArea_Infos = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loup Garou");
@@ -63,11 +64,6 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         jLabel1.setToolTipText("");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        labelNbjoueur.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelNbjoueur.setForeground(new java.awt.Color(255, 255, 255));
-        labelNbjoueur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelNbjoueur.setText("0");
-
         bt_Start.setText("Start");
         bt_Start.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +75,11 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         labelIp1.setForeground(new java.awt.Color(255, 255, 255));
         labelIp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelIp1.setText("IP");
+
+        txtArea_Infos.setEditable(false);
+        txtArea_Infos.setColumns(20);
+        txtArea_Infos.setRows(5);
+        jScrollPane1.setViewportView(txtArea_Infos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,14 +93,12 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
                         .addGap(26, 26, 26)
                         .addComponent(bt_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelIp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(labelIp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelNbjoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +108,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(labelIp1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelNbjoueur, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bt_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
@@ -132,9 +131,6 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
         if (master.getNbJoueur()>=3) {
             master.initGame();
-            for (Joueur unJoueur : master.getTabJoueur()) {
-                System.out.println(unJoueur.getNom() + " " + unJoueur.getRole().getNom());
-            }
             labelIp1.setText("La partie peut commencer");
             this.setVisible(false);
             MasterGame FrameMaster = new MasterGame(master);
@@ -184,18 +180,20 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     private javax.swing.JButton bt_Start;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelIp1;
-    private javax.swing.JLabel labelNbjoueur;
+    private javax.swing.JTextArea txtArea_Infos;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void etat(Object unNom) {
+        String newLine = System.getProperty("line.separator");
         master.ajouterJoueur(unNom);
-        String txtNbJoueur = "Nombre de joueur :" + master.getNbJoueur() + ", ";
+        String txtNbJoueur = "Nombre de joueur : " + master.getNbJoueur()+newLine;
         for (Joueur unJoueur : master.getTabJoueur()) {
-            txtNbJoueur += unJoueur.getNom() + ", ";
+            txtNbJoueur += "- " + unJoueur.getNom() + newLine;
         }
-        labelNbjoueur.setText(txtNbJoueur);
+        txtArea_Infos.setText(txtNbJoueur);
     }
 
     @Override

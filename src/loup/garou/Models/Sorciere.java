@@ -8,10 +8,12 @@ public class Sorciere extends Villageois implements Serializable{
     private boolean potionMort;
 
     public Sorciere() {
+        String newLine = System.getProperty("line.separator");
         this.nom = "Sorciere";
-        this.description = "Son objectif est d'�liminer tous les Loups-Garous."
-                + " Elle dispose de deux potions : "
-                + "une potion de vie pour sauver la victime des Loups, et une potion de mort pour assassiner quelqu'un.";
+        this.description = "Son objectif est d'éliminer tous les Loups-Garous."+newLine
+                + "Elle dispose de deux potions : "+newLine
+                + "- une potion de vie pour sauver la victime des Loups"+newLine
+                + "- une potion de mort pour assassiner quelqu'un";
         this.potionMort = true;
         this.potionVie = true;
     }

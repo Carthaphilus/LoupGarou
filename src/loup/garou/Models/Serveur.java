@@ -99,9 +99,7 @@ public class Serveur {
     
     public static void sendRoleToAllClient(List<Joueur> lesJoueurs){
         for(Joueur unJoueur:lesJoueurs){
-            System.out.println("Joueur : " + unJoueur.getNom());
             for(ClientProcessor unClient:ListClient){
-                System.out.println("Client : " + unClient.getName());
                 if(unJoueur.getNom().equals(unClient.getName())){
                     Message unMsg = new Message();
                     unMsg.setEtape("Joueur");

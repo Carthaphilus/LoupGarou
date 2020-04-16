@@ -111,7 +111,7 @@ public class VoteJoueur extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
     Joueur unJoueur = (Joueur) listeJoueur.getElementAt(listVote.getSelectedIndex());
-    System.out.println(unJoueur.getNom());
+//    System.out.println(unJoueur.getNom());
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**
