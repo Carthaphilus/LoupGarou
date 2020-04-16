@@ -178,19 +178,19 @@ public class VoteJoueur extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                List<Joueur> tabJoueur = new ArrayList();
-                int i = 0;
-                for (i = 0; i < 4; i++) {
-                    Joueur unJoueur = new Joueur();
-                    unJoueur.setNom("Bob" + i);
-                    tabJoueur.add(unJoueur);
-                }
-
-                new VoteJoueur(tabJoueur).setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                List<Joueur> tabJoueur = new ArrayList();
+//                int i = 0;
+//                for (i = 0; i < 4; i++) {
+//                    Joueur unJoueur = new Joueur();
+//                    unJoueur.setNom("Bob" + i);
+//                    tabJoueur.add(unJoueur);
+//                }
+//
+//                new VoteJoueur(tabJoueur).setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -15,6 +15,7 @@ import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
+import static loup.garou.Models.Serveur.sendListJoueurToAllClient;
 
 /**
  *
@@ -29,10 +30,12 @@ public class MasterGame extends javax.swing.JFrame {
     Integer action;
     ListJoueur listeJoueur;
     Integer tour = 1;
+    Master Master;
 
     public MasterGame(Master master) {
         initComponents();
         
+        Master = master;
         List<Joueur> Joueurs = master.getTabJoueur();
         
         listeJoueur = new ListJoueur(Joueurs, tour);
@@ -196,7 +199,6 @@ public class MasterGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
         action++;
 
         switch (action) {
@@ -204,13 +206,13 @@ public class MasterGame extends javax.swing.JFrame {
 //                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
+                sendListJoueurToAllClient(Master.getTabJoueur());
                 tour++;
                 listeJoueur.setTourList(tour);
                 action = 0;
                 break;
         }
-
-
+        ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
