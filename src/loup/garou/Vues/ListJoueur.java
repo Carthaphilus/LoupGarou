@@ -17,15 +17,22 @@ import loup.garou.Models.TabJoueurClass;
 public class ListJoueur extends javax.swing.JFrame {
 
     TabJoueurClass tabjoueur;
+    Integer tour;
     
     /**
      * Creates new form Accueil
-     * @param tabPersonne
+     * @param Joueurs
+     * @param unTour
      */
-    public ListJoueur(List<Joueur> Joueurs) {
+    public ListJoueur(List<Joueur> Joueurs, int unTour) {
         initComponents();
+        tour = unTour;
         tabjoueur = new TabJoueurClass(Joueurs);
         tabAffichageJoueur.setModel(tabjoueur);
+    }
+    
+    public void setTourList(int addTour){
+        tour = addTour;
     }
 
     /**
@@ -124,8 +131,8 @@ public class ListJoueur extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int rowSelected = tabAffichageJoueur.getSelectedRow();
         Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
-        selectedJoueur.setTourMort(ERROR);
-        System.out.print(selectedJoueur.getNom());
+        selectedJoueur.setTourMort(tour);
+        System.out.print(selectedJoueur.getTourMort());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
