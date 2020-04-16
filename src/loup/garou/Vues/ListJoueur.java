@@ -53,6 +53,7 @@ public class ListJoueur extends javax.swing.JFrame {
         setTitle("Loup Garou");
         setBackground(new java.awt.Color(126, 27, 27));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(126, 27, 27));
 
@@ -132,7 +133,9 @@ public class ListJoueur extends javax.swing.JFrame {
         int rowSelected = tabAffichageJoueur.getSelectedRow();
         Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
         selectedJoueur.setTourMort(tour);
-        System.out.print(selectedJoueur.getTourMort());
+        this.dispose();
+        this.setVisible(true);
+//        tabAffichageJoueur.removeNotify();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
