@@ -16,7 +16,6 @@ import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
 import static loup.garou.Models.Serveur.sendListJoueurToAllClient;
-import static loup.garou.Models.Serveur.sendMessageToAllClient;
 
 /**
  *
