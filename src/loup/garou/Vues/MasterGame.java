@@ -29,6 +29,7 @@ public class MasterGame extends javax.swing.JFrame {
     List<JPanel> arrayJpanel;
     Integer action;
     ListJoueur listeJoueur;
+    static List<Joueur> listeVoteJoueur;
     Integer tour = 1;
     Master Master;
 
@@ -259,6 +260,10 @@ public class MasterGame extends javax.swing.JFrame {
 //                new MasterGame(new Master()).setVisible(true);
 //            }
 //        });
+    }
+    
+    public static void setVoteJoueur(Joueur unJoueur){
+        listeVoteJoueur.add(unJoueur);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

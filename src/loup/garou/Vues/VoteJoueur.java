@@ -134,6 +134,7 @@ public class VoteJoueur extends javax.swing.JFrame {
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         int rowSelected = tabVote.getSelectedRow();
         Joueur selectedJoueur = listeJoueur.getJoueurInTab(rowSelected);
+        MasterGame.setVoteJoueur(selectedJoueur);
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**
