@@ -6,7 +6,10 @@
 package loup.garou.Vues;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
 import loup.garou.Models.Serveur;
@@ -24,9 +27,11 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     /**
      * Creates new form Accueil
      */
-    public AffichageIp() {
+    public AffichageIp() throws UnknownHostException {
         initComponents();
-        labelIp1.setText("En attente de joueur");
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        labelIp1.setText("Adresse IP :- " + inetAddress.getHostAddress());
+        labelMsg1.setText("En attente de joueur");
         connexion = new Serveur(this);
         master = new Master();
         connexion.open();
@@ -45,9 +50,10 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         bt_Start = new javax.swing.JButton();
-        labelIp1 = new javax.swing.JLabel();
+        labelMsg1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea_Infos = new javax.swing.JTextArea();
+        labelIp1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loup Garou");
@@ -71,15 +77,20 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
             }
         });
 
-        labelIp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelIp1.setForeground(new java.awt.Color(255, 255, 255));
-        labelIp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelIp1.setText("IP");
+        labelMsg1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelMsg1.setForeground(new java.awt.Color(255, 255, 255));
+        labelMsg1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMsg1.setText("En attente");
 
         txtArea_Infos.setEditable(false);
         txtArea_Infos.setColumns(20);
         txtArea_Infos.setRows(5);
         jScrollPane1.setViewportView(txtArea_Infos);
+
+        labelIp1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelIp1.setForeground(new java.awt.Color(255, 255, 255));
+        labelIp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelIp1.setText("Adresse Ip");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,11 +104,12 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
                         .addGap(26, 26, 26)
                         .addComponent(bt_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(labelIp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelIp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelMsg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,8 +117,10 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(labelIp1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelIp1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -131,13 +145,13 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     private void bt_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_StartActionPerformed
         if (master.getNbJoueur()>=3) {
             master.initGame();
-            labelIp1.setText("La partie peut commencer");
+            labelMsg1.setText("La partie peut commencer");
             this.setVisible(false);
             MasterGame FrameMaster = new MasterGame(master);
             FrameMaster.setVisible(true);
             Serveur.sendRoleToAllClient(master.getTabJoueur());
         }
-        labelIp1.setText("Trois joueur minimum nécessaire");
+        labelMsg1.setText("Trois joueur minimum nécessaire");
     }//GEN-LAST:event_bt_StartActionPerformed
 
     /**
@@ -171,7 +185,11 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AffichageIp().setVisible(true);
+                try {
+                    new AffichageIp().setVisible(true);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(AffichageIp.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -182,6 +200,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelIp1;
+    private javax.swing.JLabel labelMsg1;
     private javax.swing.JTextArea txtArea_Infos;
     // End of variables declaration//GEN-END:variables
 
