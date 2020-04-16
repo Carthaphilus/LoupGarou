@@ -28,13 +28,14 @@ public class MasterGame extends javax.swing.JFrame {
     List<JPanel> arrayJpanel;
     Integer action;
     ListJoueur listeJoueur;
+    Integer tour = 1;
 
     public MasterGame(Master master) {
         initComponents();
         
         List<Joueur> Joueurs = master.getTabJoueur();
         
-        listeJoueur = new ListJoueur(Joueurs);
+        listeJoueur = new ListJoueur(Joueurs, tour);
 
         IconFontSwing.register(FontAwesome.getIconFont());
         Icon iconUser = IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.BLACK);
@@ -202,6 +203,8 @@ public class MasterGame extends javax.swing.JFrame {
 //                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
+                tour++;
+                listeJoueur.setTourList(tour);
                 action = 0;
                 break;
         }
