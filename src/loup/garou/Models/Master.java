@@ -103,5 +103,16 @@ public class Master implements Serializable{
         this.tour = tour;
     }
     
+    public List<Joueur> getTabJoueurLive(){
+        List<Joueur> JoueurEnVie = new ArrayList();
+        
+        for (Joueur unJoueur : tabJoueur){
+            if(unJoueur.getTourMort() == 0){
+                JoueurEnVie.add(unJoueur);
+            }
+        }
+        return JoueurEnVie;
+    }
+    
 
 }

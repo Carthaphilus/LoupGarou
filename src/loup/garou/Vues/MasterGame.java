@@ -31,7 +31,7 @@ public class MasterGame extends javax.swing.JFrame {
     ListJoueur listeJoueur;
     static List<Joueur> listeVoteJoueur;
     Integer tour = 1;
-    Master Master;
+    static Master Master;
 
     public MasterGame(Master master) {
         initComponents();
@@ -207,7 +207,7 @@ public class MasterGame extends javax.swing.JFrame {
 //                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
-                sendListJoueurToAllClient(Master.getTabJoueur());
+                sendListJoueurToAllClient(Master.getTabJoueurLive());
                 tour++;
                 listeJoueur.setTourList(tour);
                 action = 0;

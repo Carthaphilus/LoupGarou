@@ -93,7 +93,7 @@ public class Serveur {
         Message unMsg = new Message();
         unMsg.setEtape("String");
         unMsg.setContent(msg);
-        
+
         ListClient.forEach((unClient) -> {
             unClient.write(unMsg);
         });
@@ -111,14 +111,18 @@ public class Serveur {
             }
         }
     }
-    
+
     public static void sendListJoueurToAllClient(List<Joueur> lesJoueur) {
         Message unMsg = new Message();
         unMsg.setEtape("ListJoueur");
         unMsg.setContent(lesJoueur);
-        
+
         ListClient.forEach((unClient) -> {
-            unClient.write(unMsg);
+            for (Joueur unJoueur : lesJoueur) {
+                if (unJoueur.getNom().equals(unClient.getName())) {
+                    unClient.write(unMsg);
+                }
+            }
         });
     }
 
