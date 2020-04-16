@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author fullc
  */
-public class TabJoueurClass extends AbstractTableModel {
+public class TabJoueurClass extends AbstractTableModel{
 
     private List<Joueur> tabJoueur = new ArrayList<Joueur>();
     String[] col = new String[]{"Nom du joueur", "Role", "Statut"};
@@ -54,7 +54,9 @@ public class TabJoueurClass extends AbstractTableModel {
             default:
                 return null;
         }
-
     }
-
+    
+    public Joueur getJoueurInTab(int rowIndex){
+        return tabJoueur.get(rowIndex);
+    }
 }
