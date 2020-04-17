@@ -110,7 +110,7 @@ public class ClientProcessor implements Runnable {
         }
     }
 
-    public void write(Object obj) {
+    public void write(Message obj) {
         try {
             out.writeObject(obj);
             out.flush();
