@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
+import loup.garou.Models.Loup_Garou;
 import loup.garou.Models.Master;
 import static loup.garou.Models.Serveur.sendListJoueurToAllClient;
+import loup.garou.Models.Villageois;
 
 /**
  *
@@ -210,6 +212,13 @@ public class MasterGame extends javax.swing.JFrame {
         switch (action) {
             case 1:
                 break;
+            case 2:
+                String gameFini = gameFinish();
+                if(!gameFini.isEmpty()){
+                    Message FrameMessage = new Message(gameFini);
+                    FrameMessage.setVisible(true);
+                }
+                break;
             case 4:
                 sendListJoueurToAllClient(Master.getTabJoueurLive());
 //                Integer nbJoueurLive = Master.getTabJoueurLive().size();
@@ -291,6 +300,29 @@ public class MasterGame extends javax.swing.JFrame {
         } else {
             listeVoteJoueur.put(unJoueur, 1);
         }
+    }
+
+    public String gameFinish() {
+        String Victoire = null;
+        
+        List<Joueur> JoueurLive = Master.getTabJoueurLive();
+        for (Joueur JoueurEnVie : JoueurLive) {
+            if (JoueurEnVie.getRole() instanceof Loup_Garou) {
+                Victoire = null;
+            } else {
+                Victoire = "Les Vilageois ont gagné";
+            }
+        }
+
+        for (Joueur JoueurEnVie : JoueurLive) {
+            if (JoueurEnVie.getRole() instanceof Villageois) {
+                Victoire = null;
+            } else {
+                Victoire = "Les Loups ont gagné";
+            }
+        }
+        
+        return Victoire;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
