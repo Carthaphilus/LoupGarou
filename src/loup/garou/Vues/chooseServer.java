@@ -65,6 +65,11 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         ipServeur.setText("127.0.0.1");
 
         jButton1.setText("Connexion");
+        jButton1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jButton1ComponentHidden(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -128,11 +133,14 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrameMessage = new Message("Connecter");
-        this.removeAll();
+        //FrameMessage = new Message("Connecter");
         ClientConnexion connexion = new ClientConnexion(inputName.getText(),ipServeur.getText(), 6000, this);
-        FrameMessage.setVisible(true);
+        //FrameMessage.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButton1ComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ComponentHidden
 
     /**
      * @param args the command line arguments
@@ -203,6 +211,20 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     public void VoteJoueur(List<Joueur> ListeJoueur) {
         VoteJoueur FrameVoteJoueur= new VoteJoueur(ListeJoueur);
         FrameVoteJoueur.setVisible(true);
+    }
+
+    @Override
+    public void reiniChooseServer(String unMsg) {
+        if(unMsg.equals("nom utilisé")){
+            jLabel2.setText("Veuillez entrez un autre nom");
+            this.dispose();
+            this.setVisible(true);
+        } else {
+            jLabel2.setText("Connecter");
+            this.dispose();
+            this.setVisible(true);
+            jButton1.setEnabled(false);
+        }
     }
     
 }

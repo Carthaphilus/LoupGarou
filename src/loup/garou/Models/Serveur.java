@@ -125,6 +125,16 @@ public class Serveur {
             }
         });
     }
+    
+    public static String verifNomJoueur(String unNom){
+        String response = "0";
+        for (ClientProcessor unClient : ListClient) {
+            if(unClient.getName().equals(unNom)){
+                response = "1";
+            }
+        }
+        return response;
+    }
 
 }
 

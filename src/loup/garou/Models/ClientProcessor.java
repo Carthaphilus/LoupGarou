@@ -50,9 +50,13 @@ public class ClientProcessor implements Runnable {
                 switch (response.getEtape()) {
                     case "NAME":
                         name = (String) response.getContent();
-                        Serveur.setClientInList(this);
-                        callback.etat(response.getContent());
-                        toSend = "OK";
+                        if(Serveur.verifNomJoueur(name).equals("0")){
+                            Serveur.setClientInList(this);
+                            callback.etat(response.getContent());
+                            toSend = "Bienvenue " + (String)response.getContent();
+                        } else {
+                            toSend = "nom utilisé";
+                        }
                         break;
                     case "DATE":
                         toSend = "";
