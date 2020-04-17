@@ -21,7 +21,6 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
     private Joueur Joueur;
-    private Message FrameMessage;
 
     /**
      * Creates new form Accueil
@@ -202,7 +201,6 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
-        FrameMessage.dispose();
         Client FrameClient = new Client(Joueur);
         FrameClient.setVisible(true);
     }
