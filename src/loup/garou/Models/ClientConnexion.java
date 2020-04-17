@@ -98,7 +98,10 @@ public class ClientConnexion implements Runnable {
         }
         String msg = "CLOSE";
         try {
-            write(msg);
+            Message unMsg = new Message();
+            unMsg.setEtape("String");
+            unMsg.setContent(msg);
+            write(unMsg);
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -118,7 +121,7 @@ public class ClientConnexion implements Runnable {
         return msg;
     }
     
-    public void write(Object msg) throws IOException{
+    public void write(Message msg) throws IOException{
         out.writeObject(msg);
         out.flush();
     }
