@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import loup.garou.Trucable;
@@ -21,6 +23,7 @@ public class ClientProcessor implements Runnable {
     private ObjectInputStream in = null;
     private Trucable callback;
     private String name;
+    private List<Joueur> VoteJoueur = new ArrayList<>();
 
     public ClientProcessor(Socket pSock, Trucable callback) {
         sock = pSock;
@@ -58,8 +61,15 @@ public class ClientProcessor implements Runnable {
                             toSend = "nom utilisé";
                         }
                         break;
-                    case "DATE":
-                        toSend = "";
+                    case "VOTE":
+                        VoteJoueur.add((Joueur)response.getContent());
+                        Master leMaster = new Master();
+                        List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
+                        int nbJoueur = TabJoueurLive.size();
+                        int nbVoteJoueur = VoteJoueur.size();
+                        if(nbVoteJoueur==nbJoueur){
+                            toSend = "Ok nb vote";
+                        }
                         break;
                     case "HOUR":
                         toSend = "";

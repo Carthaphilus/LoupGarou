@@ -5,10 +5,14 @@
  */
 package loup.garou.Vues;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
 import javax.swing.table.AbstractTableModel;
+import loup.garou.Models.ClientConnexion;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.TabJoueurClass;
 
@@ -19,12 +23,14 @@ import loup.garou.Models.TabJoueurClass;
 public class VoteJoueur extends javax.swing.JFrame {
 
     TabJoueurClass listeJoueur;
+    Joueur leJoueur;
 
-    public VoteJoueur(List<Joueur> tabJoueur) {
+    public VoteJoueur(List<Joueur> tabJoueur, Joueur unJoueur) {
         initComponents();
         String[] entete = new String[]{"Nom du joueur"};
         listeJoueur = new TabJoueurClass(tabJoueur, entete);
         tabVote.setModel(listeJoueur);
+        leJoueur = unJoueur;
     }
 
     /**
@@ -134,7 +140,19 @@ public class VoteJoueur extends javax.swing.JFrame {
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         int rowSelected = tabVote.getSelectedRow();
         Joueur selectedJoueur = listeJoueur.getJoueurInTab(rowSelected);
-        MasterGame.setVoteJoueur(selectedJoueur);
+        List<ClientConnexion> listeCoClient = chooseServer.getClientConnexion();
+        for (ClientConnexion uneConnexion : listeCoClient) {
+            if (uneConnexion.getName().equals(leJoueur.getNom())) {
+                try {
+                    loup.garou.Models.Message unMsg = new loup.garou.Models.Message();
+                    unMsg.setEtape("VOTE");
+                    unMsg.setContent(selectedJoueur);
+                    uneConnexion.write(unMsg);
+                } catch (IOException ex) {
+                    Logger.getLogger(VoteJoueur.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**

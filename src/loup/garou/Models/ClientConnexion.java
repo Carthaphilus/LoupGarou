@@ -63,9 +63,7 @@ public class ClientConnexion implements Runnable {
                 //On envoie la commande au serveur
                 Message commande = getCommand();
                 if (commande != null) {
-                    out.writeObject(commande);
-                    //TOUJOURS UTILISER flush() POUR ENVOYER RÉELLEMENT DES INFOS AU SERVEUR
-                    out.flush();
+                    write(commande);
                     System.out.println(this.name + ": commande " + commande + " envoyée au serveur");
                 }
 
@@ -100,8 +98,7 @@ public class ClientConnexion implements Runnable {
         }
         String msg = "CLOSE";
         try {
-            out.writeObject(msg);
-            out.flush();
+            write(msg);
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,6 +117,11 @@ public class ClientConnexion implements Runnable {
         msg = null;
         return msg;
     }
+    
+    public void write(Object msg) throws IOException{
+        out.writeObject(msg);
+        out.flush();
+    }
 
     /*public static void newClientConnexion(String host, int port, Trucable callback) {
         ClientConnexion connexion = new ClientConnexion(host, port, callback);
@@ -133,4 +135,8 @@ public class ClientConnexion implements Runnable {
 //        response = new String(b, 0, stream);
 //        return response;
 //    }
+
+    public String getName() {
+        return name;
+    }
 }
