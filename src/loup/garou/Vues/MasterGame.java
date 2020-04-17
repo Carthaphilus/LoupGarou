@@ -8,7 +8,9 @@ package loup.garou.Vues;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import jiconfont.icons.font_awesome.FontAwesome;
@@ -29,22 +31,22 @@ public class MasterGame extends javax.swing.JFrame {
     List<JPanel> arrayJpanel;
     Integer action;
     ListJoueur listeJoueur;
-    static List<Joueur> listeVoteJoueur;
+    static HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<Joueur, Integer>();
     Integer tour = 1;
     static Master Master;
 
     public MasterGame(Master master) {
         initComponents();
-        
+
         Master = master;
         List<Joueur> Joueurs = master.getTabJoueur();
-        
+
         listeJoueur = new ListJoueur(Joueurs, tour);
 
         IconFontSwing.register(FontAwesome.getIconFont());
         Icon iconUser = IconFontSwing.buildIcon(FontAwesome.USER, 20, Color.BLACK);
         btListUser.setIcon(iconUser);
-        
+
         arrayJpanel = new ArrayList();
         action = 0;
         String newLine = System.getProperty("line.separator");
@@ -207,10 +209,26 @@ public class MasterGame extends javax.swing.JFrame {
 
         switch (action) {
             case 1:
-//                System.out.println("Vous etes sur la vue de la voyante");
                 break;
             case 4:
                 sendListJoueurToAllClient(Master.getTabJoueurLive());
+//                Integer nbJoueurLive = Master.getTabJoueurLive().size();
+//                Integer nbVoteJoueur = 0;
+//                while (nbVoteJoueur.equals(0) || !Objects.equals(nbVoteJoueur, nbJoueurLive)) {
+//                    nbVoteJoueur = listeVoteJoueur.size();
+//                    System.out.println(nbVoteJoueur);
+//                }  
+                break;
+            case 5:
+//                Integer nbJoueurLive = Master.getTabJoueurLive().size();
+                JpanelCustom JPanel5 = new JpanelCustom();
+                JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
+//                JPanel5.getJlabelImage("Sorciere");
+                JPanel5.getJlabelDes().setText("Test");
+
+                arrayJpanel.add(JPanel5);
+                JPanelContainer.add(JPanel5);
+
                 tour++;
                 listeJoueur.setTourList(tour);
                 action = 0;
@@ -220,9 +238,9 @@ public class MasterGame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
-        if(listeJoueur.isVisible() == true){
+        if (listeJoueur.isVisible() == true) {
             listeJoueur.setVisible(false);
-        }else{
+        } else {
             listeJoueur.setVisible(true);
         }
     }//GEN-LAST:event_btListUserActionPerformed
@@ -264,9 +282,15 @@ public class MasterGame extends javax.swing.JFrame {
             }
         });
     }
-    
-    public static void setVoteJoueur(Joueur unJoueur){
-        listeVoteJoueur.add(unJoueur);
+
+    public static void setVoteJoueur(Joueur unJoueur) {
+        if (listeVoteJoueur.containsKey(unJoueur)) {
+            Integer nbVote = listeVoteJoueur.get(unJoueur);
+            nbVote++;
+            listeVoteJoueur.put(unJoueur, nbVote);
+        } else {
+            listeVoteJoueur.put(unJoueur, 1);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
