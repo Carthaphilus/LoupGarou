@@ -19,8 +19,8 @@ public class ClientConnexion implements Runnable {
 
     private Thread t;
     private Socket connexion = null;
-    private ObjectOutputStream out = null;
-    private ObjectInputStream in = null;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
     private Trucable callback = null;
 
     //Notre liste de commandes. Le serveur nous répondra différemment selon la commande utilisée.
@@ -37,6 +37,8 @@ public class ClientConnexion implements Runnable {
         this.callback = callback;
         try {
             connexion = new Socket(host, port);
+            this.out = new ObjectOutputStream(connexion.getOutputStream());
+            this.in = new ObjectInputStream(connexion.getInputStream());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -56,10 +58,7 @@ public class ClientConnexion implements Runnable {
                 e.printStackTrace();
             }
             try {
-
-                out = new ObjectOutputStream(connexion.getOutputStream());
-                in = new ObjectInputStream(connexion.getInputStream());
-
+                
                 //On envoie la commande au serveur
                 Message commande = getCommand();
                 if (commande != null) {
@@ -96,7 +95,7 @@ public class ClientConnexion implements Runnable {
                 e.printStackTrace();
             }
         }
-        String msg = "CLOSE";
+        /*String msg = "CLOSE";
         try {
             Message unMsg = new Message();
             unMsg.setEtape("String");
@@ -105,7 +104,7 @@ public class ClientConnexion implements Runnable {
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 
     //Méthode qui permet d'envoyer des commandeS de façon aléatoire

@@ -6,8 +6,6 @@
 package loup.garou.Models;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,13 +19,12 @@ import loup.garou.Trucable;
 public class Serveur {
 
     private ServerSocket server;
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
     private Trucable callback;
     private static List<ClientProcessor> ListClient;
     private boolean isRunning = true;
+    private static Serveur ServeurInstance;
 
-    public Serveur(Trucable machin) {
+    private Serveur(Trucable machin) {
         ListClient = new ArrayList();
         this.callback = machin;
         try {
@@ -35,6 +32,18 @@ public class Serveur {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    public static Serveur getInstance(Trucable machin){
+        if(ServeurInstance==null){
+            ServeurInstance = new Serveur(machin);
+        }
+        return ServeurInstance;
+    }
+    
+    public static Serveur getInstance(){
+        return ServeurInstance;
     }
 
 //    public Serveur(String ip, Trucable machin) {
@@ -85,11 +94,11 @@ public class Serveur {
         isRunning = false;
     }
 
-    public static void setClientInList(ClientProcessor unClient) {
+    public void setClientInList(ClientProcessor unClient) {
         ListClient.add(unClient);
     }
 
-    public static void sendMessageToAllClient(String msg) {
+    public void sendMessageToAllClient(String msg) {
         Message unMsg = new Message();
         unMsg.setEtape("String");
         unMsg.setContent(msg);
@@ -99,7 +108,7 @@ public class Serveur {
         });
     }
 
-    public static void sendRoleToAllClient(List<Joueur> lesJoueurs) {
+    public void sendRoleToAllClient(List<Joueur> lesJoueurs) {
         for (Joueur unJoueur : lesJoueurs) {
             for (ClientProcessor unClient : ListClient) {
                 if (unJoueur.getNom().equals(unClient.getName())) {
@@ -112,7 +121,7 @@ public class Serveur {
         }
     }
 
-    public static void sendListJoueurToAllClient(List<Joueur> lesJoueur) {
+    public void sendListJoueurToAllClient(List<Joueur> lesJoueur) {
         Message unMsg = new Message();
         unMsg.setEtape("ListJoueur");
         unMsg.setContent(lesJoueur);
@@ -126,7 +135,7 @@ public class Serveur {
         });
     }
     
-    public static String verifNomJoueur(String unNom){
+    public String verifNomJoueur(String unNom){
         String response = "0";
         for (ClientProcessor unClient : ListClient) {
             if(unClient.getName().equals(unNom)){

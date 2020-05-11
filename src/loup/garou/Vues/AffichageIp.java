@@ -32,7 +32,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         InetAddress inetAddress = InetAddress.getLocalHost();
         labelIp1.setText("Adresse IP :- " + inetAddress.getHostAddress());
         labelMsg1.setText("En attente de joueur");
-        connexion = new Serveur(this);
+        connexion = Serveur.getInstance(this);
         master = new Master();
         connexion.open();
         //connexion.Recevoir();
@@ -149,7 +149,8 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
             this.setVisible(false);
             MasterGame FrameMaster = new MasterGame(master);
             FrameMaster.setVisible(true);
-            Serveur.sendRoleToAllClient(master.getTabJoueur());
+            Serveur ServeurInstance = Serveur.getInstance();
+            ServeurInstance.sendRoleToAllClient(master.getTabJoueur());
         }
         labelMsg1.setText("Trois joueur minimum nécessaire");
     }//GEN-LAST:event_bt_StartActionPerformed

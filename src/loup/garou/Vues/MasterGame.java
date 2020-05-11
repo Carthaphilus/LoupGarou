@@ -18,7 +18,7 @@ import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Loup_Garou;
 import loup.garou.Models.Master;
-import static loup.garou.Models.Serveur.sendListJoueurToAllClient;
+import loup.garou.Models.Serveur;
 import loup.garou.Models.Villageois;
 
 /**
@@ -220,7 +220,8 @@ public class MasterGame extends javax.swing.JFrame {
                 }
                 break;
             case 4:
-                sendListJoueurToAllClient(Master.getTabJoueurLive());
+                Serveur ServeurInstance = Serveur.getInstance();
+                ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
 //                Integer nbJoueurLive = Master.getTabJoueurLive().size();
 //                Integer nbVoteJoueur = 0;
 //                while (nbVoteJoueur.equals(0) || !Objects.equals(nbVoteJoueur, nbJoueurLive)) {

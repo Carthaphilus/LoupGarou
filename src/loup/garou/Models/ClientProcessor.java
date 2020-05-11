@@ -19,15 +19,17 @@ import loup.garou.Trucable;
 public class ClientProcessor implements Runnable {
 
     private Socket sock;
-    private ObjectOutputStream out = null;
-    private ObjectInputStream in = null;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
     private Trucable callback;
     private String name;
     private List<Joueur> VoteJoueur = new ArrayList<>();
 
-    public ClientProcessor(Socket pSock, Trucable callback) {
-        sock = pSock;
+    public ClientProcessor(Socket pSock, Trucable callback) throws IOException {
+        this.sock = pSock;
         this.callback = callback;
+        this.out = new ObjectOutputStream(sock.getOutputStream());
+        this.in = new ObjectInputStream(sock.getInputStream());
     }
 
     //Le traitement lancé dans un thread séparé
@@ -42,9 +44,7 @@ public class ClientProcessor implements Runnable {
 
                 //Ici, nous n'utilisons pas les mêmes objets que précédemment
                 //Je vous expliquerai pourquoi ensuite
-                out = new ObjectOutputStream(sock.getOutputStream());
-                in = new ObjectInputStream(sock.getInputStream());
-
+                
                 //On attend la demande du client            
                 Message response = (Message) in.readObject();
                 //On traite la demande du client en fonction de la commande envoyée
@@ -53,8 +53,9 @@ public class ClientProcessor implements Runnable {
                 switch (response.getEtape()) {
                     case "NAME":
                         name = (String) response.getContent();
-                        if(Serveur.verifNomJoueur(name).equals("0")){
-                            Serveur.setClientInList(this);
+                        Serveur ServeurInstance = Serveur.getInstance();
+                        if(ServeurInstance.verifNomJoueur(name).equals("0")){
+                            ServeurInstance.setClientInList(this);
                             callback.etat(response.getContent());
                             toSend = "Bienvenue " + (String)response.getContent();
                         } else {
