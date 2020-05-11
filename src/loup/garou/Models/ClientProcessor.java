@@ -23,7 +23,7 @@ public class ClientProcessor implements Runnable {
     private ObjectInputStream in;
     private Trucable callback;
     private String name;
-    private List<Joueur> VoteJoueur = new ArrayList<>();
+    private static List<Joueur> VoteJoueur = new ArrayList<>();
 
     public ClientProcessor(Socket pSock, Trucable callback) throws IOException {
         this.sock = pSock;
@@ -49,11 +49,11 @@ public class ClientProcessor implements Runnable {
                 Message response = (Message) in.readObject();
                 //On traite la demande du client en fonction de la commande envoyée
                 String toSend = "";
+                Serveur ServeurInstance = Serveur.getInstance();
 
                 switch (response.getEtape()) {
                     case "NAME":
                         name = (String) response.getContent();
-                        Serveur ServeurInstance = Serveur.getInstance();
                         if(ServeurInstance.verifNomJoueur(name).equals("0")){
                             ServeurInstance.setClientInList(this);
                             callback.etat(response.getContent());
@@ -68,9 +68,11 @@ public class ClientProcessor implements Runnable {
                         List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
                         int nbJoueur = TabJoueurLive.size();
                         int nbVoteJoueur = VoteJoueur.size();
+                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
                         if(nbVoteJoueur==nbJoueur){
-                            toSend = "Ok nb vote";
+                            ServeurInstance.sendMessageToAllClient("OkNbVote");
                         }
+                        toSend = "Vote recue";
                         break;
                     case "HOUR":
                         toSend = "";

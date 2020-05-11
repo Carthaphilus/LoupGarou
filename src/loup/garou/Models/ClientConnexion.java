@@ -71,8 +71,14 @@ public class ClientConnexion implements Runnable {
 
                 if ("String".equals(response.getEtape())) {
                     String chaine = (String)response.getContent();
-                    callback.reiniChooseServer(chaine);
-                    System.out.println("\t * " + name + " : Réponse reçue " + chaine);
+                    if("REINITIALISER".equals(chaine)){
+                        callback.reiniChooseServer(chaine);
+                        System.out.println("\t * " + name + " : Réponse reçue " + chaine);
+                    } else if("OkNbVote".equals(chaine)){
+                        System.out.println("\t * " + name + " : Réponse reçue " + chaine);
+                    } else {
+                        System.out.println("\t * " + name + " : Réponse reçue " + chaine);
+                    }
                 } else if ("Joueur".equals(response.getEtape())) {
                     Joueur unJoueur = (Joueur) response.getContent();
                     callback.setJoueur(unJoueur);
