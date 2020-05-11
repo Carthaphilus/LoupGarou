@@ -20,10 +20,19 @@ public class Master implements Serializable{
     private List<Joueur> tabJoueurMort = new ArrayList<>();
     private Integer nbJoueur;
     private Integer tour;
+    static Master MasterInstance;
 
-    public Master() {
+    private Master() {
         this.nbJoueur = 0;
         this.tour=0;
+    }
+    
+    public static Master getInstance(){
+        if(MasterInstance == null){
+            return MasterInstance = new Master();
+        }else{
+            return MasterInstance;
+        }
     }
 
     public void ajouterJoueur(Object unNom) {

@@ -64,7 +64,7 @@ public class ClientProcessor implements Runnable {
                         break;
                     case "VOTE":
                         VoteJoueur.add((Joueur)response.getContent());
-                        Master leMaster = new Master();
+                        Master leMaster = Master.getInstance();
                         List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
                         int nbJoueur = TabJoueurLive.size();
                         int nbVoteJoueur = VoteJoueur.size();

@@ -33,7 +33,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
         labelIp1.setText("Adresse IP :- " + inetAddress.getHostAddress());
         labelMsg1.setText("En attente de joueur");
         connexion = Serveur.getInstance(this);
-        master = new Master();
+        master = Master.getInstance();
         connexion.open();
         //connexion.Recevoir();
     }
