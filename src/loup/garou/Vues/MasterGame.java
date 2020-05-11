@@ -214,7 +214,7 @@ public class MasterGame extends javax.swing.JFrame {
                 break;
             case 2:
                 String gameFini = gameFinish();
-                if(!gameFini.isEmpty()){
+                if(!gameFini.isEmpty()) {
                     Message FrameMessage = new Message(gameFini);
                     FrameMessage.setVisible(true);
                 }
@@ -307,9 +307,10 @@ public class MasterGame extends javax.swing.JFrame {
         String Victoire = null;
         
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
+        System.out.println(JoueurLive);
         for (Joueur JoueurEnVie : JoueurLive) {
             if (JoueurEnVie.getRole() instanceof Loup_Garou) {
-                Victoire = null;
+                Victoire = "";
             } else {
                 Victoire = "Les Vilageois ont gagné";
             }
@@ -317,7 +318,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         for (Joueur JoueurEnVie : JoueurLive) {
             if (JoueurEnVie.getRole() instanceof Villageois) {
-                Victoire = null;
+                Victoire = "";
             } else {
                 Victoire = "Les Loups ont gagné";
             }
