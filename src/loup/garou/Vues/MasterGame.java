@@ -222,12 +222,7 @@ public class MasterGame extends javax.swing.JFrame {
             case 4:
                 Serveur ServeurInstance = Serveur.getInstance();
                 ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
-//                Integer nbJoueurLive = Master.getTabJoueurLive().size();
-//                Integer nbVoteJoueur = 0;
-//                while (nbVoteJoueur.equals(0) || !Objects.equals(nbVoteJoueur, nbJoueurLive)) {
-//                    nbVoteJoueur = listeVoteJoueur.size();
-//                    System.out.println(nbVoteJoueur);
-//                }  
+                
                 break;
             case 5:
 //                Integer nbJoueurLive = Master.getTabJoueurLive().size();

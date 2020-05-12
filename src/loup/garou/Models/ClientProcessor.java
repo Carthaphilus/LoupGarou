@@ -85,7 +85,7 @@ public class ClientProcessor implements Runnable {
                                 }
                             }
                             int joueurNbVote = 0;
-                            Joueur joueurMort = new Joueur();
+                            Joueur joueurMort = null;
                             for (Joueur i : listeVoteJoueur.keySet()) {
                                 if(joueurNbVote<listeVoteJoueur.get(i)){
                                     joueurNbVote = listeVoteJoueur.get(i);
@@ -93,9 +93,15 @@ public class ClientProcessor implements Runnable {
                                     System.out.println("i : " + i);
                                 }
                             }
-                            System.out.println("joueurMort : " + joueurMort);
-                            joueurMort.setTourMort(MasterGame.getTour());
-                            System.out.println("joueurMort : " + joueurMort);
+                            
+                            for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
+                                if(joueurEnvie.getNom().equals(joueurMort.getNom())){
+                                    System.out.println("joueurMort : " + joueurEnvie);
+                                    joueurEnvie.setTourMort(MasterGame.getTour());
+                                    System.out.println("joueurMort : " + joueurEnvie);
+                                }
+                            }
+                            
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
                         }
                         toSend = "Vote recue";
