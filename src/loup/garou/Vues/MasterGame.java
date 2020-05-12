@@ -57,6 +57,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel0 = new JpanelCustom();
         JPanel0.getJlabelTitle().setText("C'est la nuit le village s'endort, les joueurs ferment leurs yeux");
+        JPanel0.getJlabelImage("village_endort");
         JPanel0.getJlabelDes().setText("Les joueurs ferme leur yeux et attendent vos instructions");
 
         arrayJpanel.add(JPanel0);
@@ -209,54 +210,62 @@ public class MasterGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        action++;
+        if (jButton1.getText().equals("Retour a l'ecrant d'accueil")) {
+            this.dispose();
+            Accueil restartAccueil = new Accueil();
+            restartAccueil.setVisible(true);
+        } else {
+            action++;
 
-        switch (action) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 4:
-                Serveur ServeurInstance = Serveur.getInstance();
-                ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
-                jButton1.setEnabled(false);
+            switch (action) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 4:
+                    Serveur ServeurInstance = Serveur.getInstance();
+                    ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
+                    jButton1.setEnabled(false);
 
-                break;
-            case 5:
-                JpanelCustom JPanel5 = new JpanelCustom();
-                JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
+                    break;
+                case 5:
+                    JpanelCustom JPanel5 = new JpanelCustom();
+                    JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
 
-                Integer lastIndex = Master.getTabJoueurMort().size() - 1;
-                JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom());
-                JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
+                    Integer lastIndex = Master.getTabJoueurMort().size() - 1;
+                    JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom());
+                    JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
 
-                arrayJpanel.add(JPanel5);
-                JPanelContainer.add(JPanel5);
+                    arrayJpanel.add(JPanel5);
+                    JPanelContainer.add(JPanel5);
 
-                String gameFini = gameFinish();
-                if (!gameFini.isEmpty()) {
+                    String gameFini = gameFinish();
+                    if (!gameFini.isEmpty()) {
 
-                    JpanelCustom JPanel6 = new JpanelCustom();
-                    JPanel6.getJlabelTitle().setText("Partie Terminé !!");
+                        JpanelCustom JPanel6 = new JpanelCustom();
+                        JPanel6.getJlabelTitle().setText("Partie Terminé !!");
 
-                    String imgChoose;
-                    if (gameFini.equals("Les Loups ont gagné")) {
-                        imgChoose = "Loup-Garou";
-                    } else {
-                        imgChoose = "Villageois";
+                        String imgChoose;
+                        if (gameFini.equals("Les Loups ont gagné")) {
+                            imgChoose = "Loup-Garou";
+                        } else {
+                            imgChoose = "Villageois";
+                        }
+                        JPanel6.getJlabelImage(imgChoose);
+                        JPanel6.getJlabelDes().setText(gameFini);
+                        arrayJpanel.add(JPanel6);
+                        JPanelContainer.add(JPanel6);
+
+                        jButton1.setText("Retour a l'ecrant d'accueil");
                     }
-                    JPanel6.getJlabelImage(imgChoose);
-                    JPanel6.getJlabelDes().setText(gameFini);
-                    arrayJpanel.add(JPanel6);
-                    JPanelContainer.add(JPanel6);
-                }
 
-                tour++;
-                listeJoueur.setTourList(tour);
-                action = 0;
-                break;
+                    tour++;
+                    listeJoueur.setTourList(tour);
+                    action = 0;
+                    break;
+            }
+            ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
         }
-        ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
