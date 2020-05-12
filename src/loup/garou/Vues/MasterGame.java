@@ -34,7 +34,7 @@ public class MasterGame extends javax.swing.JFrame {
     Integer action;
     ListJoueur listeJoueur;
     static HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<Joueur, Integer>();
-    Integer tour = 1;
+    static Integer tour = 1;
     static Master Master;
 
     public MasterGame(Master master) {
@@ -325,6 +325,10 @@ public class MasterGame extends javax.swing.JFrame {
         }
         
         return Victoire;
+    }
+
+    public static Integer getTour() {
+        return tour;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

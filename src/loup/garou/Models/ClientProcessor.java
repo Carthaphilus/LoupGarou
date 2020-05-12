@@ -11,10 +11,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import loup.garou.Trucable;
+import loup.garou.Vues.MasterGame;
 
 public class ClientProcessor implements Runnable {
 
@@ -70,6 +72,29 @@ public class ClientProcessor implements Runnable {
                         int nbVoteJoueur = VoteJoueur.size();
                         System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
                         if(nbVoteJoueur==nbJoueur){
+                            HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
+                            for (Joueur unJoueur : VoteJoueur) {
+                                int nbVote=0;
+                                if(!listeVoteJoueur.containsKey(unJoueur)){
+                                    for (Joueur unJoueur2 : VoteJoueur) {
+                                        if(unJoueur.getNom().equals(unJoueur2.getNom())){
+                                            nbVote = nbVote+1;
+                                        }
+                                    }
+                                    listeVoteJoueur.put(unJoueur, nbVote);
+                                }
+                            }
+                            int joueurNbVote = 0;
+                            Joueur joueurMort = new Joueur();
+                            for (Joueur i : listeVoteJoueur.keySet()) {
+                                if(joueurNbVote<listeVoteJoueur.get(i)){
+                                    joueurNbVote = listeVoteJoueur.get(i);
+                                    joueurMort = i;
+                                    System.out.println("i : " + i);
+                                }
+                            }
+                            System.out.println("joueurMort : " + joueurMort);
+                            joueurMort.setTourMort(MasterGame.getTour());
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
                         }
                         toSend = "Vote recue";

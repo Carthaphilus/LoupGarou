@@ -148,7 +148,7 @@ public class VoteJoueur extends javax.swing.JFrame {
                     unMsg.setEtape("VOTE");
                     unMsg.setContent(selectedJoueur);
                     uneConnexion.write(unMsg);
-                    this.setEnabled(false);
+                    this.setVisible(false);
                 } catch (IOException ex) {
                     Logger.getLogger(VoteJoueur.class.getName()).log(Level.SEVERE, null, ex);
                 }
