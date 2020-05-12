@@ -95,6 +95,7 @@ public class ClientProcessor implements Runnable {
                             }
                             System.out.println("joueurMort : " + joueurMort);
                             joueurMort.setTourMort(MasterGame.getTour());
+                            System.out.println("joueurMort : " + joueurMort);
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
                         }
                         toSend = "Vote recue";

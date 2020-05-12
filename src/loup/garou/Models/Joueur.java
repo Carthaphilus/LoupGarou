@@ -38,6 +38,6 @@ public class Joueur implements Serializable{
 
     @Override
     public String toString() {
-        return "Joueur{" + "nom=" + nom + '}';
+        return "Joueur{" + "nom=" + nom + " tour=" + tourMort + "}";
     }
 }

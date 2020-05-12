@@ -249,7 +249,7 @@ public class MasterGame extends javax.swing.JFrame {
 
     private void btListUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListUserActionPerformed
         if (listeJoueur.isVisible() == true) {
-            listeJoueur.setVisible(false);
+            listeJoueur.dispose();
         } else {
             listeJoueur.setVisible(true);
         }
