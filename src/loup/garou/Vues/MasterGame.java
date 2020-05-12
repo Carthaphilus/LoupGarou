@@ -40,7 +40,7 @@ public class MasterGame extends javax.swing.JFrame {
 
     public MasterGame(Master master) {
         initComponents();
-        MasterGameInstance=this;
+        MasterGameInstance = this;
 
         Master = master;
         List<Joueur> Joueurs = master.getTabJoueur();
@@ -220,21 +220,21 @@ public class MasterGame extends javax.swing.JFrame {
                 Serveur ServeurInstance = Serveur.getInstance();
                 ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
                 jButton1.setEnabled(false);
-                
+
                 break;
             case 5:
                 JpanelCustom JPanel5 = new JpanelCustom();
                 JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
-                
+
                 Integer lastIndex = Master.getTabJoueurMort().size() - 1;
                 JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom());
                 JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
 
                 arrayJpanel.add(JPanel5);
                 JPanelContainer.add(JPanel5);
-                
+
                 String gameFini = gameFinish();
-                if(!gameFini.isEmpty()) {
+                if (!gameFini.isEmpty()) {
                     Message FrameMessage = new Message(gameFini);
                     FrameMessage.setVisible(true);
                 }
@@ -302,20 +302,19 @@ public class MasterGame extends javax.swing.JFrame {
             listeVoteJoueur.put(unJoueur, 1);
         }
     }
-    
-    public static MasterGame getMasterGameInstance(){
+
+    public static MasterGame getMasterGameInstance() {
         return MasterGameInstance;
     }
-    
-    public void setEnabledEtapeSuivante(){
+
+    public void setEnabledEtapeSuivante() {
         jButton1.setEnabled(true);
     }
 
     public String gameFinish() {
         String Victoire = null;
-        
+
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
-        System.out.println(JoueurLive);
         for (Joueur JoueurEnVie : JoueurLive) {
             if (JoueurEnVie.getRole() instanceof Loup_Garou) {
                 Victoire = "";
@@ -323,15 +322,16 @@ public class MasterGame extends javax.swing.JFrame {
                 Victoire = "Les Vilageois ont gagné";
             }
         }
-
-        for (Joueur JoueurEnVie : JoueurLive) {
-            if (JoueurEnVie.getRole() instanceof Villageois) {
-                Victoire = "";
-            } else {
-                Victoire = "Les Loups ont gagné";
+        if (Victoire.isEmpty()) {
+            for (Joueur JoueurEnVie : JoueurLive) {
+                if (JoueurEnVie.getRole() instanceof Villageois) {
+                    Victoire = "";
+                } else {
+                    Victoire = "Les Loups ont gagné";
+                }
             }
         }
-        
+
         return Victoire;
     }
 
