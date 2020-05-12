@@ -235,4 +235,9 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     public void reiniChooseServer(String unMsg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void closeClient() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

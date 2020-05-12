@@ -22,6 +22,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     Serveur connexion;
     private Joueur Joueur;
+    private Client FrameClient;
     private static List<ClientConnexion> listeConnexionClient = new ArrayList<>();
 
     /**
@@ -204,7 +205,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
         this.dispose();
         //this.setVisible(false);
         //FrameMessage.setVisible(false);
-        Client FrameClient = new Client(Joueur);
+        FrameClient = new Client(Joueur);
         FrameClient.setVisible(true);
     }
 
@@ -231,5 +232,13 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     public static List<ClientConnexion> getClientConnexion(){
         return listeConnexionClient;
     }
+
+    @Override
+    public void closeClient() {
+        FrameClient.dispose();
+        chooseServer CS = new chooseServer();
+        CS.setVisible(true);
+    }
+    
     
 }

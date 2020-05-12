@@ -334,6 +334,7 @@ public class MasterGame extends javax.swing.JFrame {
 
     public String gameFinish() {
         String Victoire = null;
+        Serveur ServeurInstance = Serveur.getInstance();
 
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
         for (Joueur JoueurEnVie : JoueurLive) {
@@ -341,6 +342,7 @@ public class MasterGame extends javax.swing.JFrame {
                 Victoire = "";
             } else {
                 Victoire = "Les Vilageois ont gagné";
+                ServeurInstance.sendMessageToAllClient("CLOSE");
             }
         }
         if (Victoire.isEmpty()) {
@@ -349,6 +351,7 @@ public class MasterGame extends javax.swing.JFrame {
                     Victoire = "";
                 } else {
                     Victoire = "Les Loups ont gagné";
+                    ServeurInstance.sendMessageToAllClient("CLOSE");
                 }
             }
         }

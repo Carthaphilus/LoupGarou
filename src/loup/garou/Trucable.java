@@ -18,4 +18,5 @@ public interface Trucable {
     void setJoueur(Joueur unJoueur);
     void VoteJoueur(List<Joueur> ListeJoueur);
     void reiniChooseServer(String unMsg);
+    void closeClient();
 }

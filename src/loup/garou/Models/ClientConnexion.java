@@ -18,6 +18,7 @@ import loup.garou.Trucable;
 public class ClientConnexion implements Runnable {
 
     private Thread t;
+    private boolean run = true;
     private Socket connexion = null;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -51,7 +52,7 @@ public class ClientConnexion implements Runnable {
     public void run() {
 
         //nous n'allons faire que 10 demandes par thread...
-        for (int i = 0; i < 10; i++) {
+        while (run==true) {
             try {
                 Thread.currentThread().sleep(1000);
             } catch (InterruptedException e) {
@@ -74,8 +75,10 @@ public class ClientConnexion implements Runnable {
                     if("REINITIALISER".equals(chaine)){
                         callback.reiniChooseServer(chaine);
                         System.out.println("\t * " + name + " : Réponse reçue " + chaine);
-                    } else if("OkNbVote".equals(chaine)){
-                        System.out.println("\t * " + name + " : Réponse reçue " + chaine);
+                    } else if("CLOSE".equals(chaine)){
+                        System.out.println("Fermeture du client");
+                        close();
+                        callback.closeClient();
                     } else {
                         System.out.println("\t * " + name + " : Réponse reçue " + chaine);
                     }
@@ -90,7 +93,7 @@ public class ClientConnexion implements Runnable {
                 }
 
             } catch (IOException e1) {
-                e1.printStackTrace();
+                //e1.printStackTrace();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -101,16 +104,6 @@ public class ClientConnexion implements Runnable {
                 e.printStackTrace();
             }
         }
-        /*String msg = "CLOSE";
-        try {
-            Message unMsg = new Message();
-            unMsg.setEtape("String");
-            unMsg.setContent(msg);
-            write(unMsg);
-            out.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 
     //Méthode qui permet d'envoyer des commandeS de façon aléatoire
@@ -129,6 +122,22 @@ public class ClientConnexion implements Runnable {
     public void write(Message msg) throws IOException{
         out.writeObject(msg);
         out.flush();
+    }
+    
+    private void close(){
+        run = false;
+        String msg = "CLOSE";
+        try {
+            Message unMsg = new Message();
+            unMsg.setEtape("String");
+            unMsg.setContent(msg);
+            write(unMsg);
+            in.close();
+            out.close();
+            connexion.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /*public static void newClientConnexion(String host, int port, Trucable callback) {

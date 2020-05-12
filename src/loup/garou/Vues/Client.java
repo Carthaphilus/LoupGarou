@@ -13,7 +13,6 @@ import loup.garou.Models.Joueur;
  * @author FullCodex
  */
 public class Client extends javax.swing.JFrame {
-
     /**
      * Creates new form Accueil
      * @param unJoueur

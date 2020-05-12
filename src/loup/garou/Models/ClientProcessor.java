@@ -5,6 +5,7 @@
  */
 package loup.garou.Models;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -40,15 +41,16 @@ public class ClientProcessor implements Runnable {
 
         boolean closeConnexion = false;
         //tant que la connexion est active, on traite les demandes
-        while (!sock.isClosed()) {
+        while (closeConnexion==false) {
 
             try {
 
                 //Ici, nous n'utilisons pas les mêmes objets que précédemment
                 //Je vous expliquerai pourquoi ensuite
                 
-                //On attend la demande du client            
+                //On attend la demande du client
                 Message response = (Message) in.readObject();
+                
                 //On traite la demande du client en fonction de la commande envoyée
                 String toSend = "";
                 Serveur ServeurInstance = Serveur.getInstance();
@@ -112,24 +114,24 @@ public class ClientProcessor implements Runnable {
                         toSend = "";
                         break;
                     case "CLOSE":
-                        toSend = "Communication terminée";
                         closeConnexion = true;
+                        ServeurInstance.close();
                         break;
                     case "DEFAULT":
                         toSend = "Commande inconnu !";
                         break;
                 }
-                Message unMsg = new Message();
-                unMsg.setEtape("String");
-                unMsg.setContent(toSend);
-                //On envoie la réponse au client
-                write(unMsg);
-                //Il FAUT IMPERATIVEMENT UTILISER flush()
-                //Sinon les données ne seront pas transmises au client
-                //et il attendra indéfiniment
                 
-
-                if (closeConnexion) {
+                if(closeConnexion==false){
+                   Message unMsg = new Message();
+                    unMsg.setEtape("String");
+                    unMsg.setContent(toSend);
+                    //On envoie la réponse au client
+                    write(unMsg);
+                    //Il FAUT IMPERATIVEMENT UTILISER flush()
+                    //Sinon les données ne seront pas transmises au client
+                    //et il attendra indéfiniment 
+                } else {
                     System.err.println("COMMANDE CLOSE DETECTEE ! ");
                     out.close();
                     in.close();
