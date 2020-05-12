@@ -235,8 +235,20 @@ public class MasterGame extends javax.swing.JFrame {
 
                 String gameFini = gameFinish();
                 if (!gameFini.isEmpty()) {
-                    Message FrameMessage = new Message(gameFini);
-                    FrameMessage.setVisible(true);
+
+                    JpanelCustom JPanel6 = new JpanelCustom();
+                    JPanel6.getJlabelTitle().setText("Partie Terminé !!");
+
+                    String imgChoose;
+                    if (gameFini.equals("Les Loups ont gagné")) {
+                        imgChoose = "Loup-Garou";
+                    } else {
+                        imgChoose = "Villageois";
+                    }
+                    JPanel6.getJlabelImage(imgChoose);
+                    JPanel6.getJlabelDes().setText(gameFini);
+                    arrayJpanel.add(JPanel6);
+                    JPanelContainer.add(JPanel6);
                 }
 
                 tour++;
