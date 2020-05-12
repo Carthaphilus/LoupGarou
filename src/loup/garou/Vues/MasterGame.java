@@ -36,9 +36,11 @@ public class MasterGame extends javax.swing.JFrame {
     static HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<Joueur, Integer>();
     static Integer tour = 1;
     static Master Master;
+    static MasterGame MasterGameInstance;
 
     public MasterGame(Master master) {
         initComponents();
+        MasterGameInstance=this;
 
         Master = master;
         List<Joueur> Joueurs = master.getTabJoueur();
@@ -299,6 +301,14 @@ public class MasterGame extends javax.swing.JFrame {
         } else {
             listeVoteJoueur.put(unJoueur, 1);
         }
+    }
+    
+    public static MasterGame getMasterGameInstance(){
+        return MasterGameInstance;
+    }
+    
+    public void setEnabledEtapeSuivante(){
+        jButton1.setEnabled(true);
     }
 
     public String gameFinish() {
