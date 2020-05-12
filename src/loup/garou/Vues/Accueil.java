@@ -22,14 +22,14 @@ public class Accueil extends javax.swing.JFrame {
     public Accueil() {
         initComponents();
         
-        chooseServer CS = new chooseServer();
+        /*chooseServer CS = new chooseServer();
         CS.setVisible(true);
         chooseServer CS1 = new chooseServer();
         CS1.setVisible(true);
         chooseServer CS2 = new chooseServer();
         CS2.setVisible(true);
         chooseServer CS3 = new chooseServer();
-        CS3.setVisible(true);
+        CS3.setVisible(true);*/
         /*chooseServer CS4 = new chooseServer();
         CS4.setVisible(true);*/
         
