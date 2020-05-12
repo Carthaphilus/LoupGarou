@@ -98,6 +98,7 @@ public class ClientProcessor implements Runnable {
                                 if(joueurEnvie.getNom().equals(joueurMort.getNom())){
                                     System.out.println("joueurMort : " + joueurEnvie);
                                     joueurEnvie.setTourMort(MasterGame.getTour());
+                                    leMaster.getTabJoueurMort().add(joueurEnvie);
                                     System.out.println("joueurMort : " + joueurEnvie);
                                 }
                             }

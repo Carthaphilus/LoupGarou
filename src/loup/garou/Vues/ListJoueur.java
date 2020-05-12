@@ -8,6 +8,7 @@ package loup.garou.Vues;
 import java.net.InetAddress;
 import java.util.List;
 import loup.garou.Models.Joueur;
+import loup.garou.Models.Master;
 import loup.garou.Models.Serveur;
 import loup.garou.Models.TabJoueurClass;
 
@@ -136,6 +137,7 @@ public class ListJoueur extends javax.swing.JFrame {
         int rowSelected = tabAffichageJoueur.getSelectedRow();
         Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
         selectedJoueur.setTourMort(tour);
+        Master.getInstance().getTabJoueurMort().add(selectedJoueur);
         this.dispose();
         this.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

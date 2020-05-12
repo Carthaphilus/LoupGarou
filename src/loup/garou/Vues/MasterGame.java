@@ -213,26 +213,29 @@ public class MasterGame extends javax.swing.JFrame {
             case 1:
                 break;
             case 2:
+                break;
+            case 4:
+                Serveur ServeurInstance = Serveur.getInstance();
+                ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
+                jButton1.setEnabled(false);
+                
+                break;
+            case 5:
+                JpanelCustom JPanel5 = new JpanelCustom();
+                JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
+                
+                Integer lastIndex = Master.getTabJoueurMort().size() - 1;
+                JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom());
+                JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
+
+                arrayJpanel.add(JPanel5);
+                JPanelContainer.add(JPanel5);
+                
                 String gameFini = gameFinish();
                 if(!gameFini.isEmpty()) {
                     Message FrameMessage = new Message(gameFini);
                     FrameMessage.setVisible(true);
                 }
-                break;
-            case 4:
-                Serveur ServeurInstance = Serveur.getInstance();
-                ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
-                
-                break;
-            case 5:
-//                Integer nbJoueurLive = Master.getTabJoueurLive().size();
-                JpanelCustom JPanel5 = new JpanelCustom();
-                JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
-//                JPanel5.getJlabelImage("Sorciere");
-                JPanel5.getJlabelDes().setText("Test");
-
-                arrayJpanel.add(JPanel5);
-                JPanelContainer.add(JPanel5);
 
                 tour++;
                 listeJoueur.setTourList(tour);
