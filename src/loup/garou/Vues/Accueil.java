@@ -22,9 +22,22 @@ public class Accueil extends javax.swing.JFrame {
     public Accueil() {
         initComponents();
         
+        chooseServer CS = new chooseServer();
+        CS.setVisible(true);
+        chooseServer CS1 = new chooseServer();
+        CS1.setVisible(true);
+        chooseServer CS2 = new chooseServer();
+        CS2.setVisible(true);
+        chooseServer CS3 = new chooseServer();
+        CS3.setVisible(true);
+        /*chooseServer CS4 = new chooseServer();
+        CS4.setVisible(true);*/
+        
         ImageIcon image = new ImageIcon("icone/Loup-Garou.png");
         image.setImage(image.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH));
         jLabel2.setIcon(image);
+        
+        
     }
 
     /**
