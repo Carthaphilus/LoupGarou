@@ -115,7 +115,6 @@ public class ClientProcessor implements Runnable {
                         break;
                     case "CLOSE":
                         closeConnexion = true;
-                        ServeurInstance.close();
                         break;
                     case "DEFAULT":
                         toSend = "Commande inconnu !";

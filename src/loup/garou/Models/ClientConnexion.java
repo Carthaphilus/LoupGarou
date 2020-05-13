@@ -5,6 +5,8 @@
  */
 package loup.garou.Models;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 import loup.garou.Trucable;
 
 public class ClientConnexion implements Runnable {
@@ -132,9 +135,21 @@ public class ClientConnexion implements Runnable {
             unMsg.setEtape("String");
             unMsg.setContent(msg);
             write(unMsg);
-            in.close();
-            out.close();
-            connexion.close();
+            
+            int delay = 2000;
+            ActionListener taskPerformer = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        in.close();
+                        out.close();
+                        connexion.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            };
+            new Timer(delay, taskPerformer).start();
         } catch (IOException ex) {
             Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
