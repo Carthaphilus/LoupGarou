@@ -57,7 +57,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel0 = new JpanelCustom();
         JPanel0.getJlabelTitle().setText("C'est la nuit le village s'endort, les joueurs ferment leurs yeux");
-        JPanel0.getJlabelImage("village_endort");
+        JPanel0.getJlabelImage("village_nuit");
         JPanel0.getJlabelDes().setText("Les joueurs ferme leur yeux et attendent vos instructions");
 
         arrayJpanel.add(JPanel0);
@@ -93,6 +93,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel4 = new JpanelCustom();
         JPanel4.getJlabelTitle().setText("Le village se reveil");
+        JPanel4.getJlabelImage("village_jour");
         JPanel4.getJlabelDes().setText("Le village vas eliminer une personne");
 
         arrayJpanel.add(JPanel4);
