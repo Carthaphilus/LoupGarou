@@ -309,14 +309,15 @@ public class MasterGame extends javax.swing.JFrame {
         });
     }
 
-    public static void setVoteJoueur(Joueur unJoueur) {
-        if (listeVoteJoueur.containsKey(unJoueur)) {
-            Integer nbVote = listeVoteJoueur.get(unJoueur);
-            nbVote++;
-            listeVoteJoueur.put(unJoueur, nbVote);
-        } else {
-            listeVoteJoueur.put(unJoueur, 1);
-        }
+    public static Boolean roleExiste(String role) {
+        Boolean ok = false;
+        List<Joueur> JoueurLive = Master.getTabJoueurLive();
+        for(Joueur unJoueur : JoueurLive){
+            if(unJoueur.getRole().getNom().equals(role)){
+                ok = true;
+            }
+        }    
+        return ok;
     }
 
     public static MasterGame getMasterGameInstance() {

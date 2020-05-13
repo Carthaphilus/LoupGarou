@@ -7,9 +7,19 @@ public class Joueur implements Serializable{
     private String nom;
     private Role role;
     private int tourMort;
+    private boolean amoureux;
 
     public Joueur() {
         this.role = new Villageois();
+        this.amoureux = false;
+    }
+    
+    public boolean getAmoureux() {
+        return amoureux;
+    }
+
+    public void setAmoureux(boolean amoureux) {
+        this.amoureux = amoureux;
     }
 
     public String getNom() {

@@ -13,16 +13,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author fullc
  */
-public class TabJoueurClass extends AbstractTableModel{
+public class TabJoueurClass extends AbstractTableModel {
 
     private List<Joueur> tabJoueur = new ArrayList<Joueur>();
     String[] col;
 
-    public TabJoueurClass(List Joueurs, String[] entete){
+    public TabJoueurClass(List Joueurs, String[] entete) {
         tabJoueur = Joueurs;
         col = entete;
     }
-    
+
     @Override
     public int getRowCount() {
         return tabJoueur.size();
@@ -32,7 +32,7 @@ public class TabJoueurClass extends AbstractTableModel{
     public int getColumnCount() {
         return col.length;
     }
-    
+
     @Override
     public String getColumnName(int columnIndex) {
         return col[columnIndex];
@@ -46,17 +46,19 @@ public class TabJoueurClass extends AbstractTableModel{
             case 1:
                 return tabJoueur.get(rowIndex).getRole().getNom();
             case 2:
-                if(tabJoueur.get(rowIndex).getTourMort() == 0){
+                if (tabJoueur.get(rowIndex).getTourMort() == 0) {
                     return "En vie";
-                }else{
+                } else {
                     return "Mort";
-                }      
+                }
+            case 3:
+                return tabJoueur.get(rowIndex).getAmoureux();
             default:
                 return null;
         }
     }
-    
-    public Joueur getJoueurInTab(int rowIndex){
+
+    public Joueur getJoueurInTab(int rowIndex) {
         return tabJoueur.get(rowIndex);
     }
 }

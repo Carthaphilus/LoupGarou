@@ -5,11 +5,15 @@
  */
 package loup.garou.Vues;
 
-import java.net.InetAddress;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
-import loup.garou.Models.Serveur;
 import loup.garou.Models.TabJoueurClass;
 
 /**
@@ -30,9 +34,10 @@ public class ListJoueur extends javax.swing.JFrame {
     public ListJoueur(List<Joueur> Joueurs, int unTour) {
         initComponents();
         tour = unTour;
-        String[] entete = new String[]{"Nom du joueur", "Role", "Statut"};
+        String[] entete = new String[]{"Nom du joueur", "Role", "Statut", "Amoureux"};
         tabjoueur = new TabJoueurClass(Joueurs, entete);
         tabAffichageJoueur.setModel(tabjoueur);
+        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new MyCellRenderer());
     }
 
     public void setTourList(int addTour) {
@@ -53,6 +58,7 @@ public class ListJoueur extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabAffichageJoueur = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setTitle("Loup Garou");
         setBackground(new java.awt.Color(126, 27, 27));
@@ -79,12 +85,20 @@ public class ListJoueur extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabAffichageJoueur.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tabAffichageJoueur);
 
         jButton1.setText("Tuer le joueur selectionné");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Mettre amoureux");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -104,7 +118,9 @@ public class ListJoueur extends javax.swing.JFrame {
                         .addGap(43, 43, 43))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -114,9 +130,11 @@ public class ListJoueur extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,6 +159,14 @@ public class ListJoueur extends javax.swing.JFrame {
         this.dispose();
         this.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int rowSelected = tabAffichageJoueur.getSelectedRow();
+        Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
+        selectedJoueur.setAmoureux(true);
+        this.dispose();
+        this.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,10 +208,37 @@ public class ListJoueur extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabAffichageJoueur;
     // End of variables declaration//GEN-END:variables
-
+    
+    public class MyCellRenderer extends DefaultTableCellRenderer {
+ 
+        private static final long serialVersionUID = 1L;
+ 
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean isSelected, boolean hasFocus, int row,
+                int column) {
+ 
+            if (value instanceof JComboBox) {
+                return (JComboBox) value;
+            }
+            if (value instanceof Boolean) {
+                JCheckBox cb = new JCheckBox();
+                cb.setSelected(((Boolean) value).booleanValue());
+                return cb;
+            }
+            if (value instanceof JCheckBox) {
+                return (JCheckBox) value;
+            }
+            return new JTextField(value.toString());
+        }
+ 
+    }
+    
 }
+
+
