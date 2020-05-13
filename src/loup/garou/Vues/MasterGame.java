@@ -342,8 +342,6 @@ public class MasterGame extends javax.swing.JFrame {
                 Victoire = "";
             } else {
                 Victoire = "Les Vilageois ont gagné";
-                ServeurInstance.sendMessageToAllClient("CLOSE");
-                ServeurInstance.close();
             }
         }
         if (Victoire.isEmpty()) {
@@ -352,12 +350,11 @@ public class MasterGame extends javax.swing.JFrame {
                     Victoire = "";
                 } else {
                     Victoire = "Les Loups ont gagné";
-                    ServeurInstance.sendMessageToAllClient("CLOSE");
-                    //ServeurInstance.close();
                 }
             }
         }
-
+        System.err.println("LE SERVEUR VA ETRE FERMER !!! ");
+        ServeurInstance.close();
         return Victoire;
     }
 

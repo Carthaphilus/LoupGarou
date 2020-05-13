@@ -129,27 +129,10 @@ public class ClientConnexion implements Runnable {
     
     private void close(){
         run = false;
-        String msg = "CLOSE";
         try {
-            Message unMsg = new Message();
-            unMsg.setEtape("String");
-            unMsg.setContent(msg);
-            write(unMsg);
-            
-            int delay = 2000;
-            ActionListener taskPerformer = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        in.close();
-                        out.close();
-                        connexion.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            };
-            new Timer(delay, taskPerformer).start();
+            in.close();
+            out.close();
+            connexion.close();
         } catch (IOException ex) {
             Logger.getLogger(ClientConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }

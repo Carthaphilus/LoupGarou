@@ -10,6 +10,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import loup.garou.Trucable;
 
 /**
@@ -21,7 +23,7 @@ public class Serveur {
     private ServerSocket server;
     private Trucable callback;
     private static List<ClientProcessor> ListClient;
-    private boolean isRunning = true;
+    private static boolean isRunning = true;
     private static Serveur ServeurInstance;
 
     private Serveur(Trucable machin) {
@@ -37,7 +39,9 @@ public class Serveur {
     
     public static Serveur getInstance(Trucable machin){
         if(ServeurInstance==null){
+            isRunning=true;
             ServeurInstance = new Serveur(machin);
+            System.out.println("SERVEUR CREER");
         }
         return ServeurInstance;
     }
@@ -77,12 +81,15 @@ public class Serveur {
                         e.printStackTrace();
                     }
                 }
-
+                
                 try {
                     server.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    server = null;
+                    server=null;
+                    ServeurInstance=null;
+                    ListClient=null;
+                    System.err.println("SERVEUR FERMER !!!");
+                } catch (IOException ex) {
+                    Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -91,7 +98,9 @@ public class Serveur {
     }
 
     public void close() {
-        isRunning = false;
+        ClientProcessor.setCloseConnexion();
+        sendMessageToAllClient("CLOSE");
+        isRunning=false;
     }
 
     public void setClientInList(ClientProcessor unClient) {

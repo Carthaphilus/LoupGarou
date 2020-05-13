@@ -27,8 +27,10 @@ public class ClientProcessor implements Runnable {
     private Trucable callback;
     private String name;
     private static List<Joueur> VoteJoueur = new ArrayList<>();
+    private static boolean closeConnexion;
 
     public ClientProcessor(Socket pSock, Trucable callback) throws IOException {
+        closeConnexion = false;
         this.sock = pSock;
         this.callback = callback;
         this.out = new ObjectOutputStream(sock.getOutputStream());
@@ -39,18 +41,16 @@ public class ClientProcessor implements Runnable {
     public void run() {
         System.err.println("Lancement du traitement de la connexion cliente");
 
-        boolean closeConnexion = false;
         //tant que la connexion est active, on traite les demandes
-        while (closeConnexion==false) {
+        while (closeSocket() == false) {
 
             try {
 
                 //Ici, nous n'utilisons pas les mêmes objets que précédemment
                 //Je vous expliquerai pourquoi ensuite
-                
                 //On attend la demande du client
                 Message response = (Message) in.readObject();
-                
+
                 //On traite la demande du client en fonction de la commande envoyée
                 String toSend = "";
                 Serveur ServeurInstance = Serveur.getInstance();
@@ -58,29 +58,29 @@ public class ClientProcessor implements Runnable {
                 switch (response.getEtape()) {
                     case "NAME":
                         name = (String) response.getContent();
-                        if(ServeurInstance.verifNomJoueur(name).equals("0")){
+                        if (ServeurInstance.verifNomJoueur(name).equals("0")) {
                             ServeurInstance.setClientInList(this);
                             callback.etat(response.getContent());
-                            toSend = "Bienvenue " + (String)response.getContent();
+                            toSend = "Bienvenue " + (String) response.getContent();
                         } else {
                             toSend = "nom utilisé";
                         }
                         break;
                     case "VOTE":
-                        VoteJoueur.add((Joueur)response.getContent());
+                        VoteJoueur.add((Joueur) response.getContent());
                         Master leMaster = Master.getInstance();
                         List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
                         int nbJoueur = TabJoueurLive.size();
                         int nbVoteJoueur = VoteJoueur.size();
                         System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
-                        if(nbVoteJoueur==nbJoueur){
+                        if (nbVoteJoueur == nbJoueur) {
                             HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
                             for (Joueur unJoueur : VoteJoueur) {
-                                int nbVote=0;
-                                if(!listeVoteJoueur.containsKey(unJoueur)){
+                                int nbVote = 0;
+                                if (!listeVoteJoueur.containsKey(unJoueur)) {
                                     for (Joueur unJoueur2 : VoteJoueur) {
-                                        if(unJoueur.getNom().equals(unJoueur2.getNom())){
-                                            nbVote = nbVote+1;
+                                        if (unJoueur.getNom().equals(unJoueur2.getNom())) {
+                                            nbVote = nbVote + 1;
                                         }
                                     }
                                     listeVoteJoueur.put(unJoueur, nbVote);
@@ -89,15 +89,15 @@ public class ClientProcessor implements Runnable {
                             int joueurNbVote = 0;
                             Joueur joueurMort = null;
                             for (Joueur i : listeVoteJoueur.keySet()) {
-                                if(joueurNbVote<listeVoteJoueur.get(i)){
+                                if (joueurNbVote < listeVoteJoueur.get(i)) {
                                     joueurNbVote = listeVoteJoueur.get(i);
                                     joueurMort = i;
                                     System.out.println("i : " + i);
                                 }
                             }
-                            
+
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
-                                if(joueurEnvie.getNom().equals(joueurMort.getNom())){
+                                if (joueurEnvie.getNom().equals(joueurMort.getNom())) {
                                     System.out.println("joueurMort : " + joueurEnvie);
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
@@ -113,16 +113,13 @@ public class ClientProcessor implements Runnable {
                     case "HOUR":
                         toSend = "";
                         break;
-                    case "CLOSE":
-                        closeConnexion = true;
-                        break;
                     case "DEFAULT":
                         toSend = "Commande inconnu !";
                         break;
                 }
-                
-                if(closeConnexion==false){
-                   Message unMsg = new Message();
+
+                if (closeConnexion == false) {
+                    Message unMsg = new Message();
                     unMsg.setEtape("String");
                     unMsg.setContent(toSend);
                     //On envoie la réponse au client
@@ -130,13 +127,14 @@ public class ClientProcessor implements Runnable {
                     //Il FAUT IMPERATIVEMENT UTILISER flush()
                     //Sinon les données ne seront pas transmises au client
                     //et il attendra indéfiniment 
-                } else {
-                    System.err.println("COMMANDE CLOSE DETECTEE ! ");
-                    out.close();
-                    in.close();
-                    sock.close();
-                    break;
-                }
+                }/* else {
+                        System.err.println("COMMANDE CLOSE DETECTEE ! ");
+                        out.close();
+                        in.close();
+                        sock.close();
+                        break;
+                    }*/
+
             } catch (SocketException e) {
                 System.err.println("LA CONNEXION A ETE INTERROMPUE ! ");
                 break;
@@ -169,5 +167,25 @@ public class ClientProcessor implements Runnable {
 
     public String getName() {
         return name;
+    }
+
+    public static void setCloseConnexion() {
+        closeConnexion = true;
+    }
+
+    public boolean closeSocket() {
+        if (closeConnexion == true) {
+            try {
+                System.err.println("COMMANDE CLOSE DETECTEE ! : "+name);
+                out.close();
+                in.close();
+                sock.close();
+                return true;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        return false;
     }
 }
