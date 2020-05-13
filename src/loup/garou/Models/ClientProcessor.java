@@ -176,7 +176,7 @@ public class ClientProcessor implements Runnable {
     public boolean closeSocket() {
         if (closeConnexion == true) {
             try {
-                System.err.println("COMMANDE CLOSE DETECTEE ! : "+name);
+                //System.err.println("COMMANDE CLOSE DETECTEE ! : "+name);
                 out.close();
                 in.close();
                 sock.close();
