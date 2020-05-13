@@ -139,7 +139,7 @@ public class ClientProcessor implements Runnable {
                 System.err.println("LA CONNEXION A ETE INTERROMPUE ! ");
                 break;
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientProcessor.class.getName()).log(Level.SEVERE, null, ex);
             }

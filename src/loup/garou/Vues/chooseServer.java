@@ -236,8 +236,8 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     @Override
     public void closeClient() {
         FrameClient.dispose();
-        chooseServer CS = new chooseServer();
-        CS.setVisible(true);
+        Accueil A = new Accueil();
+        A.setVisible(true);
     }
     
     

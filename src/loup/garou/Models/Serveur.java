@@ -78,18 +78,8 @@ public class Serveur {
                         t2.start();
 
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
-                }
-                
-                try {
-                    server.close();
-                    server=null;
-                    ServeurInstance=null;
-                    ListClient=null;
-                    System.err.println("SERVEUR FERMER !!!");
-                } catch (IOException ex) {
-                    Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -101,6 +91,15 @@ public class Serveur {
         ClientProcessor.setCloseConnexion();
         sendMessageToAllClient("CLOSE");
         isRunning=false;
+        try {
+            server.close();
+            server=null;
+            ServeurInstance=null;
+            ListClient=null;
+            System.err.println("SERVEUR FERMER !!!");
+        } catch (IOException ex) {
+            Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setClientInList(ClientProcessor unClient) {

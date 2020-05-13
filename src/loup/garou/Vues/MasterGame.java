@@ -356,6 +356,8 @@ public class MasterGame extends javax.swing.JFrame {
         }
         System.err.println("LE SERVEUR VA ETRE FERMER !!! ");
         ServeurInstance.close();
+        Master M = Master.getInstance();
+        M.resetMaster();
         return Victoire;
     }
 
