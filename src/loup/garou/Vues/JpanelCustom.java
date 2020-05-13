@@ -116,9 +116,17 @@ public class JpanelCustom extends javax.swing.JPanel {
         return jLabel3;
     }
     
-    public JLabel getJlabelImage(String imageName){
+    public JLabel getJlabelImage(String imageName, Integer tailleW, Integer tailleH){
+        if(tailleH == 0){
+            tailleH = 100;
+        }
+        
+        if(tailleW == 0){
+            tailleW = 100;
+        }
+        
         ImageIcon image = new ImageIcon("icone/"+imageName+".png");
-        image.setImage(image.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH));
+        image.setImage(image.getImage().getScaledInstance(tailleW, tailleH, java.awt.Image.SCALE_SMOOTH));
         jLabel5.setIcon(image);
         return jLabel5;
     }
