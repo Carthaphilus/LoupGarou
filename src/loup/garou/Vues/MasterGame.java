@@ -56,7 +56,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel0 = new JpanelCustom();
         JPanel0.getJlabelTitle().setText("C'est la nuit le village s'endort, les joueurs ferment leurs yeux");
-        JPanel0.getJlabelImage("village_nuit",300, 175);
+        JPanel0.getJlabelImage("village_nuit", 300, 175);
         JPanel0.getJlabelDes().setText("Les joueurs ferme leur yeux et attendent vos instructions");
 
         arrayJpanel.add(JPanel0);
@@ -64,7 +64,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel1 = new JpanelCustom();
         JPanel1.getJlabelTitle().setText("Que la voyante se reveille.");
-        JPanel1.getJlabelImage("Voyante",175,175);
+        JPanel1.getJlabelImage("Voyante", 175, 175);
         JPanel1.getJlabelDes().setText("La voyante vas designer une personnes afin de scruter sa carte");
         JPanel1.getJlabelFin().setText("Que la voyante s'endort");
 
@@ -73,7 +73,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel2 = new JpanelCustom();
         JPanel2.getJlabelTitle().setText("Que les loups se reveillent");
-        JPanel2.getJlabelImage("Loup-Garou",175,175);
+        JPanel2.getJlabelImage("Loup-Garou", 175, 175);
         JPanel2.getJlabelDes().setText("Les loups vont determiner un joueur à éliminer ");
         JPanel2.getJlabelFin().setText("Que les loups s'endorment");
 
@@ -83,7 +83,7 @@ public class MasterGame extends javax.swing.JFrame {
         JpanelCustom JPanel3 = new JpanelCustom();
         JPanel3.getJlabelTitle().setText("Que la sorcière se reveille.");
         JPanel3.getJlabelComplement().setText("Vas t-elle user de la potion de guérison et/ou d'empoisonnement ?");
-        JPanel3.getJlabelImage("Sorciere",175,175);
+        JPanel3.getJlabelImage("Sorciere", 175, 175);
         JPanel3.getJlabelDes().setText("La sorcière vas pouvoir sauver et/ou condamner un joueur");
         JPanel3.getJlabelFin().setText("Que la sorcière s'endort");
 
@@ -92,7 +92,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel4 = new JpanelCustom();
         JPanel4.getJlabelTitle().setText("Le village se reveil");
-        JPanel4.getJlabelImage("village_jour",300, 175);
+        JPanel4.getJlabelImage("village_jour", 300, 175);
         JPanel4.getJlabelDes().setText("Le village vas eliminer une personne");
 
         arrayJpanel.add(JPanel4);
@@ -233,7 +233,7 @@ public class MasterGame extends javax.swing.JFrame {
                     JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
 
                     Integer lastIndex = Master.getTabJoueurMort().size() - 1;
-                    JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom(),0,0);
+                    JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom(), 0, 0);
                     JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
 
                     arrayJpanel.add(JPanel5);
@@ -251,17 +251,18 @@ public class MasterGame extends javax.swing.JFrame {
                         } else {
                             imgChoose = "Villageois";
                         }
-                        JPanel6.getJlabelImage(imgChoose,175,175);
+                        JPanel6.getJlabelImage(imgChoose, 175, 175);
                         JPanel6.getJlabelDes().setText(gameFini);
                         arrayJpanel.add(JPanel6);
                         JPanelContainer.add(JPanel6);
-
-                        jButton1.setText("Retour a l'ecrant d'accueil");
+                    } else {
+                        tour++;
+                        listeJoueur.setTourList(tour);
+                        action = 0;
                     }
-
-                    tour++;
-                    listeJoueur.setTourList(tour);
-                    action = 0;
+                    break;
+                case 6:
+                    jButton1.setText("Retour a l'ecrant d'accueil");
                     break;
             }
             ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
