@@ -34,6 +34,13 @@ public class Master implements Serializable {
             return MasterInstance;
         }
     }
+    
+    public void resetMaster(){
+        this.nbJoueur = 0;
+        this.tour = 0;
+        tabJoueur = new ArrayList<>();
+        tabJoueurMort = new ArrayList<>();
+    }
 
     public void ajouterJoueur(Object unNom) {
         Joueur Joueur = new Joueur();
