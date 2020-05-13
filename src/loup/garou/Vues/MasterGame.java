@@ -65,7 +65,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel1 = new JpanelCustom();
         JPanel1.getJlabelTitle().setText("Que la voyante se reveille.");
-        JPanel1.getJlabelImage("Voyante",0,0);
+        JPanel1.getJlabelImage("Voyante",175,175);
         JPanel1.getJlabelDes().setText("La voyante vas designer une personnes afin de scruter sa carte");
         JPanel1.getJlabelFin().setText("Que la voyante s'endort");
 
@@ -74,7 +74,7 @@ public class MasterGame extends javax.swing.JFrame {
 
         JpanelCustom JPanel2 = new JpanelCustom();
         JPanel2.getJlabelTitle().setText("Que les loups se reveillent");
-        JPanel2.getJlabelImage("Loup-Garou",0,0);
+        JPanel2.getJlabelImage("Loup-Garou",175,175);
         JPanel2.getJlabelDes().setText("Les loups vont determiner un joueur à éliminer ");
         JPanel2.getJlabelFin().setText("Que les loups s'endorment");
 
@@ -84,7 +84,7 @@ public class MasterGame extends javax.swing.JFrame {
         JpanelCustom JPanel3 = new JpanelCustom();
         JPanel3.getJlabelTitle().setText("Que la sorcière se reveille.");
         JPanel3.getJlabelComplement().setText("Vas t-elle user de la potion de guérison et/ou d'empoisonnement ?");
-        JPanel3.getJlabelImage("Sorciere",0,0);
+        JPanel3.getJlabelImage("Sorciere",175,175);
         JPanel3.getJlabelDes().setText("La sorcière vas pouvoir sauver et/ou condamner un joueur");
         JPanel3.getJlabelFin().setText("Que la sorcière s'endort");
 
@@ -252,7 +252,7 @@ public class MasterGame extends javax.swing.JFrame {
                         } else {
                             imgChoose = "Villageois";
                         }
-                        JPanel6.getJlabelImage(imgChoose,0,0);
+                        JPanel6.getJlabelImage(imgChoose,175,175);
                         JPanel6.getJlabelDes().setText(gameFini);
                         arrayJpanel.add(JPanel6);
                         JPanelContainer.add(JPanel6);
