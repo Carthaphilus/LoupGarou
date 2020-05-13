@@ -210,7 +210,14 @@ public class MasterGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Boolean gameFini;
         if (jButton1.getText().equals("Retour a l'ecrant d'accueil")) {
+            Serveur ServeurInstance = Serveur.getInstance();
+            System.err.println("LE SERVEUR VA ETRE FERMER !!! ");
+            ServeurInstance.close();
+            Master M = Master.getInstance();
+            M.resetMaster();
+
             this.dispose();
             Accueil restartAccueil = new Accueil();
             restartAccueil.setVisible(true);
@@ -223,10 +230,12 @@ public class MasterGame extends javax.swing.JFrame {
                 case 2:
                     break;
                 case 4:
-                    Serveur ServeurInstance = Serveur.getInstance();
-                    ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
-                    jButton1.setEnabled(false);
-
+                    gameFini = gameFinish();
+                    if (gameFini == false) {
+                        Serveur ServeurInstance = Serveur.getInstance();
+                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
+                        jButton1.setEnabled(false);
+                    }
                     break;
                 case 5:
                     JpanelCustom JPanel5 = new JpanelCustom();
@@ -239,29 +248,14 @@ public class MasterGame extends javax.swing.JFrame {
                     arrayJpanel.add(JPanel5);
                     JPanelContainer.add(JPanel5);
 
-                    String gameFini = gameFinish();
-                    if (!gameFini.isEmpty()) {
-
-                        JpanelCustom JPanel6 = new JpanelCustom();
-                        JPanel6.getJlabelTitle().setText("Partie Terminé !!");
-
-                        String imgChoose;
-                        if (gameFini.equals("Les Loups ont gagné")) {
-                            imgChoose = "Loup-Garou";
-                        } else {
-                            imgChoose = "Villageois";
-                        }
-                        JPanel6.getJlabelImage(imgChoose, 175, 175);
-                        JPanel6.getJlabelDes().setText(gameFini);
-                        arrayJpanel.add(JPanel6);
-                        JPanelContainer.add(JPanel6);
-                    } else {
+                    gameFini = gameFinish();
+                    if (gameFini == false) {
                         tour++;
                         listeJoueur.setTourList(tour);
                         action = 0;
                     }
                     break;
-                case 6:
+                case 1000:
                     jButton1.setText("Retour a l'ecrant d'accueil");
                     break;
             }
@@ -333,9 +327,9 @@ public class MasterGame extends javax.swing.JFrame {
         jButton1.setEnabled(true);
     }
 
-    public String gameFinish() {
+    public Boolean gameFinish() {
         String Victoire = null;
-        Serveur ServeurInstance = Serveur.getInstance();
+        Boolean gameFini = false;
 
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
         for (Joueur JoueurEnVie : JoueurLive) {
@@ -354,11 +348,25 @@ public class MasterGame extends javax.swing.JFrame {
                 }
             }
         }
-        System.err.println("LE SERVEUR VA ETRE FERMER !!! ");
-        ServeurInstance.close();
-        Master M = Master.getInstance();
-        M.resetMaster();
-        return Victoire;
+
+        if (!Victoire.isEmpty()) {
+            gameFini = true;
+            JpanelCustom JPanel6 = new JpanelCustom();
+            JPanel6.getJlabelTitle().setText("Partie Terminé !!");
+
+            String imgChoose;
+            if (Victoire.equals("Les Loups ont gagné")) {
+                imgChoose = "Loup-Garou";
+            } else {
+                imgChoose = "Villageois";
+            }
+            JPanel6.getJlabelImage(imgChoose, 175, 175);
+            JPanel6.getJlabelDes().setText(Victoire);
+            arrayJpanel.add(JPanel6);
+            JPanelContainer.add(JPanel6);
+            action = 999;
+        }
+        return gameFini;
     }
 
     public static Integer getTour() {
