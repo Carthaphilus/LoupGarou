@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import jiconfont.icons.font_awesome.FontAwesome;

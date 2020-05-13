@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author FullCodex
  */
-public class Master implements Serializable{
+public class Master implements Serializable {
 
     private List<Joueur> tabJoueur = new ArrayList<>();
     private List<Joueur> tabJoueurMort = new ArrayList<>();
@@ -24,13 +24,13 @@ public class Master implements Serializable{
 
     private Master() {
         this.nbJoueur = 0;
-        this.tour=0;
+        this.tour = 0;
     }
-    
-    public static Master getInstance(){
-        if(MasterInstance == null){
+
+    public static Master getInstance() {
+        if (MasterInstance == null) {
             return MasterInstance = new Master();
-        }else{
+        } else {
             return MasterInstance;
         }
     }
@@ -41,8 +41,8 @@ public class Master implements Serializable{
         tabJoueur.add(Joueur);
         this.nbJoueur++;
     }
-    
-    public void initGame(){
+
+    public void initGame() {
         Random r = new Random();
         List<Joueur> roleAttribuer = new ArrayList<>();
 
@@ -56,28 +56,37 @@ public class Master implements Serializable{
             tabJoueur.remove(n);
         }
 
-            Sorciere uneSorciere = new Sorciere();
-            int n = r.nextInt(tabJoueur.size());
-            if (tabJoueur.get(n).getRole() instanceof Villageois) {
-                tabJoueur.get(n).setRole(uneSorciere);
-                roleAttribuer.add(tabJoueur.get(n));
-                tabJoueur.remove(n);
-            }
+        Sorciere uneSorciere = new Sorciere();
+        int n = r.nextInt(tabJoueur.size());
+        if (tabJoueur.get(n).getRole() instanceof Villageois) {
+            tabJoueur.get(n).setRole(uneSorciere);
+            roleAttribuer.add(tabJoueur.get(n));
+            tabJoueur.remove(n);
+        }
 
+        Voyante uneVoyante = new Voyante();
+        n = r.nextInt(tabJoueur.size());
+        if (tabJoueur.get(n).getRole() instanceof Villageois) {
+            tabJoueur.get(n).setRole(uneVoyante);
+            roleAttribuer.add(tabJoueur.get(n));
+            tabJoueur.remove(n);
+        }
 
-            Voyante uneVoyante = new Voyante();
+        if (nbJoueur >= 8) {
+            Chasseur unChasseur = new Chasseur();
             n = r.nextInt(tabJoueur.size());
             if (tabJoueur.get(n).getRole() instanceof Villageois) {
-                tabJoueur.get(n).setRole(uneVoyante);
+                tabJoueur.get(n).setRole(unChasseur);
                 roleAttribuer.add(tabJoueur.get(n));
                 tabJoueur.remove(n);
             }
-        
+        }
+
         for (Joueur unJoueur : tabJoueur) {
             roleAttribuer.add(unJoueur);
         }
 
-         tabJoueur = roleAttribuer;
+        tabJoueur = roleAttribuer;
     }
 
     public List<Joueur> getTabJoueur() {
@@ -111,17 +120,16 @@ public class Master implements Serializable{
     public void setTour(Integer tour) {
         this.tour = tour;
     }
-    
-    public List<Joueur> getTabJoueurLive(){
+
+    public List<Joueur> getTabJoueurLive() {
         List<Joueur> JoueurEnVie = new ArrayList();
-        
-        for (Joueur unJoueur : tabJoueur){
-            if(unJoueur.getTourMort() == 0){
+
+        for (Joueur unJoueur : tabJoueur) {
+            if (unJoueur.getTourMort() == 0) {
                 JoueurEnVie.add(unJoueur);
             }
         }
         return JoueurEnVie;
     }
-    
 
 }
