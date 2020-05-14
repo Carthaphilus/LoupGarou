@@ -6,15 +6,22 @@
 package loup.garou.Vues;
 
 import java.awt.Component;
+import java.awt.GridBagLayout;
 import java.util.List;
+import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
 import loup.garou.Models.TabJoueurClass;
+import static loup.garou.Vues.MasterGame.Master;
 
 /**
  *
@@ -37,7 +44,10 @@ public class ListJoueur extends javax.swing.JFrame {
         String[] entete = new String[]{"Nom du joueur", "Role", "Statut", "Amoureux"};
         tabjoueur = new TabJoueurClass(Joueurs, entete);
         tabAffichageJoueur.setModel(tabjoueur);
-        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new MyCellRenderer());
+        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new CheckBoxRenderer());
+
+        tabAffichageJoueur.getColumnModel().getColumn(3).setCellEditor(new CheckBoxEditor());
+
     }
 
     public void setTourList(int addTour) {
@@ -58,7 +68,6 @@ public class ListJoueur extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabAffichageJoueur = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setTitle("Loup Garou");
         setBackground(new java.awt.Color(126, 27, 27));
@@ -95,13 +104,6 @@ public class ListJoueur extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Mettre amoureux");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,12 +118,10 @@ public class ListJoueur extends javax.swing.JFrame {
                         .addGap(0, 41, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,11 +130,9 @@ public class ListJoueur extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,14 +157,6 @@ public class ListJoueur extends javax.swing.JFrame {
         this.dispose();
         this.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int rowSelected = tabAffichageJoueur.getSelectedRow();
-        Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
-        selectedJoueur.setAmoureux(true);
-        this.dispose();
-        this.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,37 +198,81 @@ public class ListJoueur extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabAffichageJoueur;
     // End of variables declaration//GEN-END:variables
-    
-    public class MyCellRenderer extends DefaultTableCellRenderer {
- 
+   class CheckBoxEditor extends AbstractCellEditor implements TableCellEditor {
+
         private static final long serialVersionUID = 1L;
- 
-        public Component getTableCellRendererComponent(JTable table,
-                Object value, boolean isSelected, boolean hasFocus, int row,
-                int column) {
- 
-            if (value instanceof JComboBox) {
-                return (JComboBox) value;
-            }
-            if (value instanceof Boolean) {
-                JCheckBox cb = new JCheckBox();
-                cb.setSelected(((Boolean) value).booleanValue());
-                return cb;
-            }
-            if (value instanceof JCheckBox) {
-                return (JCheckBox) value;
-            }
-            return new JTextField(value.toString());
+        private final JPanel componentPanel;
+        private final JCheckBox checkBox;
+
+        public CheckBoxEditor() {
+            componentPanel = new JPanel(new GridBagLayout());  // Use GridBagLayout to center the checkbox
+            checkBox = new JCheckBox();
+            checkBox.setOpaque(false);
+            componentPanel.add(checkBox);
         }
- 
+
+        @Override
+        public Object getCellEditorValue() {
+            return Boolean.valueOf(checkBox.isSelected());
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            setCheckboxValue(checkBox, value);
+            TableCellRenderer renderer = table.getCellRenderer(row, column);
+            Component c = renderer.getTableCellRendererComponent(table, value, true, true, row, column);
+            copyAppearanceFrom(componentPanel, c);
+            return componentPanel;
+        }
     }
-    
+
+    private static void setCheckboxValue(JCheckBox checkBox, Object value) {
+        if (Master.amoureuxDefined() == false) {
+            if (value instanceof Boolean) {
+                checkBox.setSelected(((Boolean) value).booleanValue());
+            } else if (value instanceof String) {
+                checkBox.setSelected(value.equals("true"));
+            }
+        }
+    }
+
+    private static void copyAppearanceFrom(JPanel to, Component from) {
+        if (from != null) {
+            to.setOpaque(true);
+            to.setBackground(from.getBackground());
+            if (from instanceof JComponent) {
+                to.setBorder(((JComponent) from).getBorder());
+            }
+        } else {
+            to.setOpaque(false);
+        }
+    }
+
+    class CheckBoxRenderer extends DefaultTableCellRenderer {
+
+        private static final long serialVersionUID = 1L;
+        private final JPanel componentPanel;
+        private final JCheckBox checkBox;
+
+        public CheckBoxRenderer() {
+            componentPanel = new JPanel(new GridBagLayout());  // Use GridBagLayout to center the checkbox
+            checkBox = new JCheckBox();
+            checkBox.setOpaque(false);
+            componentPanel.add(checkBox);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            setCheckboxValue(checkBox, value);
+            copyAppearanceFrom(componentPanel, this);
+            return componentPanel;
+        }
+    }
+
 }
-
-
