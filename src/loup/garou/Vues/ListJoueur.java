@@ -234,9 +234,6 @@ public class ListJoueur extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = tabAffichageJoueur.getSelectedRow();
                 tabjoueur.setValueAt(rowSelected, 3);
-                if(Master.amoureuxDefined() == true){
-                    tabAffichageJoueur.setEditingColumn(3);
-                }
             }
         }
 
