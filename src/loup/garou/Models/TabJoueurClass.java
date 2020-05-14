@@ -25,7 +25,7 @@ public class TabJoueurClass extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if (Master.MasterInstance.amoureuxDefined() == false) {
+        if (Master.getInstance().amoureuxDefined() == false) {
             if (columnIndex == 3) {
                 return true;
             } else {

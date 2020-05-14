@@ -24,7 +24,7 @@ public class Master implements Serializable {
 
     private Master() {
         this.nbJoueur = 0;
-        this.tour = 0;
+        this.tour = 1;
     }
 
     public static Master getInstance() {
@@ -37,7 +37,7 @@ public class Master implements Serializable {
 
     public void resetMaster() {
         this.nbJoueur = 0;
-        this.tour = 0;
+        this.tour = 1;
         tabJoueur = new ArrayList<>();
         tabJoueurMort = new ArrayList<>();
     }
@@ -137,6 +137,17 @@ public class Master implements Serializable {
     public void setTour(Integer tour) {
         this.tour = tour;
     }
+    
+    public List<Joueur> getJoueurMortByTour(Integer unTour) {
+        List<Joueur> JoueurMort = new ArrayList();
+
+        for (Joueur unJoueur : tabJoueurMort) {
+            if (unJoueur.getTourMort() == unTour) {
+                JoueurMort.add(unJoueur);
+            }
+        }
+        return JoueurMort;
+    }
 
     public List<Joueur> getTabJoueurLive() {
         List<Joueur> JoueurEnVie = new ArrayList();
@@ -179,10 +190,11 @@ public class Master implements Serializable {
         List<Joueur> JoueurLive = this.getTabJoueurLive();
         for (Joueur unJoueur : JoueurLive) {
             if (unJoueur.getAmoureux()) {
-                unJoueur.setTourMort(tour);
+                unJoueur.setTourMort(this.getTour());
                 tabJoueurMort.add(unJoueur);
             }
         }
+        System.out.println("TabJoueurMortMaster : " + this.tabJoueurMort);
     }
 
 }
