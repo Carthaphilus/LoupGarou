@@ -2,7 +2,7 @@ package loup.garou.Models;
 
 import java.io.Serializable;
 
-public class Joueur implements Serializable{
+public class Joueur implements Serializable {
 
     private String nom;
     private Role role;
@@ -13,13 +13,17 @@ public class Joueur implements Serializable{
         this.role = new Villageois();
         this.amoureux = false;
     }
-    
+
     public boolean getAmoureux() {
         return amoureux;
     }
 
-    public void setAmoureux(boolean amoureux) {
-        this.amoureux = amoureux;
+    public void setAmoureux() {
+        if (this.amoureux == false) {
+            this.amoureux = true;
+        }else{
+            this.amoureux = false;
+        }
     }
 
     public String getNom() {

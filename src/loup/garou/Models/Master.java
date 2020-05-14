@@ -89,7 +89,7 @@ public class Master implements Serializable {
             }
         }
         
-        if (nbJoueur >= 10) {
+        if (nbJoueur >= 4) {
             Cupidon unCupidon = new Cupidon();
             n = r.nextInt(tabJoueur.size());
             if (tabJoueur.get(n).getRole() instanceof Villageois) {
