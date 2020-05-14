@@ -17,6 +17,7 @@ import jiconfont.swing.IconFontSwing;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Loup_Garou;
 import loup.garou.Models.Master;
+import loup.garou.Models.Role;
 import loup.garou.Models.Serveur;
 import loup.garou.Models.Villageois;
 
@@ -327,17 +328,21 @@ public class MasterGame extends javax.swing.JFrame {
         Boolean gameFini = false;
 
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
+        
         for (Joueur JoueurEnVie : JoueurLive) {
             if (JoueurEnVie.getRole() instanceof Loup_Garou) {
                 Victoire = "";
+                break;
             } else {
                 Victoire = "Les Vilageois ont gagné";
             }
         }
+        
         if (Victoire.isEmpty()) {
             for (Joueur JoueurEnVie : JoueurLive) {
                 if (JoueurEnVie.getRole() instanceof Villageois) {
                     Victoire = "";
+                    break;
                 } else {
                     Victoire = "Les Loups ont gagné";
                 }
@@ -361,6 +366,7 @@ public class MasterGame extends javax.swing.JFrame {
             JPanelContainer.add(JPanel6);
             action = 999;
         }
+        
         return gameFini;
     }
 
