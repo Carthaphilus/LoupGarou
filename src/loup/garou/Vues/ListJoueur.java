@@ -43,12 +43,21 @@ public class ListJoueur extends javax.swing.JFrame {
     public ListJoueur(List<Joueur> Joueurs, int unTour) {
         initComponents();
         tour = unTour;
-        String[] entete = new String[]{"Nom du joueur", "Role", "Statut", "Amoureux"};
+        String[] entete = null;
+
+        if (Master.roleExiste("Cupidon")) {
+            entete = new String[]{"Nom du joueur", "Role", "Statut", "Amoureux"};
+        } else {
+            entete = new String[]{"Nom du joueur", "Role", "Statut"};
+        }
+
         tabjoueur = new TabJoueurClass(Joueurs, entete);
         tabAffichageJoueur.setModel(tabjoueur);
-        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new CheckBoxRenderer());
 
-        tabAffichageJoueur.getColumnModel().getColumn(3).setCellEditor(new CheckBoxEditor());
+        if (Master.roleExiste("Cupidon")) {
+            tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new CheckBoxRenderer());
+            tabAffichageJoueur.getColumnModel().getColumn(3).setCellEditor(new CheckBoxEditor());
+        }
 
     }
 
@@ -220,10 +229,14 @@ public class ListJoueur extends javax.swing.JFrame {
         }
 
         class changeAmoureux implements ActionListener {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = tabAffichageJoueur.getSelectedRow();
                 tabjoueur.setValueAt(rowSelected, 3);
+                if(Master.amoureuxDefined() == true){
+                    tabAffichageJoueur.setEditingColumn(3);
+                }
             }
         }
 
