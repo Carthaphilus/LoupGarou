@@ -6,12 +6,18 @@
 package loup.garou.Vues;
 
 import java.awt.Component;
+import java.awt.GridBagLayout;
 import java.util.List;
+import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Master;
 import loup.garou.Models.TabJoueurClass;
@@ -37,7 +43,11 @@ public class ListJoueur extends javax.swing.JFrame {
         String[] entete = new String[]{"Nom du joueur", "Role", "Statut", "Amoureux"};
         tabjoueur = new TabJoueurClass(Joueurs, entete);
         tabAffichageJoueur.setModel(tabjoueur);
-        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new MyCellRenderer());
+        tabAffichageJoueur.getColumnModel().getColumn(3).setCellRenderer(new CheckBoxRenderer());
+        
+        
+         tabAffichageJoueur.getColumnModel().getColumn(3).setCellEditor(new CheckBoxEditor());
+    
     }
 
     public void setTourList(int addTour) {
@@ -214,30 +224,71 @@ public class ListJoueur extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabAffichageJoueur;
     // End of variables declaration//GEN-END:variables
-    
-    public class MyCellRenderer extends DefaultTableCellRenderer {
- 
-        private static final long serialVersionUID = 1L;
- 
-        public Component getTableCellRendererComponent(JTable table,
-                Object value, boolean isSelected, boolean hasFocus, int row,
-                int column) {
- 
-            if (value instanceof JComboBox) {
-                return (JComboBox) value;
-            }
-            if (value instanceof Boolean) {
-                JCheckBox cb = new JCheckBox();
-                cb.setSelected(((Boolean) value).booleanValue());
-                return cb;
-            }
-            if (value instanceof JCheckBox) {
-                return (JCheckBox) value;
-            }
-            return new JTextField(value.toString());
-        }
- 
+   class CheckBoxEditor extends AbstractCellEditor implements TableCellEditor {
+    private static final long serialVersionUID = 1L;
+    private final JPanel componentPanel;
+    private final JCheckBox checkBox;
+
+    public CheckBoxEditor() {
+        componentPanel = new JPanel(new GridBagLayout());  // Use GridBagLayout to center the checkbox
+        checkBox = new JCheckBox();
+        checkBox.setOpaque(false);
+        componentPanel.add(checkBox);
     }
+
+    @Override
+    public Object getCellEditorValue() {
+        return Boolean.valueOf(checkBox.isSelected());
+    }
+
+    @Override
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        setCheckboxValue(checkBox, value);
+        TableCellRenderer renderer = table.getCellRenderer(row, column);
+        Component c = renderer.getTableCellRendererComponent(table, value, true, true, row, column);
+        copyAppearanceFrom(componentPanel, c);
+        return componentPanel;
+    }
+}
+ private static void setCheckboxValue(JCheckBox checkBox, Object value) {
+    if (value instanceof Boolean) {
+        checkBox.setSelected(((Boolean) value).booleanValue());
+    } else if (value instanceof String) {
+        checkBox.setSelected(value.equals("true"));
+    }
+}
+
+private static void copyAppearanceFrom(JPanel to, Component from) {
+    if (from != null) {
+        to.setOpaque(true);
+        to.setBackground(from.getBackground());
+        if (from instanceof JComponent) {
+            to.setBorder(((JComponent) from).getBorder());
+        }
+    } else {
+        to.setOpaque(false);
+    }
+}
+   class CheckBoxRenderer extends DefaultTableCellRenderer {
+    private static final long serialVersionUID = 1L;
+    private final JPanel componentPanel;
+    private final JCheckBox checkBox;
+
+    public CheckBoxRenderer() {
+        componentPanel = new JPanel(new GridBagLayout());  // Use GridBagLayout to center the checkbox
+        checkBox = new JCheckBox();
+        checkBox.setOpaque(false);
+        componentPanel.add(checkBox);
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        setCheckboxValue(checkBox, value);
+        copyAppearanceFrom(componentPanel, this);
+        return componentPanel;
+    }
+}
     
 }
 
