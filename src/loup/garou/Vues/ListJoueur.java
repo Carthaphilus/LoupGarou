@@ -164,6 +164,9 @@ public class ListJoueur extends javax.swing.JFrame {
         int rowSelected = tabAffichageJoueur.getSelectedRow();
         Joueur selectedJoueur = tabjoueur.getJoueurInTab(rowSelected);
         selectedJoueur.setTourMort(tour);
+        if(selectedJoueur.getAmoureux() == true){
+            Master.killAmoureux();
+        }
         Master.getInstance().getTabJoueurMort().add(selectedJoueur);
         this.dispose();
         this.setVisible(true);
@@ -234,9 +237,6 @@ public class ListJoueur extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = tabAffichageJoueur.getSelectedRow();
                 tabjoueur.setValueAt(rowSelected, 3);
-                if(Master.amoureuxDefined() == true){
-                    tabAffichageJoueur.setEditingColumn(3);
-                }
             }
         }
 

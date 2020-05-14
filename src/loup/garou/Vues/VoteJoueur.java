@@ -27,10 +27,12 @@ public class VoteJoueur extends javax.swing.JFrame {
 
     public VoteJoueur(List<Joueur> tabJoueur, Joueur unJoueur) {
         initComponents();
+        leJoueur = unJoueur;
         String[] entete = new String[]{"Nom du joueur"};
+        tabJoueur.remove(leJoueur);
         listeJoueur = new TabJoueurClass(tabJoueur, entete);
         tabVote.setModel(listeJoueur);
-        leJoueur = unJoueur;
+        
     }
 
     /**
