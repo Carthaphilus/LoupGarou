@@ -75,7 +75,7 @@ public class ClientConnexion implements Runnable {
 
                 if ("String".equals(response.getEtape())) {
                     String chaine = (String)response.getContent();
-                    if("REINITIALISER".equals(chaine)){
+                    if("REINITIALISER".equals(chaine) || "BIENVENUE".equals(chaine)){
                         callback.reiniChooseServer(chaine);
                         System.out.println("\t * " + name + " : Réponse reçue " + chaine);
                     } else if("CLOSE".equals(chaine)){

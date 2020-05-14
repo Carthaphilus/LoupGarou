@@ -129,7 +129,7 @@ public class Chat extends javax.swing.JFrame {
 
     private void btnSendMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendMsgActionPerformed
         tabMsg.setMessage(txtMsg.getText());
-//        tabChat;
+        //tabChat;
     }//GEN-LAST:event_btnSendMsgActionPerformed
 
     private void txtMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMsgActionPerformed

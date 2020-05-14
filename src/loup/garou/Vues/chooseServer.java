@@ -217,7 +217,7 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
 
     @Override
     public void reiniChooseServer(String unMsg) {
-        if(unMsg.equals("nom utilisé")){
+        if(unMsg.equals("REINITIALISER")){
             jLabel2.setText("Veuillez entrez un autre nom");
             this.dispose();
             this.setVisible(true);

@@ -65,9 +65,9 @@ public class ClientProcessor implements Runnable {
                         if (ServeurInstance.verifNomJoueur(name).equals("0")) {
                             ServeurInstance.setClientInList(this);
                             callback.etat(response.getContent());
-                            toSend = "Bienvenue " + (String) response.getContent();
+                            toSend = "BIENVENUE";
                         } else {
-                            toSend = "nom utilisé";
+                            toSend = "REINITIALISER";
                         }
                         break;
                     case "VoteVillage":
