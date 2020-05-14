@@ -6,12 +6,10 @@
 package loup.garou.Vues;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractListModel;
-import javax.swing.table.AbstractTableModel;
 import loup.garou.Models.ClientConnexion;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.TabJoueurClass;
@@ -37,6 +35,7 @@ public class VoteJoueur extends javax.swing.JFrame {
         
         String[] entete = new String[]{"Nom du joueur"};
         tabJoueur.remove(leJoueur);
+        Collections.sort(tabJoueur, Joueur.TriNameJoueur);
         listeJoueur = new TabJoueurClass(tabJoueur, entete);
         tabVote.setModel(listeJoueur);
         

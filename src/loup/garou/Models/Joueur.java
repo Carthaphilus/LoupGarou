@@ -1,6 +1,7 @@
 package loup.garou.Models;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class Joueur implements Serializable {
 
@@ -68,4 +69,16 @@ public class Joueur implements Serializable {
     public String toString() {
         return "Joueur{" + "nom=" + nom + " tour=" + tourMort + "}";
     }
+
+    public static Comparator<Joueur> TriNameJoueur = new Comparator<Joueur>() {
+	public int compare(Joueur s1, Joueur s2) {
+	   String StudentName1 = s1.nom.toUpperCase();
+	   String StudentName2 = s2.nom.toUpperCase();
+
+	   //ascending order
+	   return StudentName1.compareTo(StudentName2);
+
+	   //descending order
+	   //return StudentName2.compareTo(StudentName1);
+    }};
 }
