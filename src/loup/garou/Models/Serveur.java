@@ -129,9 +129,9 @@ public class Serveur {
         }
     }
 
-    public void sendListJoueurToAllClient(List<Joueur> lesJoueur) {
+    public void sendListJoueurToAllClient(List<Joueur> lesJoueur, String uneEtape) {
         Message unMsg = new Message();
-        unMsg.setEtape("ListJoueur");
+        unMsg.setEtape(uneEtape);
         unMsg.setContent(lesJoueur);
 
         ListClient.forEach((unClient) -> {

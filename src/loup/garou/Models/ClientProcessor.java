@@ -66,7 +66,7 @@ public class ClientProcessor implements Runnable {
                             toSend = "nom utilisé";
                         }
                         break;
-                    case "VOTE":
+                    case "VoteVillage":
                         VoteJoueur.add((Joueur) response.getContent());
                         Master leMaster = Master.getInstance();
                         List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();

@@ -210,8 +210,8 @@ public class chooseServer extends javax.swing.JFrame implements Trucable {
     }
 
     @Override
-    public void VoteJoueur(List<Joueur> ListeJoueur) {
-        VoteJoueur FrameVoteJoueur= new VoteJoueur(ListeJoueur,Joueur);
+    public void VoteJoueur(List<Joueur> ListeJoueur, String etape) {
+        VoteJoueur FrameVoteJoueur= new VoteJoueur(ListeJoueur,Joueur, etape);
         FrameVoteJoueur.setVisible(true);
     }
 

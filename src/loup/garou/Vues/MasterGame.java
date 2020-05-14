@@ -99,6 +99,10 @@ public class MasterGame extends javax.swing.JFrame {
         arrayJpanel.add(JPanel4);
         JPanelContainer.add(JPanel4);
 
+//        Serveur ServeurInstance = Serveur.getInstance();
+//        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteChef");
+//        jButton1.setEnabled(false);
+
     }
 
     /**
@@ -244,7 +248,7 @@ public class MasterGame extends javax.swing.JFrame {
                     gameFini = gameFinish();
                     if (gameFini == false) {
                         Serveur ServeurInstance = Serveur.getInstance();
-                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive());
+                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteVillage");
                         jButton1.setEnabled(false);
                     }
                     break;
@@ -266,7 +270,7 @@ public class MasterGame extends javax.swing.JFrame {
                     jButton1.setText("Retour a l'ecrant d'accueil");
                     break;
             }
-            
+
             if (nextFrame == true) {
                 ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
             }
@@ -352,7 +356,7 @@ public class MasterGame extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         if (Victoire.isEmpty()) {
             for (Joueur JoueurEnVie : JoueurLive) {
                 if (JoueurEnVie.getAmoureux() == false) {
@@ -372,12 +376,12 @@ public class MasterGame extends javax.swing.JFrame {
             String imgChoose;
             if (Victoire.equals("Les Loups ont gagné")) {
                 imgChoose = "Loup-Garou";
-            } else if(Victoire.equals("Les amoureux on gagner")) {
+            } else if (Victoire.equals("Les amoureux on gagner")) {
                 imgChoose = "Cupidon";
-            }else {
+            } else {
                 imgChoose = "Villageois";
             }
-            
+
             JPanel6.getJlabelImage(imgChoose, 175, 175);
             JPanel6.getJlabelDes().setText(Victoire);
             arrayJpanel.add(JPanel6);

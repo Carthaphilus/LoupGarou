@@ -89,9 +89,10 @@ public class ClientConnexion implements Runnable {
                     Joueur unJoueur = (Joueur) response.getContent();
                     callback.setJoueur(unJoueur);
                     System.out.println("\t * " + name + " : Réponse reçue " + unJoueur.toString());
-                } else if ("ListJoueur".equals(response.getEtape())){
+                } else if ("VoteVillage".equals(response.getEtape())){
                     List<Joueur> listeJoueur = (List<Joueur>) response.getContent();
-                    callback.VoteJoueur(listeJoueur);
+                    String etape = response.getEtape();
+                    callback.VoteJoueur(listeJoueur, etape);
                     System.out.println("\t * " + name + " : Réponse reçue la liste de joueur ");
                 }
 

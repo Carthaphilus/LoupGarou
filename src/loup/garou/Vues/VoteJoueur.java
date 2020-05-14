@@ -24,10 +24,17 @@ public class VoteJoueur extends javax.swing.JFrame {
 
     TabJoueurClass listeJoueur;
     Joueur leJoueur;
+    String Etape;
 
-    public VoteJoueur(List<Joueur> tabJoueur, Joueur unJoueur) {
+    public VoteJoueur(List<Joueur> tabJoueur, Joueur unJoueur, String etape) {
         initComponents();
         leJoueur = unJoueur;
+        Etape = etape;
+        
+        if(etape.equals("VoteChef")){
+            jLabel2.setText("Veuillez voter pour un chef de confiance:");
+        }
+        
         String[] entete = new String[]{"Nom du joueur"};
         tabJoueur.remove(leJoueur);
         listeJoueur = new TabJoueurClass(tabJoueur, entete);
@@ -148,7 +155,7 @@ public class VoteJoueur extends javax.swing.JFrame {
             if (uneConnexion.getName().equals(leJoueur.getNom())) {
                 try {
                     loup.garou.Models.Message unMsg = new loup.garou.Models.Message();
-                    unMsg.setEtape("VOTE");
+                    unMsg.setEtape(Etape);
                     unMsg.setContent(selectedJoueur);
                     uneConnexion.write(unMsg);
                     this.setVisible(false);

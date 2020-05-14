@@ -227,7 +227,7 @@ public class AffichageIp extends javax.swing.JFrame implements Trucable {
     }
 
     @Override
-    public void VoteJoueur(List<Joueur> ListeJoueur) {
+    public void VoteJoueur(List<Joueur> ListeJoueur, String etape) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
