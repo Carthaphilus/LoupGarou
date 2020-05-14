@@ -152,8 +152,6 @@ public class VoteJoueur extends javax.swing.JFrame {
         Joueur selectedJoueur = listeJoueur.getJoueurInTab(rowSelected);
         List<ClientConnexion> listeCoClient = chooseServer.getClientConnexion();
         for (ClientConnexion uneConnexion : listeCoClient) {
-            System.out.println(uneConnexion);
-            System.out.println(leJoueur.getNom());
             if (uneConnexion.getName().equals(leJoueur.getNom())) {
                 try {
                     loup.garou.Models.Message unMsg = new loup.garou.Models.Message();

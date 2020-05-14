@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import javax.swing.JPanel;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
+import loup.garou.Models.ClientProcessor;
 import loup.garou.Models.Joueur;
 import loup.garou.Models.Loup_Garou;
 import loup.garou.Models.Master;
@@ -98,10 +99,6 @@ public class MasterGame extends javax.swing.JFrame {
 
         arrayJpanel.add(JPanel4);
         JPanelContainer.add(JPanel4);
-
-//        Serveur ServeurInstance = Serveur.getInstance();
-//        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteChef");
-//        jButton1.setEnabled(false);
 
     }
 
@@ -237,10 +234,23 @@ public class MasterGame extends javax.swing.JFrame {
                 case 1:
                     if (Master.roleExiste("Cupidon") == true) {
                         if (Master.amoureuxDefined() == false) {
+                            jButton1.setText("Veuillez definir les amoureux avant de passer a l'etapes suivante");
+                            jButton1.setForeground(Color.red);
                             action = 0;
                             nextFrame = false;
+                        } else {
+                            jButton1.setText("Etape suivantes");
+                            jButton1.setForeground(Color.black);
                         }
-                        System.out.println(Master.getTabJoueurLive());
+                    }
+
+                    if (Master.chefExiste() == false) {
+                        Serveur ServeurInstance = Serveur.getInstance();
+                        ClientProcessor.resetVoteJoueur();
+                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteChef");
+                        jButton1.setEnabled(false);
+                        action = 0;
+                        nextFrame = false;
                     }
                     break;
                 case 2:
@@ -249,7 +259,8 @@ public class MasterGame extends javax.swing.JFrame {
                     gameFini = gameFinish();
                     if (gameFini == false) {
                         Serveur ServeurInstance = Serveur.getInstance();
-                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteVillage");
+                        ClientProcessor.resetVoteJoueur();
+                        ServeurInstance.sendListJoueurToAllClient(Master.getTabJoueurLive(), "VoteVillage");      
                         jButton1.setEnabled(false);
                     }
                     break;
@@ -330,6 +341,10 @@ public class MasterGame extends javax.swing.JFrame {
 
     public void setEnabledEtapeSuivante() {
         jButton1.setEnabled(true);
+    }
+
+    public void setTextEtapeSuivante(String unText) {
+        jButton1.setText(unText);
     }
 
     public Boolean gameFinish() {

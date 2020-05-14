@@ -159,6 +159,17 @@ public class Master implements Serializable {
         }
         return JoueurEnVie;
     }
+    
+    public Boolean chefExiste() {
+        Boolean ok = false;
+        List<Joueur> JoueurLive = this.getTabJoueurLive();
+        for (Joueur unJoueur : JoueurLive) {
+            if (unJoueur.getChef()) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
 
     public Boolean roleExiste(String role) {
         Boolean ok = false;
