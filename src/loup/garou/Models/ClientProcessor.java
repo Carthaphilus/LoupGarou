@@ -101,6 +101,11 @@ public class ClientProcessor implements Runnable {
                                     System.out.println("joueurMort : " + joueurEnvie);
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
+                                    
+                                    if (joueurEnvie.getAmoureux() == true) {
+                                        leMaster.killAmoureux();
+                                    }
+                                    
                                     System.out.println("joueurMort : " + joueurEnvie);
                                 }
                             }

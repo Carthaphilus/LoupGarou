@@ -163,8 +163,7 @@ public class Master implements Serializable {
     public Boolean amoureuxDefined(){
         Boolean ok = false;
         Integer nbAmoureux = 0;
-        List<Joueur> JoueurLive = this.getTabJoueurLive();
-        for (Joueur unJoueur : JoueurLive) {
+        for (Joueur unJoueur : tabJoueur) {
             if (unJoueur.getAmoureux() == true) {
                 nbAmoureux++;
             }
@@ -174,6 +173,16 @@ public class Master implements Serializable {
             ok = true;
         }
         return ok;
+    }
+    
+    public void killAmoureux(){
+        List<Joueur> JoueurLive = this.getTabJoueurLive();
+        for (Joueur unJoueur : JoueurLive) {
+            if (unJoueur.getAmoureux()) {
+                unJoueur.setTourMort(tour);
+                tabJoueurMort.add(unJoueur);
+            }
+        }
     }
 
 }
