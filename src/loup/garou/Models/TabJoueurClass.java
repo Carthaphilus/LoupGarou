@@ -46,10 +46,9 @@ public class TabJoueurClass extends AbstractTableModel {
         return col[columnIndex];
     }
 
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    public void setValueAt(int rowIndex, int columnIndex) {
         if(columnIndex==3){
-            tabJoueur.get(rowIndex).setAmoureux(((Boolean)aValue).booleanValue());
+            tabJoueur.get(rowIndex).setAmoureux();
             
         }
     }

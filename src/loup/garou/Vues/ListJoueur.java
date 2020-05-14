@@ -7,6 +7,8 @@ package loup.garou.Vues;
 
 import java.awt.Component;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
 import javax.swing.JCheckBox;
@@ -212,8 +214,17 @@ public class ListJoueur extends javax.swing.JFrame {
         public CheckBoxEditor() {
             componentPanel = new JPanel(new GridBagLayout());  // Use GridBagLayout to center the checkbox
             checkBox = new JCheckBox();
+            checkBox.addActionListener(new changeAmoureux());
             checkBox.setOpaque(false);
             componentPanel.add(checkBox);
+        }
+
+        class changeAmoureux implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int rowSelected = tabAffichageJoueur.getSelectedRow();
+                tabjoueur.setValueAt(rowSelected, 3);
+            }
         }
 
         @Override
@@ -232,12 +243,10 @@ public class ListJoueur extends javax.swing.JFrame {
     }
 
     private static void setCheckboxValue(JCheckBox checkBox, Object value) {
-        if (Master.amoureuxDefined() == false) {
-            if (value instanceof Boolean) {
-                checkBox.setSelected(((Boolean) value).booleanValue());
-            } else if (value instanceof String) {
-                checkBox.setSelected(value.equals("true"));
-            }
+        if (value instanceof Boolean) {
+            checkBox.setSelected(((Boolean) value).booleanValue());
+        } else if (value instanceof String) {
+            checkBox.setSelected(value.equals("true"));
         }
     }
 

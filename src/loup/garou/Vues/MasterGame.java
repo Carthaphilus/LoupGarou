@@ -212,6 +212,7 @@ public class MasterGame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Boolean gameFini;
+        Boolean nextFrame = true;
         if (jButton1.getText().equals("Retour a l'ecrant d'accueil")) {
             Serveur ServeurInstance = Serveur.getInstance();
             System.err.println("LE SERVEUR VA ETRE FERMER !!! ");
@@ -227,9 +228,10 @@ public class MasterGame extends javax.swing.JFrame {
 
             switch (action) {
                 case 1:
-                    if(Master.roleExiste("Cupidon")){
-                        if(Master.amoureuxDefined() == false){
+                    if (Master.roleExiste("Cupidon") == true) {
+                        if (Master.amoureuxDefined() == false) {
                             action = 0;
+                            nextFrame = false;
                         }
                     }
                     break;
@@ -265,7 +267,10 @@ public class MasterGame extends javax.swing.JFrame {
                     jButton1.setText("Retour a l'ecrant d'accueil");
                     break;
             }
-            ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
+            
+            if (nextFrame == true) {
+                ((CardLayout) JPanelContainer.getLayout()).next(JPanelContainer);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -328,7 +333,7 @@ public class MasterGame extends javax.swing.JFrame {
         Boolean gameFini = false;
 
         List<Joueur> JoueurLive = Master.getTabJoueurLive();
-        
+
         for (Joueur JoueurEnVie : JoueurLive) {
             if (JoueurEnVie.getRole() instanceof Loup_Garou) {
                 Victoire = "";
@@ -337,7 +342,7 @@ public class MasterGame extends javax.swing.JFrame {
                 Victoire = "Les Vilageois ont gagné";
             }
         }
-        
+
         if (Victoire.isEmpty()) {
             for (Joueur JoueurEnVie : JoueurLive) {
                 if (JoueurEnVie.getRole() instanceof Villageois) {
@@ -366,7 +371,7 @@ public class MasterGame extends javax.swing.JFrame {
             JPanelContainer.add(JPanel6);
             action = 999;
         }
-        
+
         return gameFini;
     }
 
