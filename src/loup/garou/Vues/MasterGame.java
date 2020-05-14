@@ -226,6 +226,11 @@ public class MasterGame extends javax.swing.JFrame {
 
             switch (action) {
                 case 1:
+                    if(Master.roleExiste("Cupidon")){
+                        if(Master.amoureuxDefined() == false){
+                            action = 0;
+                        }
+                    }
                     break;
                 case 2:
                     break;
@@ -307,17 +312,6 @@ public class MasterGame extends javax.swing.JFrame {
                 new MasterGame(Master.getInstance()).setVisible(true);
             }
         });
-    }
-
-    public static Boolean roleExiste(String role) {
-        Boolean ok = false;
-        List<Joueur> JoueurLive = Master.getTabJoueurLive();
-        for(Joueur unJoueur : JoueurLive){
-            if(unJoueur.getRole().getNom().equals(role)){
-                ok = true;
-            }
-        }    
-        return ok;
     }
 
     public static MasterGame getMasterGameInstance() {

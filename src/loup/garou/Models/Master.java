@@ -34,8 +34,8 @@ public class Master implements Serializable {
             return MasterInstance;
         }
     }
-    
-    public void resetMaster(){
+
+    public void resetMaster() {
         this.nbJoueur = 0;
         this.tour = 0;
         tabJoueur = new ArrayList<>();
@@ -84,6 +84,16 @@ public class Master implements Serializable {
             n = r.nextInt(tabJoueur.size());
             if (tabJoueur.get(n).getRole() instanceof Villageois) {
                 tabJoueur.get(n).setRole(unChasseur);
+                roleAttribuer.add(tabJoueur.get(n));
+                tabJoueur.remove(n);
+            }
+        }
+        
+        if (nbJoueur >= 10) {
+            Cupidon unCupidon = new Cupidon();
+            n = r.nextInt(tabJoueur.size());
+            if (tabJoueur.get(n).getRole() instanceof Villageois) {
+                tabJoueur.get(n).setRole(unCupidon);
                 roleAttribuer.add(tabJoueur.get(n));
                 tabJoueur.remove(n);
             }
@@ -137,6 +147,33 @@ public class Master implements Serializable {
             }
         }
         return JoueurEnVie;
+    }
+
+    public Boolean roleExiste(String role) {
+        Boolean ok = false;
+        List<Joueur> JoueurLive = this.getTabJoueurLive();
+        for (Joueur unJoueur : JoueurLive) {
+            if (unJoueur.getRole().getNom().equals(role)) {
+                ok = true;
+            }
+        }
+        return ok;
+    }
+    
+    public Boolean amoureuxDefined(){
+        Boolean ok = false;
+        Integer nbAmoureux = 0;
+        List<Joueur> JoueurLive = this.getTabJoueurLive();
+        for (Joueur unJoueur : JoueurLive) {
+            if (unJoueur.getAmoureux() == true) {
+                nbAmoureux++;
+            }
+        }
+        
+        if(nbAmoureux == 2){
+            ok = true;
+        }
+        return ok;
     }
 
 }
