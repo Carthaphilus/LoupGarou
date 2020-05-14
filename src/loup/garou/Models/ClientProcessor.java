@@ -105,9 +105,8 @@ public class ClientProcessor implements Runnable {
                                     if (joueurEnvie.getAmoureux() == true) {
                                         leMaster.killAmoureux();
                                     }
-                                    
-                                    System.out.println("joueurMort : " + joueurEnvie);
-                                    System.out.println("TabJoueurMortClientPros : " + leMaster.getTabJoueurMort());
+//                                    System.out.println("joueurMort : " + joueurEnvie);
+//                                    System.out.println("TabJoueurMortClientPros : " + leMaster.getTabJoueurMort());
                                 }
                             }
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
