@@ -194,7 +194,6 @@ public class Master implements Serializable {
                 tabJoueurMort.add(unJoueur);
             }
         }
-        System.out.println("TabJoueurMortMaster : " + this.tabJoueurMort);
     }
 
 }
