@@ -179,9 +179,9 @@ public class MasterGame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(JPanelContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JPanelContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -190,11 +190,14 @@ public class MasterGame extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(JPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(JPanelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
+
+        JPanelContainer.getAccessibleContext().setAccessibleName("");
+        JPanelContainer.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,12 +249,7 @@ public class MasterGame extends javax.swing.JFrame {
                     }
                     break;
                 case 5:
-                    JpanelCustom JPanel5 = new JpanelCustom();
-                    JPanel5.getJlabelTitle().setText("Le village a decider d'elimine");
-
-                    Integer lastIndex = Master.getTabJoueurMort().size() - 1;
-                    JPanel5.getJlabelImage(Master.getTabJoueurMort().get(lastIndex).getRole().getNom(), 0, 0);
-                    JPanel5.getJlabelDes().setText(Master.getTabJoueurMort().get(lastIndex).getNom());
+                    JoueurMort JPanel5 = new JoueurMort(Master.getJoueurMortByTour(tour));
 
                     arrayJpanel.add(JPanel5);
                     JPanelContainer.add(JPanel5);
@@ -259,6 +257,7 @@ public class MasterGame extends javax.swing.JFrame {
                     gameFini = gameFinish();
                     if (gameFini == false) {
                         tour++;
+                        Master.setTour(tour);
                         listeJoueur.setTourList(tour);
                         action = 0;
                     }
@@ -353,6 +352,17 @@ public class MasterGame extends javax.swing.JFrame {
                 }
             }
         }
+        
+        if (Victoire.isEmpty()) {
+            for (Joueur JoueurEnVie : JoueurLive) {
+                if (JoueurEnVie.getAmoureux() == false) {
+                    Victoire = "";
+                    break;
+                } else {
+                    Victoire = "Les amoureux on gagner";
+                }
+            }
+        }
 
         if (!Victoire.isEmpty()) {
             gameFini = true;
@@ -362,9 +372,12 @@ public class MasterGame extends javax.swing.JFrame {
             String imgChoose;
             if (Victoire.equals("Les Loups ont gagné")) {
                 imgChoose = "Loup-Garou";
-            } else {
+            } else if(Victoire.equals("Les amoureux on gagner")) {
+                imgChoose = "Cupidon";
+            }else {
                 imgChoose = "Villageois";
             }
+            
             JPanel6.getJlabelImage(imgChoose, 175, 175);
             JPanel6.getJlabelDes().setText(Victoire);
             arrayJpanel.add(JPanel6);

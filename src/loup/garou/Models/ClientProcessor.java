@@ -72,7 +72,7 @@ public class ClientProcessor implements Runnable {
                         List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
                         int nbJoueur = TabJoueurLive.size();
                         int nbVoteJoueur = VoteJoueur.size();
-                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
+//                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
                         if (nbVoteJoueur == nbJoueur) {
                             HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
                             for (Joueur unJoueur : VoteJoueur) {
@@ -92,13 +92,13 @@ public class ClientProcessor implements Runnable {
                                 if (joueurNbVote < listeVoteJoueur.get(i)) {
                                     joueurNbVote = listeVoteJoueur.get(i);
                                     joueurMort = i;
-                                    System.out.println("i : " + i);
+//                                    System.out.println("i : " + i);
                                 }
                             }
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurMort.getNom())) {
-                                    System.out.println("joueurMort : " + joueurEnvie);
+//                                    System.out.println("joueurMort : " + joueurEnvie);
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
                                     
@@ -107,6 +107,7 @@ public class ClientProcessor implements Runnable {
                                     }
                                     
                                     System.out.println("joueurMort : " + joueurEnvie);
+                                    System.out.println("TabJoueurMortClientPros : " + leMaster.getTabJoueurMort());
                                 }
                             }
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
