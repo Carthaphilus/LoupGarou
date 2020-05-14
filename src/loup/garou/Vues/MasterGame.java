@@ -240,6 +240,7 @@ public class MasterGame extends javax.swing.JFrame {
                             action = 0;
                             nextFrame = false;
                         }
+                        System.out.println(Master.getTabJoueurLive());
                     }
                     break;
                 case 2:

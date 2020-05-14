@@ -54,6 +54,10 @@ public class ClientProcessor implements Runnable {
                 //On traite la demande du client en fonction de la commande envoyée
                 String toSend = "";
                 Serveur ServeurInstance = Serveur.getInstance();
+                Master leMaster = Master.getInstance();
+                List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
+                int nbJoueur = TabJoueurLive.size();
+                int nbVoteJoueur = VoteJoueur.size();
 
                 switch (response.getEtape()) {
                     case "NAME":
@@ -68,10 +72,6 @@ public class ClientProcessor implements Runnable {
                         break;
                     case "VoteVillage":
                         VoteJoueur.add((Joueur) response.getContent());
-                        Master leMaster = Master.getInstance();
-                        List<Joueur> TabJoueurLive = leMaster.getTabJoueurLive();
-                        int nbJoueur = TabJoueurLive.size();
-                        int nbVoteJoueur = VoteJoueur.size();
 //                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
                         if (nbVoteJoueur == nbJoueur) {
                             HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
@@ -107,6 +107,43 @@ public class ClientProcessor implements Runnable {
                                     }
 //                                    System.out.println("joueurMort : " + joueurEnvie);
 //                                    System.out.println("TabJoueurMortClientPros : " + leMaster.getTabJoueurMort());
+                                }
+                            }
+                            ServeurInstance.sendMessageToAllClient("OkNbVote");
+                            MasterGame InstanceMG = MasterGame.getMasterGameInstance();
+                            InstanceMG.setEnabledEtapeSuivante();
+                        }
+                        toSend = "Vote recue";
+                        break;
+                    case "VoteChef":
+                        VoteJoueur.add((Joueur) response.getContent());
+//                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
+                        if (nbVoteJoueur == nbJoueur) {
+                            HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
+                            for (Joueur unJoueur : VoteJoueur) {
+                                int nbVote = 0;
+                                if (!listeVoteJoueur.containsKey(unJoueur)) {
+                                    for (Joueur unJoueur2 : VoteJoueur) {
+                                        if (unJoueur.getNom().equals(unJoueur2.getNom())) {
+                                            nbVote = nbVote + 1;
+                                        }
+                                    }
+                                    listeVoteJoueur.put(unJoueur, nbVote);
+                                }
+                            }
+                            int joueurNbVote = 0;
+                            Joueur joueurChef = null;
+                            for (Joueur i : listeVoteJoueur.keySet()) {
+                                if (joueurNbVote < listeVoteJoueur.get(i)) {
+                                    joueurNbVote = listeVoteJoueur.get(i);
+                                    joueurChef = i;
+//                                    System.out.println("i : " + i);
+                                }
+                            }
+
+                            for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
+                                if (joueurEnvie.getNom().equals(joueurChef.getNom())) {
+                                    joueurEnvie.setChef();
                                 }
                             }
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
