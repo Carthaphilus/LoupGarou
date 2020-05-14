@@ -352,6 +352,17 @@ public class MasterGame extends javax.swing.JFrame {
                 }
             }
         }
+        
+        if (Victoire.isEmpty()) {
+            for (Joueur JoueurEnVie : JoueurLive) {
+                if (JoueurEnVie.getAmoureux() == false) {
+                    Victoire = "";
+                    break;
+                } else {
+                    Victoire = "Les amoureux on gagner";
+                }
+            }
+        }
 
         if (!Victoire.isEmpty()) {
             gameFini = true;
@@ -361,9 +372,12 @@ public class MasterGame extends javax.swing.JFrame {
             String imgChoose;
             if (Victoire.equals("Les Loups ont gagné")) {
                 imgChoose = "Loup-Garou";
-            } else {
+            } else if(Victoire.equals("Les amoureux on gagner")) {
+                imgChoose = "Cupidon";
+            }else {
                 imgChoose = "Villageois";
             }
+            
             JPanel6.getJlabelImage(imgChoose, 175, 175);
             JPanel6.getJlabelDes().setText(Victoire);
             arrayJpanel.add(JPanel6);
