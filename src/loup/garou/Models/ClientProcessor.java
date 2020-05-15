@@ -104,6 +104,7 @@ public class ClientProcessor implements Runnable {
                                         }
                                     }
                                     listeVoteJoueur.put(unJoueur, nbVote);
+                                    System.out.println(unJoueur + " nbVote : "+ nbVote);
                                 }
                             }
                             int joueurNbVote = 0;
@@ -117,14 +118,25 @@ public class ClientProcessor implements Runnable {
                                     joueurNbVote = listeVoteJoueur.get(i);
                                     joueurMort = VoteChef;
                                 }
+                                System.out.println("joueurMort : "+joueurMort);
                             }
+                            joueurNbVote = 0;
+                            for (Joueur i : listeVoteJoueur.keySet()) {
+                                if (joueurNbVote == listeVoteJoueur.get(i)) {
+                                    joueurNbVote = listeVoteJoueur.get(i);
+                                    joueurMort = VoteChef;
+                                }
+                                System.out.println("joueurMort : "+joueurMort);
+                            }
+                            System.out.println("joueurMort finale : "+joueurMort);
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurMort.getNom())) {
 //                                    System.out.println("joueurMort : " + joueurEnvie);
+                                    ServeurInstance.sendListJoueurToAllClient(leMaster.getTabJoueurLive(),"successeurChef");
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
-
+                                    
                                     if (joueurEnvie.getAmoureux() == true) {
                                         leMaster.killAmoureux();
                                     }
@@ -176,8 +188,13 @@ public class ClientProcessor implements Runnable {
                         }
                         toSend = "Vote recue";
                         break;
-                    case "HOUR":
-                        toSend = "";
+                    case "SUCCESSEUR":
+                        Joueur joueurChef = (Joueur) response.getContent();
+                        for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
+                            if (joueurEnvie.getNom().equals(joueurChef.getNom())) {
+                                joueurEnvie.setChef();
+                            }
+                        }
                         break;
                     case "DEFAULT":
                         toSend = "Commande inconnu !";

@@ -99,6 +99,14 @@ public class ClientConnexion implements Runnable {
                     String etape = response.getEtape();
                     callback.VoteJoueur(listeJoueur, etape);
                     System.out.println("\t * " + name + " : Réponse reçue la liste de joueur ");
+                }else if("successeurChef".equals(response.getEtape())){
+                    List<Joueur> listeJoueur = (List<Joueur>) response.getContent();
+                    for(Joueur MasterJoueur : listeJoueur){
+                        if(MasterJoueur.getNom().equals(name) && MasterJoueur.getChef()==true){
+                            callback.VoteJoueur(listeJoueur, "SUCCESSEUR");
+                            System.out.println("\t * " + name + " : Réponse reçue la liste de joueur ");
+                        }
+                    }
                 }
 
             } catch (IOException e1) {
