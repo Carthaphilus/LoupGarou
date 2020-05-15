@@ -156,7 +156,7 @@ public class VoteJoueur extends javax.swing.JFrame {
                     loup.garou.Models.Message unMsg = new loup.garou.Models.Message();
                     unMsg.setEtape(Etape);
                     unMsg.setContent(selectedJoueur);
-                    unMsg.setEnvoyeur(leJoueur.getNom());
+                    unMsg.setEnvoyeur(leJoueur);
                     uneConnexion.write(unMsg);
                     this.setVisible(false);
                 } catch (IOException ex) {
