@@ -28,6 +28,7 @@ public class ClientProcessor implements Runnable {
     private String name;
     private static List<Joueur> VoteJoueur = new ArrayList<>();
     private static boolean closeConnexion;
+    private static Joueur VoteChef = null;
 
     public ClientProcessor(Socket pSock, Trucable callback) throws IOException {
         closeConnexion = false;
@@ -72,7 +73,6 @@ public class ClientProcessor implements Runnable {
                         break;
                     case "VoteVillage":
                         Joueur Expediteur = (Joueur) response.getEnvoyeur();
-                        Joueur VoteChef = null;
 //                        System.out.println(Expediteur.getNom() + Expediteur.getChef());
                         
                         for(Joueur MasterJoueur : leMaster.getTabJoueurLive()){
@@ -90,6 +90,7 @@ public class ClientProcessor implements Runnable {
                             VoteJoueur.add((Joueur) response.getContent());
                             VoteChef = (Joueur) response.getContent();
                         }
+                        System.out.println(VoteChef);
                         nbVoteJoueur = VoteJoueur.size();
 //                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
                         if (nbVoteJoueur == (nbJoueur+1)) {
@@ -115,7 +116,6 @@ public class ClientProcessor implements Runnable {
                                 }else if (joueurNbVote == listeVoteJoueur.get(i)) {
                                     joueurNbVote = listeVoteJoueur.get(i);
                                     joueurMort = VoteChef;
-                                    System.out.println("i : " + i);
                                 }
                             }
 
@@ -128,7 +128,7 @@ public class ClientProcessor implements Runnable {
                                     if (joueurEnvie.getAmoureux() == true) {
                                         leMaster.killAmoureux();
                                     }
-                                    System.out.println("joueurMort : " + joueurEnvie);
+//                                    System.out.println("joueurMort : " + joueurEnvie);
 //                                    System.out.println("TabJoueurMortClientPros : " + leMaster.getTabJoueurMort());
                                 }
                             }
@@ -167,9 +167,7 @@ public class ClientProcessor implements Runnable {
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurChef.getNom())) {
-                                    System.out.println(joueurEnvie.getChef());
                                     joueurEnvie.setChef();
-                                    System.out.println(joueurEnvie.getChef());
                                 }
                             }
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
@@ -257,7 +255,8 @@ public class ClientProcessor implements Runnable {
         return false;
     }
 
-    public static List<Joueur> resetVoteJoueur() {
-        return VoteJoueur = new ArrayList<>();
+    public static void resetVoteJoueur() {
+        VoteJoueur = new ArrayList<>();
+        VoteChef = null;
     }
 }
