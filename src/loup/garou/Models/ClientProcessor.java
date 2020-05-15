@@ -91,7 +91,6 @@ public class ClientProcessor implements Runnable {
                             Joueur joueurMort = null;
                             for (Joueur i : listeVoteJoueur.keySet()) {
                                 if (joueurNbVote < listeVoteJoueur.get(i)) {
-                                    System.out.println("Test5");
                                     joueurNbVote = listeVoteJoueur.get(i);
                                     joueurMort = i;
 //                                    System.out.println("i : " + i);
@@ -100,13 +99,11 @@ public class ClientProcessor implements Runnable {
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurMort.getNom())) {
-                                    System.out.println("Test6");
 //                                    System.out.println("joueurMort : " + joueurEnvie);
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
                                     
                                     if (joueurEnvie.getAmoureux() == true) {
-                                        System.out.println("Test7");
                                         leMaster.killAmoureux();
                                     }
 //                                    System.out.println("joueurMort : " + joueurEnvie);
@@ -149,9 +146,9 @@ public class ClientProcessor implements Runnable {
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurChef.getNom())) {
-                                    System.out.println(joueurEnvie);
+                                    System.out.println(joueurEnvie.getChef());
                                     joueurEnvie.setChef();
-                                    System.out.println(joueurEnvie);
+                                    System.out.println(joueurEnvie.getChef());
                                 }
                             }
                             ServeurInstance.sendMessageToAllClient("OkNbVote");
