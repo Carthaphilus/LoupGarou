@@ -15,6 +15,7 @@ public class Message implements Serializable{
     
     private String etape;
     private Object content;
+    private String envoyeur;
 
     public Message() {;
     }
@@ -36,6 +37,14 @@ public class Message implements Serializable{
 
     public void setContent(Object content) {
         this.content = content;
+    }
+
+    public String getEnvoyeur() {
+        return envoyeur;
+    }
+
+    public void setEnvoyeur(String envoyeur) {
+        this.envoyeur = envoyeur;
     }
 
     @Override
