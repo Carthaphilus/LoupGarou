@@ -74,69 +74,63 @@ public class ClientProcessor implements Runnable {
                     case "VoteVillage":
                         Joueur Expediteur = (Joueur) response.getEnvoyeur();
 //                        System.out.println(Expediteur.getNom() + Expediteur.getChef());
-                        
-                        for(Joueur MasterJoueur : leMaster.getTabJoueurLive()){
-                            if(MasterJoueur.getNom().equals(Expediteur.getNom())){
+
+                        for (Joueur MasterJoueur : leMaster.getTabJoueurLive()) {
+                            if (MasterJoueur.getNom().equals(Expediteur.getNom())) {
                                 Expediteur = MasterJoueur;
                             }
                         }
-                        
+
 //                        System.out.println(Expediteur.getNom() + Expediteur.getChef());
-                        
                         if (Expediteur.getChef() == false) {
                             VoteJoueur.add((Joueur) response.getContent());
-                        }else{
+                        } else {
                             VoteJoueur.add((Joueur) response.getContent());
                             VoteJoueur.add((Joueur) response.getContent());
                             VoteChef = (Joueur) response.getContent();
                         }
-                        System.out.println(VoteChef);
+//                        System.out.println(VoteChef);
                         nbVoteJoueur = VoteJoueur.size();
 //                        System.out.println("nbJoueur : " + nbJoueur + " || nbVoteJoueur : " + nbVoteJoueur);
-                        if (nbVoteJoueur == (nbJoueur+1)) {
-                            HashMap<Joueur, Integer> listeVoteJoueur = new HashMap<>();
+                        if (nbVoteJoueur == (nbJoueur + 1)) {
+                            HashMap<String, Integer> listeVoteJoueur = new HashMap<>();
+                            int nbVote = 1;
                             for (Joueur unJoueur : VoteJoueur) {
-                                int nbVote = 0;
-                                if (!listeVoteJoueur.containsKey(unJoueur)) {
-                                    for (Joueur unJoueur2 : VoteJoueur) {
-                                        if (unJoueur.getNom().equals(unJoueur2.getNom())) {
-                                            nbVote = nbVote + 1;
-                                        }
-                                    }
-                                    listeVoteJoueur.put(unJoueur, nbVote);
-                                    System.out.println(unJoueur + " nbVote : "+ nbVote);
+                                if(!listeVoteJoueur.containsKey(unJoueur.getNom())){
+                                    listeVoteJoueur.put(unJoueur.getNom(), nbVote);
+                                }else{
+                                    listeVoteJoueur.replace(unJoueur.getNom(), listeVoteJoueur.get(unJoueur.getNom()) + 1);
                                 }
                             }
+//                            System.out.println(listeVoteJoueur);
+
                             int joueurNbVote = 0;
                             Joueur joueurMort = null;
-                            for (Joueur i : listeVoteJoueur.keySet()) {
+                            String nomJoueurMort = null;
+                            for (String i : listeVoteJoueur.keySet()) {
                                 if (joueurNbVote < listeVoteJoueur.get(i)) {
                                     joueurNbVote = listeVoteJoueur.get(i);
-                                    joueurMort = i;
+                                    nomJoueurMort = i;
 //                                    System.out.println("i : " + i);
-                                }else if (joueurNbVote == listeVoteJoueur.get(i)) {
+                                } else if (joueurNbVote == listeVoteJoueur.get(i)) {
                                     joueurNbVote = listeVoteJoueur.get(i);
-                                    joueurMort = VoteChef;
+                                    nomJoueurMort = VoteChef.getNom();
                                 }
-                                System.out.println("joueurMort : "+joueurMort);
                             }
-                            joueurNbVote = 0;
-                            for (Joueur i : listeVoteJoueur.keySet()) {
-                                if (joueurNbVote == listeVoteJoueur.get(i)) {
-                                    joueurNbVote = listeVoteJoueur.get(i);
-                                    joueurMort = VoteChef;
+                            
+                            for (Joueur unJoueur : VoteJoueur) {
+                                if(nomJoueurMort.equals(unJoueur.getNom())){
+                                    joueurMort = unJoueur;
                                 }
-                                System.out.println("joueurMort : "+joueurMort);
                             }
-                            System.out.println("joueurMort finale : "+joueurMort);
 
                             for (Joueur joueurEnvie : leMaster.getTabJoueurLive()) {
                                 if (joueurEnvie.getNom().equals(joueurMort.getNom())) {
 //                                    System.out.println("joueurMort : " + joueurEnvie);
-                                    ServeurInstance.sendListJoueurToAllClient(leMaster.getTabJoueurLive(),"successeurChef");
+                                    ServeurInstance.sendListJoueurToAllClient(leMaster.getTabJoueurLive(), "successeurChef");
                                     joueurEnvie.setTourMort(MasterGame.getTour());
                                     leMaster.getTabJoueurMort().add(joueurEnvie);
-                                    
+
                                     if (joueurEnvie.getAmoureux() == true) {
                                         leMaster.killAmoureux();
                                     }

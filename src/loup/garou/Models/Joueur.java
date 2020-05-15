@@ -81,4 +81,11 @@ public class Joueur implements Serializable {
 	   //descending order
 	   //return StudentName2.compareTo(StudentName1);
     }};
+
+    @Override
+    public int hashCode() {
+        return this.nom.hashCode();
+    }
+    
+    
 }
