@@ -11,7 +11,7 @@ import loup.garou.Vues.Accueil;
  *
  * @author fullc
  */
-public class main {
+public class Main {
     
     public static void main(String[] args) {
         Accueil accueil = new Accueil();
