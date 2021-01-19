@@ -3,7 +3,7 @@ package loup.garou.Models;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class TEST2 implements Serializable {
+public class TEST implements Serializable {
 
     private String nom;
     private Role role;
